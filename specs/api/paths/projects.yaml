@@ -1,0 +1,57 @@
+post:
+  operationId: createProject
+  tags:
+    - Project
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+            - description
+          properties:
+            title:
+              $ref: '../schemas/project.yaml#/properties/title'
+            description:
+              $ref: '../schemas/project.yaml#/properties/description'
+  responses:
+    '201':
+      description: A JSON with project data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/project.yaml'
+get:
+  operationId: listProjects
+  description: List projects
+  tags:
+    - Project
+  parameters:
+    - $ref: '../parameters.yaml#/perPage'
+    - $ref: '../parameters.yaml#/page'
+  responses:
+    '200':
+      description: A JSON with projects
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+              - meta
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/project.yaml'
+              meta:
+                $ref: '../schemas/pagination-meta.yaml'

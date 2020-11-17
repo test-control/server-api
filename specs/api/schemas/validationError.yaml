@@ -1,0 +1,19 @@
+type: object
+required:
+  - value
+  - msg
+  - param
+  - location
+additionalProperties: false
+properties:
+  value:
+    description: Can be any value - string, number, boolean, array or object
+  msg:
+    type: string
+    description: error code
+  param:
+    type: string
+    description: param name
+  location:
+    type: string
+    description: param location

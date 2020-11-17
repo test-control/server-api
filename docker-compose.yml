@@ -1,0 +1,22 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+  pgweb:
+    container_name: pgweb
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8081:8081"
+    links:
+      - postgres:postgres
+    environment:
+      - DATABASE_URL=postgres://user:pass@postgres:5432/db?sslmode=disable
+    depends_on:
+      - postgres

@@ -1,0 +1,55 @@
+post:
+  operationId: createTestCaseSteps
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/testCaseId'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/testCaseStep.yaml#/properties/title'
+            displayAfter:
+              $ref: '../schemas/testCaseStep.yaml#/properties/displayAfter'
+  responses:
+    '201':
+      description: A JSON with step data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCaseStep.yaml'
+
+get:
+  operationId: listTestCaseSteps
+  description: List test case steps
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/testCaseId'
+  responses:
+    '200':
+      description: A JSON with steps
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/testCaseStep.yaml'

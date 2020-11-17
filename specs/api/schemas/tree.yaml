@@ -1,0 +1,17 @@
+type: object
+required:
+  - id
+  - title
+additionalProperties: false
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique id
+  title:
+    type: string
+    description: Title of root leaf
+  parentId:
+    type: string
+    format: uuid
+    description: Id of parent

@@ -1,0 +1,28 @@
+patch:
+  description: Update new project
+  operationId: updateProject
+  tags:
+    - Project
+  parameters:
+    - $ref: '../parameters.yaml#/projectId'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          properties:
+            title:
+              $ref: '../schemas/project.yaml#/properties/title'
+  responses:
+    '200':
+      description: A JSON with project data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              data:
+                type: object
+                additionalProperties: false

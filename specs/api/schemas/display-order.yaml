@@ -1,0 +1,11 @@
+type: object
+additionalProperties: false
+properties:
+  displayDestination:
+    type: string
+    format: uuid
+    description: Display destination uuid item
+  displayMoveDirection:
+    type: string
+    enum: [down, up]
+    description: Displaying movement direction

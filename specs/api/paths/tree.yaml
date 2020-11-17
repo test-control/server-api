@@ -1,0 +1,88 @@
+post:
+  operationId: createTreeLeaf
+  tags:
+    - Tree
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/tree.yaml#/properties/title'
+  responses:
+    '201':
+      description: A JSON with project data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/tree.yaml'
+
+patch:
+  description: Update tree leaf
+  operationId: updateTreeLeaf
+  tags:
+    - Tree
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/tree.yaml#/properties/title'
+            parentId:
+              $ref: '../schemas/tree.yaml#/properties/parentId'
+  responses:
+    '200':
+      description: Object was updated.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/tree.yaml'
+    '400':
+      $ref: '../common/responses.yaml#/validationError'
+get:
+  operationId: listTreeLeaves
+  description: List tree leaves
+  tags:
+    - Tree
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  responses:
+    '200':
+      description: A JSON with leaves
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/tree.yaml'

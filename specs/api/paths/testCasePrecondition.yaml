@@ -1,0 +1,45 @@
+delete:
+  operationId: deleteTestCasePreconditions
+  tags:
+    - Test case precondition
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  responses:
+    '200':
+      description: Resource was deleted.
+
+patch:
+  description: Update precondition
+  operationId: updateTestCasePreconditions
+  tags:
+    - Test case precondition
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/testCasePrecondition.yaml#/properties/title'
+            displayDestination:
+              $ref: '../schemas/display-order.yaml#/properties/displayDestination'
+            displayMoveDirection:
+              $ref: '../schemas/display-order.yaml#/properties/displayMoveDirection'
+  responses:
+    '200':
+      description: Object was updated.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCasePrecondition.yaml'

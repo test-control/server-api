@@ -1,0 +1,14 @@
+validationError:
+  description: Input data validation error
+  content:
+    application/json:
+      schema:
+        type: object
+        additionalProperties: false
+        required:
+          - errors
+        properties:
+          errors:
+            type: array
+            items:
+              $ref: '../schemas/validationError.yaml'

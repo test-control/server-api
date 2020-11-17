@@ -1,0 +1,21 @@
+type: object
+required:
+  - id
+  - title
+  - project_id
+additionalProperties: false
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique id
+  title:
+    type: string
+    description: Title of root leaf
+  parent_id:
+    type: string
+    format: uuid
+    description: Id of parent
+  project_id:
+    type: string
+    description: Id of project

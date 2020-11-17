@@ -1,0 +1,49 @@
+/api/v1/projects:
+  post:
+    $ref: './paths/createProject.yaml'
+  get:
+    $ref: './paths/listProjects.yaml'
+/api/v1/projects/:id:
+  patch:
+    $ref: './paths/updateProject.yaml'
+/api/v1/projects/:projectId/tree:
+  get:
+    $ref: './paths/listProjectTree.yaml'
+
+
+/api/v1/test-cases:
+  post:
+    $ref: './paths/testCase/create.yaml'
+/api/v1/test-cases/:entityId:
+  get:
+    $ref: './paths/testCase/get.yaml'
+  patch:
+    $ref: './paths/testCase/update.yaml'
+/api/v1/test-cases/:testCaseId/preconditions:
+  post:
+    $ref: './paths/testCase/preconditions/create.yaml'
+  get:
+    $ref: './paths/testCase/preconditions/list.yaml'
+/api/v1/test-cases/:testCaseId/steps:
+  post:
+    $ref: './paths/testCase/steps/create.yaml'
+  get:
+    $ref: './paths/testCase/steps/list.yaml'
+/api/v1/test-case-preconditions/:entityId:
+  delete:
+    $ref: './paths/testCase/preconditions/delete.yaml'
+  patch:
+    $ref: './paths/testCase/preconditions/update.yaml'
+/api/v1/test-case-steps/:entityId:
+  delete:
+    $ref: './paths/testCase/steps/delete.yaml'
+  patch:
+    $ref: './paths/testCase/steps/update.yaml'
+/api/v1/trees/:entityId:
+  post:
+    $ref: './paths/trees/createLeaf.yaml'
+  patch:
+    $ref: './paths/trees/updateLeaf.yaml'
+  get:
+    $ref: './paths/trees/listLeaves.yaml'
+

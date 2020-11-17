@@ -1,0 +1,55 @@
+post:
+  operationId: createTestCasePreconditions
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/testCaseId'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/testCasePrecondition.yaml#/properties/title'
+            displayAfter:
+              $ref: '../schemas/testCasePrecondition.yaml#/properties/displayAfter'
+  responses:
+    '201':
+      description: A JSON with preconditions data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCasePrecondition.yaml'
+
+get:
+  operationId: listTestCasePreconditions
+  description: List test case preconditions
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/testCaseId'
+  responses:
+    '200':
+      description: A JSON with preconditions
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/testCasePrecondition.yaml'

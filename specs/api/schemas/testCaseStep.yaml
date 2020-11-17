@@ -1,0 +1,21 @@
+type: object
+required:
+  - id
+  - title
+  - testCaseId
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Unique id
+    format: uuid
+  title:
+    type: string
+    description: Title
+  testCaseId:
+    type: string
+    description: Test case uuid
+  displayAfter:
+    type: string
+    format: uuid
+    description: Display after uuid item

@@ -1,0 +1,20 @@
+type: object
+required:
+  - total
+  - perPage
+  - lastPage
+  - currentPage
+additionalProperties: false
+properties:
+  total:
+    type: number
+    description: Total amount of items
+  perPage:
+    type: number
+    description: Items amount per page
+  lastPage:
+    type: number
+    description: Last page number
+  currentPage:
+    type: number
+    description: Current page number projects

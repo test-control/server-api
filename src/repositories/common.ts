@@ -1,0 +1,105 @@
+import Knex from 'knex'
+import { v4 as uuid } from 'uuid'
+import { ISimpleCrudRepository } from '../common/simple-crud'
+
+type EntityBody = {
+  [key: string]: any;
+}
+
+export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePayload extends Partial<EntityBody>> implements ISimpleCrudRepository<EntityType, CreateUpdatePayload> {
+  protected readonly store = () => this.knex(this.tableName);
+
+  constructor (protected knex: Knex, protected tableName: string) {}
+
+  bindFindById () {
+    return this.findById.bind(this)
+  }
+
+  bindDeleteById () {
+    return this.deleteById.bind(this)
+  }
+
+  bindCreate () {
+    return this.create.bind(this)
+  }
+
+  bindUpdate () {
+    return this.update.bind(this)
+  }
+
+  bindPaginate () {
+    return this.paginate.bind(this)
+  }
+
+  async changeDisplayAfter (id:string, displayAfterId:string, displayMoveDirection: string) {
+    const row = await this.findById(id)
+
+    if (!row) {
+      return
+    }
+
+    await this.store()
+      .where('display_after', row.id)
+      .update({
+        display_after: row.display_after || this.knex.raw('DEFAULT')
+      })
+
+    if (displayMoveDirection === 'up') {
+      const displayAfter = await this.findById(displayAfterId)
+
+      await this.store()
+        .where('id', row.id)
+        .update({
+          display_after: displayAfter.display_after || this.knex.raw('DEFAULT')
+        })
+
+      await this.store()
+        .where('id', displayAfter.id)
+        .update({
+          display_after: row.id || this.knex.raw('DEFAULT')
+        })
+    } else {
+      await this.store()
+        .where('display_after', displayAfterId)
+        .update({
+          display_after: row.id || this.knex.raw('DEFAULT')
+        })
+      await this.store()
+        .where('id', row.id)
+        .update({
+          display_after: displayAfterId || this.knex.raw('DEFAULT')
+        })
+    }
+  }
+
+  async findById (id:string) : Promise<EntityType|undefined> {
+    return this.store()
+      .where('id', id)
+      .first()
+  }
+
+  async deleteById (id:string) {
+    return this.store()
+      .where('id', id)
+      .delete()
+  }
+
+  async create (data: CreateUpdatePayload) : Promise<EntityType> {
+    return (await (this.store().insert({
+      ...data,
+      id: uuid()
+    }).returning<EntityType>('*')))[0]
+  }
+
+  async paginate (currentPage: number, perPage: number) {
+    return this.store().paginate({
+      perPage: perPage,
+      currentPage: currentPage,
+      isLengthAware: true
+    })
+  }
+
+  async update (id: string, data: CreateUpdatePayload) {
+    return this.store().where('id', id).update(data)
+  }
+}

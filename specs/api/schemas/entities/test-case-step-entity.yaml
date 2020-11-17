@@ -1,0 +1,19 @@
+type: object
+required:
+  - id
+  - title
+  - test_case_id
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Unique id
+  title:
+    type: string
+    description: Title
+  test_case_id:
+    type: string
+    description: foreign id
+  display_after:
+    type: string
+    description: order entity id

@@ -1,0 +1,52 @@
+get:
+  operationId: getTestCase
+  description: Get test case
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  responses:
+    '200':
+      description: A JSON with test case
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCase.yaml'
+
+patch:
+  description: Update test test case
+  operationId: updateTestCases
+  tags:
+    - Test case
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          properties:
+            title:
+              $ref: '../schemas/testCase.yaml#/properties/title'
+            description:
+              $ref: '../schemas/testCase.yaml#/properties/description'
+  responses:
+    '200':
+      description: Object was updated.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCase.yaml'

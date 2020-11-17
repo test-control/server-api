@@ -1,0 +1,16 @@
+type: object
+required:
+  - id
+  - title
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Unique id
+    format: uuid
+  title:
+    type: string
+    description: Title
+  description:
+    type: string
+    description: Description

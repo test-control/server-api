@@ -1,0 +1,16 @@
+type: object
+additionalProperties: false
+required:
+  - id
+  - title
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Project unique id
+  title:
+    type: string
+    description: Project title
+  description:
+    type: string
+    description: Project description

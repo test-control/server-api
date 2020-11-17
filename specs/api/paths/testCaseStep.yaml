@@ -1,0 +1,43 @@
+delete:
+  operationId: deleteTestCaseSteps
+  tags:
+    - Test case step
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  responses:
+    '200':
+      description: Resource was deleted.
+
+patch:
+  description: Update step
+  operationId: updateTestCaseSteps
+  tags:
+    - Test case step
+  parameters:
+    - $ref: '../parameters.yaml#/entityIdUuid'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+          properties:
+            title:
+              $ref: '../schemas/testCaseStep.yaml#/properties/title'
+            displayAfter:
+              $ref: '../schemas/testCaseStep.yaml#/properties/displayAfter'
+  responses:
+    '200':
+      description: Object was updated.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCaseStep.yaml'

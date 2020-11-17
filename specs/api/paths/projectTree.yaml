@@ -1,0 +1,22 @@
+get:
+  operationId: listProjectTree
+  description: List project tree
+  tags:
+    - Project Tree
+  parameters:
+    - $ref: '../parameters.yaml#/projectId'
+  responses:
+    '200':
+      description: A JSON with project tree
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/tree.yaml'

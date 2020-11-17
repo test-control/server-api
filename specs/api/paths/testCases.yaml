@@ -1,0 +1,31 @@
+post:
+  operationId: createTestCase
+  tags:
+    - Test case
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - title
+            - description
+          properties:
+            title:
+              $ref: '../schemas/testCase.yaml#/properties/title'
+            description:
+              $ref: '../schemas/testCase.yaml#/properties/description'
+  responses:
+    '201':
+      description: A JSON with project data
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../schemas/testCase.yaml'

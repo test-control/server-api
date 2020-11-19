@@ -40,6 +40,10 @@ export const createLeafApi = async (req:CreateTreeLeaf.ApiRequest, res: CreateTr
 export const updateLeafApi = [
   requestValidationMiddleware([
     checkBody('parentId').custom(async (parentId, { req }) => {
+      if (!parentId) {
+        return
+      }
+
       const entityId = req.params.entityId
 
       if (entityId === parentId) {

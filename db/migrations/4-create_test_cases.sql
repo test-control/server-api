@@ -2,7 +2,8 @@
 -- +migrate StatementBegin
 CREATE TABLE test_cases(
    id            uuid  PRIMARY KEY,
-   title         text  NOT NULL
+   title         text  NOT NULL,
+   description   text
 );
 
 -- +migrate StatementEnd

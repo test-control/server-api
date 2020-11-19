@@ -3,6 +3,7 @@ import { paginationTransformer } from './transformers/pagination'
 import { InvalidInputData, ResourcesNotFound } from './errors'
 import { toSnakeCaseObject } from './obj_snake_case'
 import { BaseEvent, EntityEvent, sendAppEvent } from './app-events'
+import { StatusCodes } from 'http-status-codes'
 
 interface IPaginateParams {
   perPage: number,
@@ -187,7 +188,11 @@ export const simpleCreate = async (input:{
   entityName: string
 }) => {
   const entity = await input.createCallback(toSnakeCaseObject(input.req.body))
-  input.res.send(input.transformer(entity))
+
+  input.res.status(StatusCodes.CREATED)
+  input.res.send({
+    data: input.transformer(entity)
+  })
 
   await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
 }

@@ -1,11 +1,11 @@
 import Knex from 'knex'
-import { ProjectEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 import { TableNames } from '../database'
 import { SimpleCrudRepository } from './common'
 
-type CreateUpdatePayload = Omit<ProjectEntity, 'id'>
+type CreateUpdatePayload = Omit<Schemas.Entities.ProjectEntity, 'id'>
 
-export class ProjectsRepository extends SimpleCrudRepository<ProjectEntity, CreateUpdatePayload> {
+export class ProjectsRepository extends SimpleCrudRepository<Schemas.Entities.ProjectEntity, CreateUpdatePayload> {
   constructor (knex: Knex) {
     super(knex, TableNames.Projects)
   }

@@ -1,6 +1,0 @@
-Project:
-  $ref: './schemas/project.yaml'
-ValidationError:
-  $ref: './schemas/validationError.yaml'
-TestCase:
-  $ref: './schemas/testCase.yaml'

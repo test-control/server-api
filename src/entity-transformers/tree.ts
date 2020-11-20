@@ -1,6 +1,6 @@
-import { TreeEntity, Tree } from '../auto-types'
+import { Schemas } from '../auto-types'
 
-export const treeTransformer = function (entity: TreeEntity) : Tree {
+export const treeTransformer = function (entity: Schemas.Entities.TreeEntity) : Schemas.Tree {
   return {
     id: entity.id,
     title: entity.title,

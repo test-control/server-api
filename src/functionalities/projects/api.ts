@@ -1,10 +1,10 @@
 import { projectsRepository, projectTreesRepository } from '../../repositories'
 import { SimpleCrud } from '../../common'
-import { CreateProject, ListProjects, ListProjectTree, UpdateProject } from '../../auto-types'
+import { Api } from '../../auto-types'
 import { projectsTransformer } from '../../entity-transformers/project'
 import { EntitiesNames } from '../../database'
 
-export const createProjectApi = async (req:CreateProject.ApiRequest, res: CreateProject.ApiResponse) => {
+export const createProjectApi = async (req:Api.CreateProject.ApiRequest, res: Api.CreateProject.ApiResponse) => {
   return SimpleCrud.simpleCreate({
     createCallback: projectsRepository.bindCreate(),
     transformer: projectsTransformer,
@@ -14,7 +14,7 @@ export const createProjectApi = async (req:CreateProject.ApiRequest, res: Create
   })
 }
 
-export const listProjectsApi = async (req:ListProjects.ApiRequest, res: ListProjects.ApiResponse) => {
+export const listProjectsApi = async (req:Api.ListProjects.ApiRequest, res: Api.ListProjects.ApiResponse) => {
   return SimpleCrud.simplePaginate({
     paginateCallback: projectsRepository.bindPaginate(),
     entityName: EntitiesNames.Project,
@@ -29,7 +29,7 @@ export const listProjectsApi = async (req:ListProjects.ApiRequest, res: ListProj
  * @param req
  * @param res
  */
-export const listProjectTree = async (req:ListProjectTree.ApiRequest, res: ListProjectTree.ApiResponse) => {
+export const listProjectTree = async (req:Api.ListProjectTree.ApiRequest, res: Api.ListProjectTree.ApiResponse) => {
   const projectId = req.params.projectId
 
   const leafs = await projectTreesRepository.listProjectTree(projectId)
@@ -45,7 +45,7 @@ export const listProjectTree = async (req:ListProjectTree.ApiRequest, res: ListP
   })
 }
 
-export const updateProjectApi = async (req:UpdateProject.ApiRequest, res: UpdateProject.ApiResponse) => {
+export const updateProjectApi = async (req:Api.UpdateProject.ApiRequest, res: Api.UpdateProject.ApiResponse) => {
   return SimpleCrud.simpleUpdate({
     findEntityCallback: projectsRepository.bindFindById(),
     updateEntityCallback: projectsRepository.bindUpdate(),

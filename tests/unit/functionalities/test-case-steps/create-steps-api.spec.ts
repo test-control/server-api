@@ -2,6 +2,7 @@ import { testCasesRepository, testCasesStepsRepository } from '../../../../src/r
 import { Request, Response } from 'express'
 import { createStepsApi } from '../../../../src/functionalities/testCaseSteps/api'
 import { testCaseStepTransformer } from '../../../../src/entity-transformers'
+import { StatusCodes } from 'http-status-codes'
 
 jest.mock('../../../../src/repositories')
 
@@ -44,6 +45,9 @@ describe('functionalities', () => {
         const MockResponseSend = jest.fn()
         MockResponse.send = MockResponseSend
 
+        const MockResponseStatus = jest.fn()
+        MockResponse.status = MockResponseStatus
+
         await createStepsApi(MockRequest, MockResponse)
 
         expect(findByFunc).toBeCalled()
@@ -52,9 +56,13 @@ describe('functionalities', () => {
 
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
-          id: 'another-4567',
-          title: 'sample title'
+          data: {
+            id: 'another-4567',
+            title: 'sample title'
+          }
         })
+        expect(MockResponseStatus).toBeCalled()
+        expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
       })
     })
   })

@@ -1,0 +1,8 @@
+type: object
+description: Schema for local environments object. Define all needed environment settings
+additionalProperties: true
+properties:
+  APP_DEBUG:
+    type: boolean
+    description: Determines if application should generate logs output(use only for debugging).
+

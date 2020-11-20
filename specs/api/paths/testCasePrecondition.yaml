@@ -25,11 +25,11 @@ patch:
             - title
           properties:
             title:
-              $ref: '../schemas/testCasePrecondition.yaml#/properties/title'
+              $ref: '../../schemas/testCasePrecondition.yaml#/properties/title'
             displayDestination:
-              $ref: '../schemas/display-order.yaml#/properties/displayDestination'
+              $ref: '../../schemas/display-order.yaml#/properties/displayDestination'
             displayMoveDirection:
-              $ref: '../schemas/display-order.yaml#/properties/displayMoveDirection'
+              $ref: '../../schemas/display-order.yaml#/properties/displayMoveDirection'
   responses:
     '200':
       description: Object was updated.
@@ -42,4 +42,4 @@ patch:
               - data
             properties:
               data:
-                $ref: '../schemas/testCasePrecondition.yaml'
+                $ref: '../../schemas/testCasePrecondition.yaml'

@@ -1,11 +1,11 @@
 import Knex from 'knex'
-import { TestCasePreconditionEntity, DisplayOrderEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 import { TableNames } from '../database'
 import { SimpleCrudRepository } from './common'
 
-type CreateUpdatePayload = Pick<TestCasePreconditionEntity, 'title' | 'display_after' | 'test_case_id'>;
+type CreateUpdatePayload = Pick<Schemas.Entities.TestCasePreconditionEntity, 'title' | 'display_after' | 'test_case_id'>;
 
-export class TestCasesPreconditionsRepository extends SimpleCrudRepository<TestCasePreconditionEntity, CreateUpdatePayload> {
+export class TestCasesPreconditionsRepository extends SimpleCrudRepository<Schemas.Entities.TestCasePreconditionEntity, CreateUpdatePayload> {
   constructor (knex: Knex) {
     super(knex, TableNames.TestCasesPreconditions)
   }
@@ -14,7 +14,7 @@ export class TestCasesPreconditionsRepository extends SimpleCrudRepository<TestC
     return this.updateWithDisplayAfter.bind(this)
   }
 
-  async updateWithDisplayAfter (id:string, data: CreateUpdatePayload & DisplayOrderEntity) {
+  async updateWithDisplayAfter (id:string, data: CreateUpdatePayload & Schemas.Entities.DisplayOrderEntity) {
     if ('display_destination' in data) {
       await this.changeDisplayAfter(id, data.display_destination, data.display_move_direction)
       delete data.display_destination

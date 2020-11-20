@@ -23,7 +23,3 @@ paths:
     $ref: './paths/testCaseStep.yaml'
   /api/v1/trees/:entityId:
     $ref: './paths/tree.yaml'
-components:
-  schemas:
-    Project:
-      $ref: './schemas/project.yaml'

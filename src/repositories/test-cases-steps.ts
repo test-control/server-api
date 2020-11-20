@@ -1,15 +1,15 @@
 import Knex from 'knex'
-import { TestCaseStepEntity, DisplayOrderEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 import { TableNames } from '../database'
 import { SimpleCrudRepository } from './common'
-type CreateUpdatePayload = Omit<TestCaseStepEntity, 'id'>;
+type CreateUpdatePayload = Omit<Schemas.Entities.TestCaseStepEntity, 'id'>;
 
-export class TestCasesStepsRepository extends SimpleCrudRepository<TestCaseStepEntity, CreateUpdatePayload> {
+export class TestCasesStepsRepository extends SimpleCrudRepository<Schemas.Entities.TestCaseStepEntity, CreateUpdatePayload> {
   constructor (knex: Knex) {
     super(knex, TableNames.TestCasesSteps)
   }
 
-  async updateWithDisplayAfter (id:string, data: CreateUpdatePayload & DisplayOrderEntity) {
+  async updateWithDisplayAfter (id:string, data: CreateUpdatePayload & Schemas.Entities.DisplayOrderEntity) {
     if ('display_destination' in data) {
       await this.changeDisplayAfter(id, data.display_destination, data.display_move_direction)
       delete data.display_destination
@@ -23,14 +23,14 @@ export class TestCasesStepsRepository extends SimpleCrudRepository<TestCaseStepE
     return this.update(id, data)
   }
 
-  async findByTestCase (id: string, testCaseId: string) : Promise<TestCaseStepEntity|undefined> {
+  async findByTestCase (id: string, testCaseId: string) : Promise<Schemas.Entities.TestCaseStepEntity|undefined> {
     return this.store()
       .where('id', id)
       .where('test_case_id', testCaseId)
       .first()
   }
 
-  async getByTestCase (testCaseId: string) : Promise<TestCaseStepEntity[]> {
+  async getByTestCase (testCaseId: string) : Promise<Schemas.Entities.TestCaseStepEntity[]> {
     return this.store()
       .select()
       .where('test_case_id', testCaseId)

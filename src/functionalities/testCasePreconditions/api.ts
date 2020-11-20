@@ -1,16 +1,11 @@
-import {
-  CreateTestCasePreconditions,
-  ListTestCasePreconditions,
-  DeleteTestCasePreconditions,
-  UpdateTestCasePreconditions
-} from '../../auto-types'
+import { Api } from '../../auto-types'
 import { testCasesRepository, testCasesPreconditionsRepository } from '../../repositories'
 import { ResourcesNotFound, SimpleCrud, toSnakeCaseObject } from '../../common'
 import { testCasePreconditionTransformer } from '../../entity-transformers'
 import { paginationTransformer } from '../../common/transformers/pagination'
 import { EntitiesNames } from '../../database'
 
-export const createPreconditionsApi = async (req:CreateTestCasePreconditions.ApiRequest, res: CreateTestCasePreconditions.ApiResponse) => {
+export const createPreconditionsApi = async (req:Api.CreateTestCasePreconditions.ApiRequest, res: Api.CreateTestCasePreconditions.ApiResponse) => {
   const testCaseId = req.params.testCaseId
 
   return SimpleCrud.simpleCreateManyToOne({
@@ -18,7 +13,7 @@ export const createPreconditionsApi = async (req:CreateTestCasePreconditions.Api
     transformer: testCasePreconditionTransformer,
     entityName: EntitiesNames.TestCasePrecondition,
     relationFindCallback: testCasesRepository.bindFindById(),
-    createCallback: (relationId: string, data: CreateTestCasePreconditions.ApplicationJsonRequestBody) => {
+    createCallback: (relationId: string, data: Api.CreateTestCasePreconditions.ApplicationJsonRequestBody) => {
       return testCasesPreconditionsRepository.create({
         ...toSnakeCaseObject(data),
         test_case_id: relationId
@@ -29,7 +24,7 @@ export const createPreconditionsApi = async (req:CreateTestCasePreconditions.Api
   })
 }
 
-export const listPreconditionsApi = async (req:ListTestCasePreconditions.ApiRequest, res: ListTestCasePreconditions.ApiResponse) => {
+export const listPreconditionsApi = async (req:Api.ListTestCasePreconditions.ApiRequest, res: Api.ListTestCasePreconditions.ApiResponse) => {
   const testCaseId = req.params.testCaseId
 
   return SimpleCrud.simpleList({
@@ -45,7 +40,7 @@ export const listPreconditionsApi = async (req:ListTestCasePreconditions.ApiRequ
   })
 }
 
-export const updatePreconditionsApi = async (req:UpdateTestCasePreconditions.ApiRequest, res: UpdateTestCasePreconditions.ApiResponse) => {
+export const updatePreconditionsApi = async (req:Api.UpdateTestCasePreconditions.ApiRequest, res: Api.UpdateTestCasePreconditions.ApiResponse) => {
   return SimpleCrud.simpleUpdate({
     findEntityCallback: testCasesPreconditionsRepository.bindFindById(),
     updateEntityCallback: testCasesPreconditionsRepository.bindUpdateWithDisplayAfter(),
@@ -56,7 +51,7 @@ export const updatePreconditionsApi = async (req:UpdateTestCasePreconditions.Api
   })
 }
 
-export const deletePreconditionsApi = async (req:DeleteTestCasePreconditions.ApiRequest, res: DeleteTestCasePreconditions.ApiResponse) => {
+export const deletePreconditionsApi = async (req:Api.DeleteTestCasePreconditions.ApiRequest, res: Api.DeleteTestCasePreconditions.ApiResponse) => {
   return SimpleCrud.simpleDelete({
     findEntity: testCasesPreconditionsRepository.bindFindById(),
     deleteCallback: testCasesPreconditionsRepository.bindDeleteById(),

@@ -1,6 +1,6 @@
-import { TestCasePreconditionEntity, TestCasePrecondition as ApiEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 
-export const testCasePreconditionTransformer = function (entity: TestCasePreconditionEntity) : ApiEntity {
+export const testCasePreconditionTransformer = function (entity: Schemas.Entities.TestCasePreconditionEntity) : Schemas.TestCasePrecondition {
   return {
     id: entity.id,
     title: entity.title,

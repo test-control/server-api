@@ -1,0 +1,9 @@
+type: object
+required:
+  - errorCodes
+additionalProperties: false
+properties:
+  errorCodes:
+    type: string
+    enum: ['same-id', 'different-root', 'no-entity']
+    tsEnumNames: ['sameId', 'differentRoot', 'noEntity']

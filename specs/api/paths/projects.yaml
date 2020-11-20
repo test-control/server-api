@@ -13,9 +13,9 @@ post:
             - description
           properties:
             title:
-              $ref: '../schemas/project.yaml#/properties/title'
+              $ref: '../../schemas/project.yaml#/properties/title'
             description:
-              $ref: '../schemas/project.yaml#/properties/description'
+              $ref: '../../schemas/project.yaml#/properties/description'
   responses:
     '201':
       description: A JSON with project data
@@ -28,7 +28,7 @@ post:
               - data
             properties:
               data:
-                $ref: '../schemas/project.yaml'
+                $ref: '../../schemas/project.yaml'
 get:
   operationId: listProjects
   description: List projects
@@ -52,6 +52,6 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../schemas/project.yaml'
+                  $ref: '../../schemas/project.yaml'
               meta:
-                $ref: '../schemas/pagination-meta.yaml'
+                $ref: '../../schemas/pagination-meta.yaml'

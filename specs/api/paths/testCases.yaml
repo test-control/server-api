@@ -13,9 +13,9 @@ post:
             - description
           properties:
             title:
-              $ref: '../schemas/testCase.yaml#/properties/title'
+              $ref: '../../schemas/testCase.yaml#/properties/title'
             description:
-              $ref: '../schemas/testCase.yaml#/properties/description'
+              $ref: '../../schemas/testCase.yaml#/properties/description'
   responses:
     '201':
       description: A JSON with project data
@@ -28,4 +28,4 @@ post:
               - data
             properties:
               data:
-                $ref: '../schemas/testCase.yaml'
+                $ref: '../../schemas/testCase.yaml'

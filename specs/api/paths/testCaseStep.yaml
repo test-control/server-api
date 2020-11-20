@@ -25,9 +25,9 @@ patch:
             - title
           properties:
             title:
-              $ref: '../schemas/testCaseStep.yaml#/properties/title'
+              $ref: '../../schemas/testCaseStep.yaml#/properties/title'
             displayAfter:
-              $ref: '../schemas/testCaseStep.yaml#/properties/displayAfter'
+              $ref: '../../schemas/testCaseStep.yaml#/properties/displayAfter'
   responses:
     '200':
       description: Object was updated.
@@ -40,4 +40,4 @@ patch:
               - data
             properties:
               data:
-                $ref: '../schemas/testCaseStep.yaml'
+                $ref: '../../schemas/testCaseStep.yaml'

@@ -1,5 +1,5 @@
-import { CreateTreeLeaf, UpdateTreeLeaf, ListTreeLeaves } from '../../auto-types'
-import { ResourcesNotFound, SimpleCrud, toSnakeCaseObject } from '../../common'
+import { Api, Schemas } from '../../auto-types'
+import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject } from '../../common'
 import { treesRepository } from '../../repositories'
 import { treeTransformer } from '../../entity-transformers'
 import {
@@ -8,11 +8,11 @@ import {
 import { requestValidationMiddleware } from '../../middlewares'
 import { EntitiesNames } from '../../database'
 
-export const createLeafApi = async (req:CreateTreeLeaf.ApiRequest, res: CreateTreeLeaf.ApiResponse) => {
+export const createLeafApi = async (req:Api.CreateTreeLeaf.ApiRequest, res: Api.CreateTreeLeaf.ApiResponse) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simpleCreate({
-    createCallback: async (data: CreateTreeLeaf.ApplicationJsonRequestBody) => {
+    createCallback: async (data: Api.CreateTreeLeaf.ApplicationJsonRequestBody) => {
       const parentLeaf = await treesRepository.findById(parentId)
 
       if (!parentLeaf) {
@@ -34,9 +34,6 @@ export const createLeafApi = async (req:CreateTreeLeaf.ApiRequest, res: CreateTr
   })
 }
 
-/**
- * todo: error message
- */
 export const updateLeafApi = [
   requestValidationMiddleware([
     checkBody('parentId').custom(async (parentId, { req }) => {
@@ -47,25 +44,25 @@ export const updateLeafApi = [
       const entityId = req.params.entityId
 
       if (entityId === parentId) {
-        throw new Error('Cannot assign the same id')
+        throw new DomainError(Schemas.DomainResponsesCodes.ErrorCodes.sameId)
       }
 
       const currentRow = await treesRepository.findById(entityId)
       const parentRow = await treesRepository.findById(parentId)
 
       if (!currentRow || !parentRow) {
-        throw new Error('Entitty does not exists')
+        throw new Error(Schemas.DomainResponsesCodes.ErrorCodes.noEntity)
       }
 
       const currentRootId = currentRow.root_id || currentRow.id
       const newRootId = parentRow.root_id || parentRow.id
 
       if (currentRootId !== newRootId) {
-        throw new Error('Root id must be the same')
+        throw new Error(Schemas.DomainResponsesCodes.ErrorCodes.differentRoot)
       }
     })
   ]),
-  async (req: UpdateTreeLeaf.ApiRequest, res: UpdateTreeLeaf.ApiResponse) => {
+  async (req: Api.UpdateTreeLeaf.ApiRequest, res: Api.UpdateTreeLeaf.ApiResponse) => {
     return SimpleCrud.simpleUpdate({
       findEntityCallback: treesRepository.bindFindById(),
       updateEntityCallback: treesRepository.bindUpdate(),
@@ -77,7 +74,7 @@ export const updateLeafApi = [
   }
 ]
 
-export const listLeavesApi = async (req: ListTreeLeaves.ApiRequest, res: ListTreeLeaves.ApiResponse) => {
+export const listLeavesApi = async (req: Api.ListTreeLeaves.ApiRequest, res: Api.ListTreeLeaves.ApiResponse) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simplePaginate({

@@ -1,0 +1,14 @@
+type: object
+required:
+  - serverCannotWorkErrorCodes
+  - commonErrorCodes
+additionalProperties: false
+properties:
+  serverCannotWorkErrorCodes:
+    type: string
+    enum: ['missing-env']
+    tsEnumNames: ['missingEnv']
+  commonErrorCodes:
+    type: string
+    enum: ['resource-not-found', 'invalid-input-data']
+    tsEnumNames: ['resourceNotFound', 'invalidInputData']

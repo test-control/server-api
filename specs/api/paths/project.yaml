@@ -13,7 +13,7 @@ patch:
           additionalProperties: false
           properties:
             title:
-              $ref: '../schemas/project.yaml#/properties/title'
+              $ref: '../../schemas/project.yaml#/properties/title'
   responses:
     '200':
       description: A JSON with project data

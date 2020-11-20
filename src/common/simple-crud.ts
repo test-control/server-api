@@ -216,7 +216,10 @@ export const simpleCreateManyToOne = async (input:{
 
   const entity = await input.createCallback(input.relationId, toSnakeCaseObject(input.req.body))
 
-  input.res.send(input.transformer(entity))
+  input.res.status(StatusCodes.CREATED)
+  input.res.send({
+    data: input.transformer(entity)
+  })
 
   await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
 }

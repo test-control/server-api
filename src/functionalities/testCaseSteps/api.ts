@@ -1,19 +1,14 @@
-import {
-  CreateTestCaseSteps,
-  ListTestCaseSteps,
-  DeleteTestCaseSteps,
-  UpdateTestCaseSteps
-} from '../../auto-types'
+import { Api } from '../../auto-types'
 import { testCasesRepository, testCasesStepsRepository } from '../../repositories'
 import { ResourcesNotFound, SimpleCrud, toSnakeCaseObject } from '../../common'
 import { testCaseStepTransformer } from '../../entity-transformers'
 import { EntitiesNames } from '../../database'
 
-export const createStepsApi = async (req:CreateTestCaseSteps.ApiRequest, res: CreateTestCaseSteps.ApiResponse) => {
+export const createStepsApi = async (req:Api.CreateTestCaseSteps.ApiRequest, res: Api.CreateTestCaseSteps.ApiResponse) => {
   const testCaseId = req.params.testCaseId
 
   return SimpleCrud.simpleCreateManyToOne({
-    createCallback: (relationId: string, data: CreateTestCaseSteps.ApplicationJsonRequestBody) => {
+    createCallback: (relationId: string, data: Api.CreateTestCaseSteps.ApplicationJsonRequestBody) => {
       return testCasesStepsRepository.create({
         ...toSnakeCaseObject(data),
         test_case_id: relationId
@@ -28,7 +23,7 @@ export const createStepsApi = async (req:CreateTestCaseSteps.ApiRequest, res: Cr
   })
 }
 
-export const listStepsApi = async (req:ListTestCaseSteps.ApiRequest, res: ListTestCaseSteps.ApiResponse) => {
+export const listStepsApi = async (req:Api.ListTestCaseSteps.ApiRequest, res: Api.ListTestCaseSteps.ApiResponse) => {
   const testCaseId = req.params.testCaseId
 
   return SimpleCrud.simpleList({
@@ -44,7 +39,7 @@ export const listStepsApi = async (req:ListTestCaseSteps.ApiRequest, res: ListTe
   })
 }
 
-export const updateStepsApi = async (req:UpdateTestCaseSteps.ApiRequest, res: UpdateTestCaseSteps.ApiResponse) => {
+export const updateStepsApi = async (req:Api.UpdateTestCaseSteps.ApiRequest, res: Api.UpdateTestCaseSteps.ApiResponse) => {
   return SimpleCrud.simpleUpdate({
     findEntityCallback: testCasesStepsRepository.findById.bind(testCasesStepsRepository),
     updateEntityCallback: testCasesStepsRepository.updateWithDisplayAfter.bind(testCasesStepsRepository),
@@ -55,7 +50,7 @@ export const updateStepsApi = async (req:UpdateTestCaseSteps.ApiRequest, res: Up
   })
 }
 
-export const deleteStepsApi = async (req:DeleteTestCaseSteps.ApiRequest, res: DeleteTestCaseSteps.ApiResponse) => {
+export const deleteStepsApi = async (req:Api.DeleteTestCaseSteps.ApiRequest, res: Api.DeleteTestCaseSteps.ApiResponse) => {
   return SimpleCrud.simpleDelete({
     findEntity: testCasesStepsRepository.findById.bind(testCasesStepsRepository),
     deleteCallback: testCasesStepsRepository.deleteById.bind(testCasesStepsRepository),

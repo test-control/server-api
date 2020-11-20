@@ -11,4 +11,4 @@ validationError:
           errors:
             type: array
             items:
-              $ref: '../schemas/validationError.yaml'
+              $ref: '../../schemas/validationError.yaml'

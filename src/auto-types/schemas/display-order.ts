@@ -7,6 +7,6 @@ export interface DisplayOrder {
   /**
    * Displaying movement direction
    */
-  displayMoveDirection?: "down" | "up";
+  displayMoveDirection?: 'down' | 'up';
 }
 

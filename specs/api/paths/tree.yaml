@@ -14,7 +14,7 @@ post:
             - title
           properties:
             title:
-              $ref: '../schemas/tree.yaml#/properties/title'
+              $ref: '../../schemas/tree.yaml#/properties/title'
   responses:
     '201':
       description: A JSON with project data
@@ -27,7 +27,7 @@ post:
               - data
             properties:
               data:
-                $ref: '../schemas/tree.yaml'
+                $ref: '../../schemas/tree.yaml'
 
 patch:
   description: Update tree leaf
@@ -46,9 +46,9 @@ patch:
             - title
           properties:
             title:
-              $ref: '../schemas/tree.yaml#/properties/title'
+              $ref: '../../schemas/tree.yaml#/properties/title'
             parentId:
-              $ref: '../schemas/tree.yaml#/properties/parentId'
+              $ref: '../../schemas/tree.yaml#/properties/parentId'
   responses:
     '200':
       description: Object was updated.
@@ -61,7 +61,7 @@ patch:
               - data
             properties:
               data:
-                $ref: '../schemas/tree.yaml'
+                $ref: '../../schemas/tree.yaml'
     '400':
       $ref: '../common/responses.yaml#/validationError'
 get:
@@ -85,4 +85,4 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../schemas/tree.yaml'
+                  $ref: '../../schemas/tree.yaml'

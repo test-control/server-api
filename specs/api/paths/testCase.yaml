@@ -17,7 +17,7 @@ get:
               - data
             properties:
               data:
-                $ref: '../schemas/testCase.yaml'
+                $ref: '../../schemas/testCase.yaml'
 
 patch:
   description: Update test test case
@@ -34,9 +34,9 @@ patch:
           additionalProperties: false
           properties:
             title:
-              $ref: '../schemas/testCase.yaml#/properties/title'
+              $ref: '../../schemas/testCase.yaml#/properties/title'
             description:
-              $ref: '../schemas/testCase.yaml#/properties/description'
+              $ref: '../../schemas/testCase.yaml#/properties/description'
   responses:
     '200':
       description: Object was updated.
@@ -49,4 +49,4 @@ patch:
               - data
             properties:
               data:
-                $ref: '../schemas/testCase.yaml'
+                $ref: '../../schemas/testCase.yaml'

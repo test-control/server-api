@@ -14,9 +14,9 @@ post:
             - title
           properties:
             title:
-              $ref: '../schemas/testCaseStep.yaml#/properties/title'
+              $ref: '../../schemas/testCaseStep.yaml#/properties/title'
             displayAfter:
-              $ref: '../schemas/testCaseStep.yaml#/properties/displayAfter'
+              $ref: '../../schemas/testCaseStep.yaml#/properties/displayAfter'
   responses:
     '201':
       description: A JSON with step data
@@ -29,7 +29,7 @@ post:
               - data
             properties:
               data:
-                $ref: '../schemas/testCaseStep.yaml'
+                $ref: '../../schemas/testCaseStep.yaml'
 
 get:
   operationId: listTestCaseSteps
@@ -52,4 +52,4 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../schemas/testCaseStep.yaml'
+                  $ref: '../../schemas/testCaseStep.yaml'

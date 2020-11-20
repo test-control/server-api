@@ -1,6 +1,6 @@
-import { TestCaseEntity, TestCase as ApiEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 
-export const testCaseTransformer = function (entity: TestCaseEntity) : ApiEntity {
+export const testCaseTransformer = function (entity: Schemas.Entities.TestCaseEntity) : Schemas.TestCase {
   return {
     id: entity.id,
     title: entity.title,

@@ -14,9 +14,9 @@ post:
             - title
           properties:
             title:
-              $ref: '../schemas/testCasePrecondition.yaml#/properties/title'
+              $ref: '../../schemas/testCasePrecondition.yaml#/properties/title'
             displayAfter:
-              $ref: '../schemas/testCasePrecondition.yaml#/properties/displayAfter'
+              $ref: '../../schemas/testCasePrecondition.yaml#/properties/displayAfter'
   responses:
     '201':
       description: A JSON with preconditions data
@@ -29,7 +29,7 @@ post:
               - data
             properties:
               data:
-                $ref: '../schemas/testCasePrecondition.yaml'
+                $ref: '../../schemas/testCasePrecondition.yaml'
 
 get:
   operationId: listTestCasePreconditions
@@ -52,4 +52,4 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../schemas/testCasePrecondition.yaml'
+                  $ref: '../../schemas/testCasePrecondition.yaml'

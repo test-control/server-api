@@ -7,6 +7,6 @@ export interface DisplayOrderEntity {
   /**
    * Displaying movement direction
    */
-  display_move_direction?: "down" | "up";
+  display_move_direction?: 'down' | 'up';
 }
 

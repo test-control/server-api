@@ -1,11 +1,11 @@
 import { SimpleCrudRepository } from './common'
-import { TreeEntity } from '../auto-types'
+import { Schemas } from '../auto-types'
 import Knex from 'knex'
 import { TableNames } from '../database'
 
-type CreateUpdatePayload = Omit<TreeEntity, 'id'>;
+type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id'>;
 
-export class TreesRepository extends SimpleCrudRepository<TreeEntity, CreateUpdatePayload> {
+export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeEntity, CreateUpdatePayload> {
   constructor (knex: Knex) {
     super(knex, TableNames.Trees)
   }

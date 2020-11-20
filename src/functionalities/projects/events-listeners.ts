@@ -1,8 +1,8 @@
 import { projectTreesRepository, treesRepository } from '../../repositories'
 import { EntityEvent } from '../../common'
-import { ProjectEntity } from '../../auto-types'
+import { Schemas } from '../../auto-types'
 
-export const createTreeRoot = async (event: EntityEvent<ProjectEntity>) => {
+export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.ProjectEntity>) => {
   const tree = await treesRepository.create({
     title: 'root'
   })

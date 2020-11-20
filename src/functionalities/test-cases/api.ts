@@ -1,10 +1,10 @@
-import { CreateTestCase, GetTestCase, UpdateTestCases } from '../../auto-types'
+import { Api } from '../../auto-types'
 import { testCasesRepository } from '../../repositories'
 import { SimpleCrud } from '../../common'
 import { testCaseTransformer } from '../../entity-transformers'
 import { EntitiesNames } from '../../database'
 
-export const createTestCaseApi = async (req:CreateTestCase.ApiRequest, res: CreateTestCase.ApiResponse) => {
+export const createTestCaseApi = async (req:Api.CreateTestCase.ApiRequest, res: Api.CreateTestCase.ApiResponse) => {
   return SimpleCrud.simpleCreate({
     createCallback: testCasesRepository.bindCreate(),
     transformer: testCaseTransformer,
@@ -14,7 +14,7 @@ export const createTestCaseApi = async (req:CreateTestCase.ApiRequest, res: Crea
   })
 }
 
-export const getTestCaseApi = async (req:GetTestCase.ApiRequest, res: GetTestCase.ApiResponse) => {
+export const getTestCaseApi = async (req:Api.GetTestCase.ApiRequest, res: Api.GetTestCase.ApiResponse) => {
   return SimpleCrud.simpleGet({
     findEntityCallback: testCasesRepository.bindFindById(),
     transformerCallback: testCaseTransformer,
@@ -24,7 +24,7 @@ export const getTestCaseApi = async (req:GetTestCase.ApiRequest, res: GetTestCas
   })
 }
 
-export const updateTestCaseApi = async (req:UpdateTestCases.ApiRequest, res: UpdateTestCases.ApiResponse) => {
+export const updateTestCaseApi = async (req:Api.UpdateTestCases.ApiRequest, res: Api.UpdateTestCases.ApiResponse) => {
   return SimpleCrud.simpleUpdate({
     findEntityCallback: testCasesRepository.bindFindById(),
     updateEntityCallback: testCasesRepository.bindUpdate(),

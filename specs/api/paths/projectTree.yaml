@@ -19,4 +19,4 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../schemas/tree.yaml'
+                  $ref: '../../schemas/tree.yaml'

@@ -2,6 +2,7 @@ import { createLeafApi, listLeavesApi } from '../../../../src/functionalities/tr
 import { Request, Response } from 'express'
 import { CreateCallback, TransformerCallback } from '../../../../src/common/simple-crud'
 import { treesRepository } from '../../../../src/repositories'
+import { StatusCodes } from 'http-status-codes'
 
 jest.mock('../../../../src/repositories')
 
@@ -65,16 +66,23 @@ describe('functionalities', () => {
         const MockResponseSend = jest.fn()
         MockResponse.send = MockResponseSend
 
+        const MockResponseStatus = jest.fn()
+        MockResponse.status = MockResponseStatus
+
         await createLeafApi(MockRequest, MockResponse)
 
         expect(treesRepository.findById).toBeCalled()
         expect(treesRepository.create).toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
-          id: '4566',
-          parentId: '123',
-          title: 'sample title'
+          data: {
+            id: '4566',
+            parentId: '123',
+            title: 'sample title'
+          }
         })
+        expect(MockResponseStatus).toBeCalled()
+        expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
       })
       it('Entry created with parent root entry', async () => {
         treesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
@@ -104,16 +112,23 @@ describe('functionalities', () => {
         const MockResponseSend = jest.fn()
         MockResponse.send = MockResponseSend
 
+        const MockResponseStatus = jest.fn()
+        MockResponse.status = MockResponseStatus
+
         await createLeafApi(MockRequest, MockResponse)
 
         expect(treesRepository.findById).toBeCalled()
         expect(treesRepository.create).toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
-          id: '4566',
-          parentId: '123',
-          title: 'sample title'
+          data: {
+            id: '4566',
+            parentId: '123',
+            title: 'sample title'
+          }
         })
+        expect(MockResponseStatus).toBeCalled()
+        expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
       })
     })
   })

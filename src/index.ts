@@ -1,7 +1,12 @@
 import functionalitiesConfig from './functionalities'
 import { OpenApiValidator } from 'express-openapi-validator/dist'
-import { listenAppEvent } from './common'
+import { listenAppEvent, ServerCannotWork } from './common'
 import cors from 'cors'
+import { errorHandlerMiddleware } from './middlewares/error-handler'
+import { safeLoad } from 'js-yaml'
+import * as fs from 'fs'
+import { validate } from 'jsonschema'
+import { Schemas } from './auto-types'
 
 process.on('unhandledRejection', error => {
   // Will print "unhandledRejection err is not defined"
@@ -14,20 +19,26 @@ async function runServer () {
   const app = express()
   const port = 3001
   const funcConfig = functionalitiesConfig()
-  /* app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000') // update to match the domain you will make the request from
 
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    next()
-  }) */
+  // Validate system environments
+  const doc = safeLoad(fs.readFileSync(path.join(__dirname, '..', 'specs', 'envs.yaml'), 'utf8'))
+  const validateResult = validate(process.env, doc)
+
+  if (!validateResult.valid) {
+    throw new ServerCannotWork(Schemas.ServerCannotWorkErrorCodes.missingEnv, 'Missing environment settings')
+  }
+  // end validate
+
   app.use(cors({
     origin: 'http://localhost:3000'
   }))
+
   app.use(express.json())
 
   const apiValidator = new OpenApiValidator({
     apiSpec: path.join(__dirname, '..', 'specs', 'api', 'api.yaml'),
-    validateRequests: true
+    validateRequests: true,
+    validateResponses: true
   })
 
   await apiValidator.install(app)
@@ -45,6 +56,8 @@ async function runServer () {
       }
     }
   })
+
+  app.use(errorHandlerMiddleware(process.env.APP_DEBUG))
 
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 }

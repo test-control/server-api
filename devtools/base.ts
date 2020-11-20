@@ -1,6 +1,7 @@
-const path = require('path')
+import * as path from 'path'
 
 export const apiSpecPath = path.join(__dirname, '..', 'specs', 'api')
+export const schemaSpecPath = path.join(__dirname, '..', 'specs', 'schemas')
 export const autoTypesPath = path.join(__dirname, '..', 'src', 'auto-types')
 
 export class SchemasContainer {

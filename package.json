@@ -10,7 +10,8 @@
     "start": "ts-node src/index.ts",
     "generate:api": "ts-node devtools/generate-api.ts",
     "generate:schemas": "ts-node devtools/generate-schemas.ts",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "db:migrate:latest": "knex migrate:latest --migrations-directory=./db/migrations --knexfile=./db/knexfile.js --env=env"
   },
   "keywords": [],
   "author": "",

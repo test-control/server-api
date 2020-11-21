@@ -1,3 +1,4 @@
+# under development
 # Server environments
 For details please check schema file in ./specs/schemas/envs.yaml.
 Below example settings from docker environment:

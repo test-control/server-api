@@ -1,12 +1,17 @@
+
+import { getEnvs, setEnvs } from './common/envs'
+
 import functionalitiesConfig from './functionalities'
 import { OpenApiValidator } from 'express-openapi-validator/dist'
-import { listenAppEvent, ServerCannotWork } from './common'
+import { listenAppEvent } from './common'
 import cors from 'cors'
 import { errorHandlerMiddleware } from './middlewares/error-handler'
-import { safeLoad } from 'js-yaml'
-import * as fs from 'fs'
-import { validate } from 'jsonschema'
-import { Schemas } from './auto-types'
+import path from 'path'
+
+setEnvs(
+  process.env,
+  path.join(__dirname, '..', 'specs', 'schemas', 'envs.yaml')
+)
 
 process.on('unhandledRejection', error => {
   // Will print "unhandledRejection err is not defined"
@@ -15,19 +20,9 @@ process.on('unhandledRejection', error => {
 
 async function runServer () {
   const express = require('express')
-  const path = require('path')
   const app = express()
-  const port = 3001
+  const port = getEnvs().SERVER_PORT
   const funcConfig = functionalitiesConfig()
-
-  // Validate system environments
-  const doc = safeLoad(fs.readFileSync(path.join(__dirname, '..', 'specs', 'envs.yaml'), 'utf8'))
-  const validateResult = validate(process.env, doc)
-
-  if (!validateResult.valid) {
-    throw new ServerCannotWork(Schemas.ServerCannotWorkErrorCodes.missingEnv, 'Missing environment settings')
-  }
-  // end validate
 
   app.use(cors({
     origin: 'http://localhost:3000'
@@ -57,8 +52,7 @@ async function runServer () {
     }
   })
 
-  app.use(errorHandlerMiddleware(process.env.APP_DEBUG))
-
+  app.use(errorHandlerMiddleware(getEnvs().APP_DEBUG))
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 }
 

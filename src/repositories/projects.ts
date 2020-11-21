@@ -6,7 +6,7 @@ import { SimpleCrudRepository } from './common'
 type CreateUpdatePayload = Omit<Schemas.Entities.ProjectEntity, 'id'>
 
 export class ProjectsRepository extends SimpleCrudRepository<Schemas.Entities.ProjectEntity, CreateUpdatePayload> {
-  constructor (knex: Knex) {
+  constructor (knex: () => Knex) {
     super(knex, TableNames.Projects)
   }
 

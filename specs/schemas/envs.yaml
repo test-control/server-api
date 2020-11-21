@@ -1,8 +1,18 @@
 type: object
 description: Schema for local environments object. Define all needed environment settings
-additionalProperties: true
+additionalProperties: false
+required:
+  - POSTGRESQL_CONNECTION_STRING
+  - SERVER_PORT
 properties:
   APP_DEBUG:
     type: boolean
+    default: false
     description: Determines if application should generate logs output(use only for debugging).
+  SERVER_PORT:
+    type: integer
+    description: Express server api port
+  POSTGRESQL_CONNECTION_STRING:
+    type: string
+    description: Connection string to PostgreSQL
 

@@ -7,6 +7,13 @@ export interface Envs {
    * Determines if application should generate logs output(use only for debugging).
    */
   APP_DEBUG?: boolean;
-  [k: string]: unknown;
+  /**
+   * Express server api port
+   */
+  SERVER_PORT: number;
+  /**
+   * Connection string to PostgreSQL
+   */
+  POSTGRESQL_CONNECTION_STRING: string;
 }
 

@@ -9,7 +9,8 @@
     "types": [
       "node",
       "knex-paginate",
-      "jest"
+      "jest",
+      "src/types/envs.d.ts"
     ]
   },
   "lib": ["es2015"],

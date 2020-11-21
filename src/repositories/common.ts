@@ -7,9 +7,9 @@ type EntityBody = {
 }
 
 export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePayload extends Partial<EntityBody>> implements ISimpleCrudRepository<EntityType, CreateUpdatePayload> {
-  protected readonly store = () => this.knex(this.tableName);
+  protected readonly store = () => this.knex()(this.tableName);
 
-  constructor (protected knex: Knex, protected tableName: string) {}
+  constructor (protected knex: () => Knex, protected tableName: string) {}
 
   bindFindById () {
     return this.findById.bind(this)
@@ -41,7 +41,7 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
     await this.store()
       .where('display_after', row.id)
       .update({
-        display_after: row.display_after || this.knex.raw('DEFAULT')
+        display_after: row.display_after || this.knex().raw('DEFAULT')
       })
 
     if (displayMoveDirection === 'up') {
@@ -50,24 +50,24 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
       await this.store()
         .where('id', row.id)
         .update({
-          display_after: displayAfter.display_after || this.knex.raw('DEFAULT')
+          display_after: displayAfter.display_after || this.knex().raw('DEFAULT')
         })
 
       await this.store()
         .where('id', displayAfter.id)
         .update({
-          display_after: row.id || this.knex.raw('DEFAULT')
+          display_after: row.id || this.knex().raw('DEFAULT')
         })
     } else {
       await this.store()
         .where('display_after', displayAfterId)
         .update({
-          display_after: row.id || this.knex.raw('DEFAULT')
+          display_after: row.id || this.knex().raw('DEFAULT')
         })
       await this.store()
         .where('id', row.id)
         .update({
-          display_after: displayAfterId || this.knex.raw('DEFAULT')
+          display_after: displayAfterId || this.knex().raw('DEFAULT')
         })
     }
   }

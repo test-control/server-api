@@ -1,10 +1,19 @@
 import Knex from 'knex'
+import { getEnvs } from '../common/envs'
 const { attachPaginate } = require('knex-paginate')
 
-export const appConnection = Knex({
-  client: 'pg',
-  connection: 'postgres://user:pass@172.19.0.2:5432/db?sslmode=disable',
-  searchPath: ['public']
-})
+let appConnection : Knex
+
+export const getAppConnection = () : Knex => {
+  if (!appConnection) {
+    appConnection = Knex({
+      client: 'pg',
+      connection: getEnvs().POSTGRESQL_CONNECTION_STRING,
+      searchPath: ['public']
+    })
+  }
+
+  return appConnection
+}
 
 attachPaginate()

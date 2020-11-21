@@ -6,7 +6,7 @@ import { SimpleCrudRepository } from './common'
 type CreateUpdatePayload = Pick<Schemas.Entities.TestCasePreconditionEntity, 'title' | 'display_after' | 'test_case_id'>;
 
 export class TestCasesPreconditionsRepository extends SimpleCrudRepository<Schemas.Entities.TestCasePreconditionEntity, CreateUpdatePayload> {
-  constructor (knex: Knex) {
+  constructor (knex: () => Knex) {
     super(knex, TableNames.TestCasesPreconditions)
   }
 
@@ -38,7 +38,7 @@ export class TestCasesPreconditionsRepository extends SimpleCrudRepository<Schem
     await this.store()
       .where('display_after', row.id)
       .update({
-        display_after: row.display_after || this.knex.raw('DEFAULT')
+        display_after: row.display_after || this.knex().raw('DEFAULT')
       })
 
     return super.deleteById(id)

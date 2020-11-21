@@ -6,7 +6,7 @@ import { SimpleCrudRepository } from './common'
 type CreateUpdatePayload = Pick<Schemas.Entities.ProjectTreeEntity, 'title' | 'parent_id'>;
 
 export class ProjectTreesRepository extends SimpleCrudRepository<Schemas.Entities.ProjectTreeEntity, CreateUpdatePayload> {
-  constructor (knex: Knex) {
+  constructor (knex: () => Knex) {
     super(knex, TableNames.ProjectTrees)
   }
 

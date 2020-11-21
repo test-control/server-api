@@ -6,7 +6,7 @@ import { SimpleCrudRepository } from './common'
 type CreateUpdatePayload = Pick<Schemas.Entities.TestCaseEntity, 'title' | 'description'>;
 
 export class TestCasesRepository extends SimpleCrudRepository<Schemas.Entities.TestCaseEntity, CreateUpdatePayload> {
-  constructor (knex: Knex) {
+  constructor (knex: () => Knex) {
     super(knex, TableNames.TestCases)
   }
 }

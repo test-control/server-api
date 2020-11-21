@@ -6,7 +6,7 @@ import { TableNames } from '../database'
 type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id'>;
 
 export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeEntity, CreateUpdatePayload> {
-  constructor (knex: Knex) {
+  constructor (knex: () => Knex) {
     super(knex, TableNames.Trees)
   }
 

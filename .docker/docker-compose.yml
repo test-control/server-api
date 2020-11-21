@@ -1,0 +1,50 @@
+version: "3"
+services:
+  backend:
+    build:
+      dockerfile: ./.docker/node/Dockerfile
+      context: ../
+    env_file:
+      - ./.env
+    ports:
+      - "80:3000"
+    volumes:
+      - ./../:/srv/backend-app
+    networks:
+      tc-backend:
+        ipv4_address: 172.20.0.3
+  postgres:
+    image: postgres:13
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    volumes:
+      - ./data/postgres-data:/var/lib/postgresql/data
+    networks:
+      tc-backend:
+        ipv4_address: 172.20.0.4
+  pgweb:
+    container_name: pgweb
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8081:8081"
+    links:
+      - postgres:postgres
+    environment:
+      - DATABASE_URL=postgres://user:pass@postgres:5432/db?sslmode=disable
+    depends_on:
+      - postgres
+    networks:
+      tc-backend:
+        ipv4_address: 172.20.0.5
+networks:
+  tc-backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.1/16
+          gateway: 172.20.0.1

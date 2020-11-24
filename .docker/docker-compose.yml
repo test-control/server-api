@@ -11,7 +11,7 @@ services:
     volumes:
       - ./../:/srv/backend-app
     networks:
-      tc-backend:
+      tc-network:
         ipv4_address: 172.20.0.3
   postgres:
     image: postgres:13
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./data/postgres-data:/var/lib/postgresql/data
     networks:
-      tc-backend:
+      tc-network:
         ipv4_address: 172.20.0.4
   pgweb:
     container_name: pgweb
@@ -39,10 +39,10 @@ services:
     depends_on:
       - postgres
     networks:
-      tc-backend:
+      tc-network:
         ipv4_address: 172.20.0.5
 networks:
-  tc-backend:
+  tc-network:
     driver: bridge
     ipam:
       config:

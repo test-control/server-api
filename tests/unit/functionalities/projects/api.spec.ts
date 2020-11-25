@@ -1,19 +1,17 @@
 import iFunc from '../../../../src/functionalities/projects'
 import { apiV1Route } from '../../../../src/common/routes'
-import { testRoutes, testSimpleCrudRoutes } from '../api-common'
+import { testRoutes } from '../api-common'
 import { createProjectApi, listProjectsApi, updateProjectApi } from '../../../../src/functionalities/projects/api'
-jest.mock('../../../../src/common/simple-crud')
+
+jest.mock('../../../../src/common/simple-crud', () => {
+  return {
+    simpleCreate: jest.fn(() => jest.fn())
+  }
+})
 
 describe('functionalities', () => {
   describe('projects', () => {
     describe('api', () => {
-      it('all pi', async () => {
-        await testSimpleCrudRoutes([
-          createProjectApi,
-          listProjectsApi,
-          updateProjectApi
-        ])
-      })
       it('Routes', () => {
         const requiredRoutes = [
           {

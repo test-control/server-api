@@ -3,33 +3,37 @@ import { SimpleCrud } from '../../common'
 import { Api } from '../../auto-types'
 import { projectsTransformer } from '../../entity-transformers/project'
 import { EntitiesNames } from '../../database'
+import { NextFunction } from 'express'
 
-export const createProjectApi = async (req:Api.CreateProject.ApiRequest, res: Api.CreateProject.ApiResponse) => {
+export const createProjectApi = async (
+  req:Api.CreateProject.ApiRequest,
+  res: Api.CreateProject.ApiResponse,
+  next: NextFunction
+) => {
   return SimpleCrud.simpleCreate({
     createCallback: projectsRepository.bindCreate(),
     transformer: projectsTransformer,
-    entityName: EntitiesNames.Project,
-    req,
-    res
-  })
+    entityName: EntitiesNames.Project
+  })(req, res, next)
 }
 
-export const listProjectsApi = async (req:Api.ListProjects.ApiRequest, res: Api.ListProjects.ApiResponse) => {
+export const listProjectsApi = async (
+  req:Api.ListProjects.ApiRequest,
+  res: Api.ListProjects.ApiResponse,
+  next: NextFunction
+) => {
   return SimpleCrud.simplePaginate({
     paginateCallback: projectsRepository.bindPaginate(),
     entityName: EntitiesNames.Project,
-    transformerCallback: projectsTransformer,
-    req,
-    res
-  })
+    transformerCallback: projectsTransformer
+  })(req, res, next)
 }
 
-/**
- * remove it
- * @param req
- * @param res
- */
-export const listProjectTree = async (req:Api.ListProjectTree.ApiRequest, res: Api.ListProjectTree.ApiResponse) => {
+export const listProjectTree = async (
+  req:Api.ListProjectTree.ApiRequest,
+  res: Api.ListProjectTree.ApiResponse,
+  next: NextFunction
+) => {
   const projectId = req.params.projectId
 
   const leafs = await projectTreesRepository.listProjectTree(projectId)
@@ -45,13 +49,15 @@ export const listProjectTree = async (req:Api.ListProjectTree.ApiRequest, res: A
   })
 }
 
-export const updateProjectApi = async (req:Api.UpdateProject.ApiRequest, res: Api.UpdateProject.ApiResponse) => {
+export const updateProjectApi = async (
+  req:Api.UpdateProject.ApiRequest,
+  res: Api.UpdateProject.ApiResponse,
+  next: NextFunction
+) => {
   return SimpleCrud.simpleUpdate({
     findEntityCallback: projectsRepository.bindFindById(),
     updateEntityCallback: projectsRepository.bindUpdate(),
     entityName: EntitiesNames.Project,
-    transformerCallback: projectsTransformer,
-    req,
-    res
-  })
+    transformerCallback: projectsTransformer
+  })(req, res, next)
 }

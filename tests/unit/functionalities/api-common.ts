@@ -1,4 +1,4 @@
-import { IFunctionality } from '../../../src/common'
+import { IFunctionality, SimpleCrud } from '../../../src/common'
 import { Request, Response, Router } from 'express'
 
 export interface RequiredRoutes{
@@ -19,14 +19,5 @@ export const testRoutes = (requiredRoutes:Array<RequiredRoutes>, func: IFunction
     const methods = requiredRoutes.filter(row => row.m === method)
 
     expect(mockRouter[method].mock.calls.length).toEqual(methods.length)
-  }
-}
-
-export const testSimpleCrudRoutes = async (routeMiddlewares) => {
-  const mockRequest = jest.genMockFromModule<Request>('express') as any
-  const mockResponse = jest.genMockFromModule<Response>('express') as any
-
-  for (var api of routeMiddlewares) {
-    await api(mockRequest, mockResponse)
   }
 }

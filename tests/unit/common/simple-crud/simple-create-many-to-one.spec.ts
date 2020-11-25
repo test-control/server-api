@@ -7,6 +7,7 @@ const MockRequest = jest.genMockFromModule<Request>('express')
 const MockResponse = jest.genMockFromModule<Response>('express')
 let MockRelationFindCallback = jest.fn()
 let MockCreateWithRelationCallback = jest.fn()
+const nextFunction = jest.fn()
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -18,20 +19,17 @@ describe('common', () => {
   describe('simple-crud', () => {
     describe('simpleCreateManyToOne', () => {
       it('Relation entity not found', async () => {
-        expect.assertions(1)
+        await SimpleCrud.simpleCreateManyToOne({
+          relationId: '134134',
+          relationFindCallback: MockRelationFindCallback,
+          createCallback: MockCreateWithRelationCallback,
+          transformer: MockTransformerCallback,
+          req: MockRequest,
+          res: MockResponse
+        })(MockRequest, MockResponse, nextFunction)
 
-        try {
-          await SimpleCrud.simpleCreateManyToOne({
-            relationId: '134134',
-            relationFindCallback: MockRelationFindCallback,
-            createCallback: MockCreateWithRelationCallback,
-            transformer: MockTransformerCallback,
-            req: MockRequest,
-            res: MockResponse
-          })
-        } catch (e) {
-          expect(e.debug.relationId).toEqual('134134')
-        }
+        expect(nextFunction).toBeCalled()
+        expect(nextFunction.mock.calls[0][0].debug.relationId).toEqual('134134')
       })
       it('Entity created', async () => {
         MockRequest.body = {
@@ -70,8 +68,9 @@ describe('common', () => {
           transformer: MockTransformerCallback,
           req: MockRequest,
           res: MockResponse
-        })
+        })(MockRequest, MockResponse)
 
+        expect(nextFunction).not.toBeCalled()
         expect(MockRelationFindCallback).toBeCalled()
         expect(MockCreateWithRelationCallback).toBeCalled()
         expect(MockTransformerCallback).toBeCalled()

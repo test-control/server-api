@@ -5,6 +5,7 @@ let MockFindEntityCallback = jest.fn()
 let MockTransformerCallback = jest.fn()
 const MockRequest = jest.genMockFromModule<Request>('express')
 const MockResponse = jest.genMockFromModule<Response>('express')
+const nextFunction = jest.fn()
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -16,40 +17,33 @@ describe('common', () => {
   describe('simple-crud', () => {
     describe('simpleUpdate', () => {
       it('entityId not found in request', async () => {
-        expect.assertions(1)
+        await SimpleCrud.simpleGet({
+          findEntityCallback: MockFindEntityCallback,
+          transformerCallback: MockTransformerCallback,
+          entityName: 'sample',
+          req: MockRequest,
+          res: MockResponse
+        })(MockRequest, MockResponse, nextFunction)
 
-        try {
-          await SimpleCrud.simpleGet({
-            findEntityCallback: MockFindEntityCallback,
-            transformerCallback: MockTransformerCallback,
-            entityName: 'sample',
-            req: MockRequest,
-            res: MockResponse
-          })
-        } catch (e) {
-          expect(e.debug.entityId).toBeUndefined()
-        }
+        expect(nextFunction.mock.calls[0][0].debug.entityId).toBeUndefined()
       })
       it('Entity not found in store', async () => {
-        expect.assertions(3)
-
         MockRequest.params = {
           entityId: 'sample-id-1234'
         }
 
-        try {
-          await SimpleCrud.simpleGet({
-            findEntityCallback: MockFindEntityCallback,
-            transformerCallback: MockTransformerCallback,
-            entityName: 'sample',
-            req: MockRequest,
-            res: MockResponse
-          })
-        } catch (e) {
-          expect(e.debug.entityId).toEqual('sample-id-1234')
-          expect(MockFindEntityCallback).toBeCalled()
-          expect(MockFindEntityCallback.mock.calls[0][0]).toEqual('sample-id-1234')
-        }
+        await SimpleCrud.simpleGet({
+          findEntityCallback: MockFindEntityCallback,
+          transformerCallback: MockTransformerCallback,
+          entityName: 'sample',
+          req: MockRequest,
+          res: MockResponse
+        })(MockRequest, MockResponse, nextFunction)
+
+        expect(nextFunction).toBeCalled()
+        expect(nextFunction.mock.calls[0][0].debug.entityId).toEqual('sample-id-1234')
+        expect(MockFindEntityCallback).toBeCalled()
+        expect(MockFindEntityCallback.mock.calls[0][0]).toEqual('sample-id-1234')
       })
       it('Entity fetched', async () => {
         MockRequest.params = {
@@ -77,8 +71,9 @@ describe('common', () => {
           entityName: 'sample',
           req: MockRequest,
           res: MockResponse
-        })
+        })(MockRequest, MockResponse, nextFunction)
 
+        expect(nextFunction).not.toBeCalled()
         expect(MockFindEntityCallback).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
           data: {

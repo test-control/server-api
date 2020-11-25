@@ -4,6 +4,7 @@ import { IWithPagination } from 'knex-paginate'
 const { SimpleCrud } = jest.requireActual('../../../../src/common')
 const MockRequest = jest.genMockFromModule<Request>('express')
 const MockResponse = jest.genMockFromModule<Response>('express')
+const nextFunction = jest.fn()
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -51,11 +52,10 @@ describe('common', () => {
         await SimpleCrud.simplePaginate({
           paginateCallback: MockPaginateCallback,
           transformerCallback: MockTransformerCallback,
-          entityName: 'sample',
-          req: MockRequest,
-          res: MockResponse
-        })
+          entityName: 'sample'
+        })(MockRequest, MockResponse, nextFunction)
 
+        expect(nextFunction).not.toBeCalled()
         expect(MockPaginateCallback).toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({

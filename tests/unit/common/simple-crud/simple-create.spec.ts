@@ -40,10 +40,8 @@ describe('common', () => {
         await SimpleCrud.simpleCreate({
           createCallback: MockCreateCallback,
           transformer: MockTransformerCallback,
-          req: MockRequest,
-          res: MockResponse,
           entityName: 'sampleEntity'
-        })
+        })(MockRequest, MockResponse)
 
         expect(MockCreateCallback).toBeCalled()
         expect(MockTransformerCallback).toBeCalled()

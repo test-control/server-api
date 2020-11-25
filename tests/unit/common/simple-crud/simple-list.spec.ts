@@ -3,6 +3,8 @@ import { Request, Response } from 'express'
 const { SimpleCrud } = jest.requireActual('../../../../src/common')
 const MockRequest = jest.genMockFromModule<Request>('express')
 const MockResponse = jest.genMockFromModule<Response>('express')
+const nextFunction = jest.fn()
+
 beforeEach(() => {
   jest.clearAllMocks()
 
@@ -46,8 +48,9 @@ describe('common', () => {
           entityName: 'sample',
           req: MockRequest,
           res: MockResponse
-        })
+        })(MockRequest, MockResponse, nextFunction)
 
+        expect(nextFunction).not.toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockTransformerCallback).toBeCalled()
         expect(MockListCallback).toBeCalled()

@@ -11,10 +11,15 @@ export namespace UpdateTestCasePreconditions{
      * Display destination uuid item
      */
     displayDestination?: string;
-    /**
-     * Displaying movement direction
-     */
-    displayMoveDirection?: "down" | "up";
+    displayMoveDirection?: DisplayMoveDirection;
+  }
+
+  /**
+   * Displaying movement direction
+   */
+  export const enum DisplayMoveDirection {
+    down = "down",
+    up = "up"
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {

@@ -2,9 +2,7 @@
 import { Request, Response } from 'express'
 
 export namespace DeleteTestCasePreconditions{
-  export interface PathRequestParams {
-    entityId: string;
-  }
+  export interface PathRequestParams {}
   export interface QueryRequestParams {}
   export interface CookieRequestParams {}
   export interface HeaderRequestParams {}

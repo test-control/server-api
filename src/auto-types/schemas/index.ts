@@ -2,6 +2,7 @@
 export * from './display-order'
 export * from './envs'
 export * from './errorCodes'
+export * from './exceptionResponseMeta'
 export * from './pagination-meta'
 export * from './project'
 export * from './testCase'

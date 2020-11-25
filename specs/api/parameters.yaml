@@ -5,36 +5,3 @@ projectId:
   schema:
     type: string
     format: uuid
-testCaseId:
-  in: path
-  name: testCaseId
-  required: true
-  schema:
-    type: string
-    format: uuid
-entityIdUuid:
-    in: path
-    name: entityId
-    required: true
-    schema:
-      type: string
-      format: uuid
-testCasePreconditionId:
-  in: path
-  name: testCasePreconditionId
-  required: true
-  schema:
-    type: string
-    format: uuid
-perPage:
-  in: query
-  name: perPage
-  required: false
-  schema:
-    type: number
-page:
-  in: query
-  name: page
-  required: false
-  schema:
-    type: number

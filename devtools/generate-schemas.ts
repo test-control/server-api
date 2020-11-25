@@ -1,4 +1,4 @@
-import { SchemasContainer, schemaSpecPath, autoTypesPath } from './base'
+import { SchemasContainer, schemaSpecPath, autoTypesPath, adjustJsonSchemaForCompiler } from './base'
 import generateApiTypes from './generate-api'
 import * as path from 'path'
 
@@ -18,6 +18,8 @@ async function generateSchemasObjects (schemasContainer: SchemasContainer) {
     const tsName = camelCase(fileName, { pascalCase: true })
 
     const schema = await $RefParser.dereference(filePath)
+
+    adjustJsonSchemaForCompiler(schema)
 
     const ts = await jsonSchema.compile(schema, tsName, {
       bannerComment: '',

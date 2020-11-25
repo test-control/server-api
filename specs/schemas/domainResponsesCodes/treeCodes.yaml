@@ -6,4 +6,4 @@ properties:
   errorCodes:
     type: string
     enum: ['same-id', 'different-root', 'no-entity']
-    tsEnumNames: ['sameId', 'differentRoot', 'noEntity']
+    #tsEnumNames: ['sameId', 'differentRoot', 'noEntity']

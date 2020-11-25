@@ -4,7 +4,12 @@ get:
   tags:
     - Project Tree
   parameters:
-    - $ref: '../parameters.yaml#/projectId'
+    - in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     '200':
       description: A JSON with project tree

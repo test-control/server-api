@@ -4,7 +4,12 @@ patch:
   tags:
     - Project
   parameters:
-    - $ref: '../parameters.yaml#/projectId'
+    - in: path
+      name: projectId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:

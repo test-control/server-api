@@ -3,7 +3,12 @@ post:
   tags:
     - Test case
   parameters:
-    - $ref: '../parameters.yaml#/testCaseId'
+    - in: path
+      name: testCaseId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:
@@ -37,7 +42,12 @@ get:
   tags:
     - Test case
   parameters:
-    - $ref: '../parameters.yaml#/testCaseId'
+    - in: path
+      name: testCaseId
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     '200':
       description: A JSON with preconditions

@@ -1,5 +1,5 @@
 import * as devTools from './base'
-import { SchemasContainer } from './base'
+import { adjustJsonSchemaForCompiler, SchemasContainer, schemaSpecPath } from './base'
 const indentString = require('indent-string')
 
 var jsonSchema = require('json-schema-to-typescript')
@@ -56,10 +56,10 @@ function generateRequestBodySchemas (schema: any) : Array<object> {
 
     if (!descObject?.schema) {
       schemas.push({
-        title: camelCase(contentTypeSystemName, { pascalCase: true }) +  'RequestBody',
+        title: camelCase(contentTypeSystemName, { pascalCase: true }) + 'RequestBody',
         additionalProperties: false
-      });
-      continue;
+      })
+      continue
     }
 
     const schemaObject = descObject.schema
@@ -82,12 +82,12 @@ function generateResponseBodySchemas (schema: any) : Array<object> {
       schemas.push({
         title: 'Empty' + responseHttpCode + 'ResponseBody',
         additionalProperties: false
-      });
-      continue;
+      })
+      continue
     }
     for (const [contentType, schemaObject] of Object.entries<any>(descObject.content)) {
       if (!schemaObject?.schema) {
-        continue;
+        continue
       }
 
       const contentTypeSystemName = translateContentType(contentType)
@@ -159,6 +159,8 @@ async function compileSchemas (schemas: Array<any>) {
       continue
     }
 
+    adjustJsonSchemaForCompiler(objSchema)
+
     body += indentString(await jsonSchema.compile(objSchema, objSchema.title, {
       bannerComment: ''
     }), 2)
@@ -191,7 +193,6 @@ function createTypeFromSchemas (typeName:string, schemas:Array<any>) {
 
 export default async function generateApiTypes (schemasContainer: SchemasContainer) {
   const apiSchemaPath = path.join(devTools.apiSpecPath, 'api.yaml')
-
   const schema = await $RefParser.dereference(apiSchemaPath)
 
   for (const apiPath in schema?.paths) {

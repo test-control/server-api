@@ -7,8 +7,8 @@ properties:
   serverCannotWorkErrorCodes:
     type: string
     enum: ['missing-env']
-    tsEnumNames: ['missingEnv']
+    #tsEnumNames: ['missingEnv']
   commonErrorCodes:
     type: string
     enum: ['resource-not-found', 'invalid-input-data']
-    tsEnumNames: ['resourceNotFound', 'invalidInputData']
+    #tsEnumNames: ['resourceNotFound', 'invalidInputData']

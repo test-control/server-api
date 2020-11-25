@@ -4,7 +4,12 @@ get:
   tags:
     - Test case
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     '200':
       description: A JSON with test case
@@ -18,6 +23,10 @@ get:
             properties:
               data:
                 $ref: '../../schemas/testCase.yaml'
+    '404':
+      $ref: '../common/responses.yaml#/resourceNotFound'
+    '500':
+      $ref: '../common/responses.yaml#/internalServerError'
 
 patch:
   description: Update test test case
@@ -25,7 +34,12 @@ patch:
   tags:
     - Test case
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:

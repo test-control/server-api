@@ -12,3 +12,34 @@ validationError:
             type: array
             items:
               $ref: '../../schemas/validationError.yaml'
+          meta:
+            $ref: '../../schemas/exceptionResponseMeta.yaml'
+resourceNotFound:
+  description: Resource do not exists
+  content:
+    application/json:
+      schema:
+        type: object
+        additionalProperties: false
+        required:
+          - errors
+        properties:
+          meta:
+            allOf:
+              - $ref: '../../schemas/exceptionResponseMeta.yaml'
+              - type: object
+                properties:
+                  code:
+                    $ref: '../../schemas/domainResponsesCodes/common.yaml#/properties/errorCodes/properties/resourceNotFound'
+internalServerError:
+  description: Resource do not exists
+  content:
+    application/json:
+      schema:
+        type: object
+        additionalProperties: false
+        required:
+          - errors
+        properties:
+          meta:
+            $ref: '../../schemas/domainResponsesCodes/common.yaml#/properties/errorCodes/properties/internalServerError'

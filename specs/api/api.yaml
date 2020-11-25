@@ -5,21 +5,21 @@ info:
 paths:
   /api/v1/projects:
     $ref: './paths/projects.yaml'
-  /api/v1/projects/:id:
+  /api/v1/projects/{projectId}:
     $ref: './paths/project.yaml'
-  /api/v1/projects/:projectId/tree:
+  /api/v1/projects/{projectId}/tree:
     $ref: './paths/projectTree.yaml'
   /api/v1/test-cases:
     $ref: './paths/testCases.yaml'
-  /api/v1/test-cases/:entityId:
+  /api/v1/test-cases/{entityId}:
     $ref: './paths/testCase.yaml'
-  /api/v1/test-cases/:testCaseId/preconditions:
+  /api/v1/test-cases/{testCaseId}/preconditions:
     $ref: './paths/testCasePreconditions.yaml'
-  /api/v1/test-cases/:testCaseId/steps:
+  /api/v1/test-cases/{testCaseId}/steps:
     $ref: './paths/testCaseSteps.yaml'
-  /api/v1/test-case-preconditions/:entityId:
+  /api/v1/test-case-preconditions/{entityId}:
     $ref: './paths/testCasePrecondition.yaml'
-  /api/v1/test-case-steps/:entityId:
+  /api/v1/test-case-steps/{entityId}:
     $ref: './paths/testCaseStep.yaml'
-  /api/v1/trees/:entityId:
+  /api/v1/trees/{entityId}:
     $ref: './paths/tree.yaml'

@@ -3,7 +3,12 @@ post:
   tags:
     - Tree
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:
@@ -35,7 +40,12 @@ patch:
   tags:
     - Tree
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:
@@ -70,7 +80,12 @@ get:
   tags:
     - Tree
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     '200':
       description: A JSON with leaves

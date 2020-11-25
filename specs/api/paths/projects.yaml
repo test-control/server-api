@@ -35,8 +35,16 @@ get:
   tags:
     - Project
   parameters:
-    - $ref: '../parameters.yaml#/perPage'
-    - $ref: '../parameters.yaml#/page'
+    - in: query
+      name: perPage
+      required: false
+      schema:
+        type: number
+    - in: query
+      name: page
+      required: false
+      schema:
+        type: number
   responses:
     '200':
       description: A JSON with projects

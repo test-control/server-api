@@ -3,7 +3,7 @@ delete:
   tags:
     - Test case step
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - $ref: '#components/parameters/entityIdUuid'
   responses:
     '200':
       description: Resource was deleted.
@@ -14,7 +14,12 @@ patch:
   tags:
     - Test case step
   parameters:
-    - $ref: '../parameters.yaml#/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBody:
     content:
       application/json:

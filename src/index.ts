@@ -2,11 +2,11 @@
 import { getEnvs, setEnvs } from './common/envs'
 
 import functionalitiesConfig from './functionalities'
-import { OpenApiValidator } from 'express-openapi-validator/dist'
 import { listenAppEvent } from './common'
 import cors from 'cors'
 import { errorHandlerMiddleware } from './middlewares/error-handler'
 import path from 'path'
+import { middleware } from 'express-openapi-validator'
 
 setEnvs(
   process.env,
@@ -30,13 +30,11 @@ async function runServer () {
 
   app.use(express.json())
 
-  const apiValidator = new OpenApiValidator({
+  app.use(middleware({
     apiSpec: path.join(__dirname, '..', 'specs', 'api', 'api.yaml'),
     validateRequests: true,
-    validateResponses: true
-  })
-
-  await apiValidator.install(app)
+    validateResponses: false
+  }))
 
   funcConfig.forEach((func) => {
     if (func.routes) {
@@ -53,6 +51,7 @@ async function runServer () {
   })
 
   app.use(errorHandlerMiddleware(getEnvs().APP_DEBUG))
+
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 }
 

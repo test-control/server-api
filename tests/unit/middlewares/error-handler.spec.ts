@@ -41,7 +41,7 @@ describe('middlewares', () => {
       expect(MockResponseStatus).toBeCalled()
       expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
       expect(MockResponseJson.mock.calls[0][0]).toEqual({
-        error: {
+        meta: {
           code: StatusCodes.CREATED,
           debug: undefined,
           message: undefined
@@ -66,7 +66,7 @@ describe('middlewares', () => {
       expect(MockResponseStatus).toBeCalled()
       expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.OK)
       expect(MockResponseJson.mock.calls[0][0]).toEqual({
-        error: {
+        meta: {
           code: 'sample-code',
           debug: undefined,
           message: undefined
@@ -92,7 +92,7 @@ describe('middlewares', () => {
       expect(MockResponseStatus).toBeCalled()
       expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
       expect(MockResponseJson.mock.calls[0][0]).toEqual({
-        error: {
+        meta: {
           code: 'sample-code',
           debug: undefined,
           message: undefined
@@ -122,14 +122,15 @@ describe('middlewares', () => {
       expect(MockResponseStatus).toBeCalled()
       expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.INTERNAL_SERVER_ERROR)
       expect(MockResponseJson.mock.calls[0][0]).toEqual({
-        error: {
+        meta: {
           code: 'sample-code',
           debug: {
             debug: {
               sample: 'debug value',
               another: 'debug'
             },
-            err: err
+            err: err.toString(),
+            errObj: JSON.stringify(err)
           },
           message: undefined
         }

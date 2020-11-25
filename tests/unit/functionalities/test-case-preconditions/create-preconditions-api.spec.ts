@@ -4,6 +4,7 @@ import {
 import { Request, Response } from 'express'
 import { createPreconditionsApi } from '../../../../src/functionalities/testCasePreconditions/api'
 import { StatusCodes } from 'http-status-codes'
+const MockNextFunction = jest.fn()
 
 jest.mock('../../../../src/repositories')
 
@@ -49,7 +50,7 @@ describe('functionalities', () => {
         const MockResponseStatus = jest.fn()
         MockResponse.status = MockResponseStatus
 
-        await createPreconditionsApi(MockRequest, MockResponse)
+        await createPreconditionsApi(MockRequest, MockResponse, MockNextFunction)
 
         expect(findByFunc).toBeCalled()
         expect(findByFunc.mock.calls[0][0]).toEqual('sample-1234')

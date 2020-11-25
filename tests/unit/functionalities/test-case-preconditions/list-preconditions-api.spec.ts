@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { testCasesPreconditionsRepository } from '../../../../src/repositories'
 import { listPreconditionsApi } from '../../../../src/functionalities/testCasePreconditions/api'
+const MockNextFunction = jest.fn()
 
 jest.mock('../../../../src/repositories')
 
@@ -28,7 +29,8 @@ describe('functionalities', () => {
 
         await listPreconditionsApi(
           MockRequest,
-          MockResponse
+          MockResponse,
+          MockNextFunction
         )
 
         expect(testCasesPreconditionsRepository.getByTestCase).toBeCalled()

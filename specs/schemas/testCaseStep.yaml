@@ -12,6 +12,8 @@ properties:
   title:
     type: string
     description: Title
+    minLength: 5
+    maxLength: 255
   testCaseId:
     type: string
     description: Test case uuid

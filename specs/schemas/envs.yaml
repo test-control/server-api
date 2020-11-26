@@ -15,4 +15,6 @@ properties:
   POSTGRESQL_CONNECTION_STRING:
     type: string
     description: Connection string to PostgreSQL
-
+  CORS_ORIGIN:
+    type: string
+    description: Cors origin setting

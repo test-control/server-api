@@ -25,7 +25,7 @@ async function runServer () {
   const funcConfig = functionalitiesConfig()
 
   app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: getEnvs().CORS_ORIGIN
   }))
 
   app.use(express.json())

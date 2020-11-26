@@ -15,5 +15,9 @@ export interface Envs {
    * Connection string to PostgreSQL
    */
   POSTGRESQL_CONNECTION_STRING: string;
+  /**
+   * Cors origin setting
+   */
+  CORS_ORIGIN?: string;
 }
 

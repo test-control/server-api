@@ -11,6 +11,9 @@ properties:
   title:
     type: string
     description: Title
+    minLength: 5
+    maxLength: 255
   description:
     type: string
     description: Description
+    maxLength: 5000

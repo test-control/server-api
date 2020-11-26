@@ -3,7 +3,12 @@ delete:
   tags:
     - Test case precondition
   parameters:
-    - $ref: '#components/parameters/entityIdUuid'
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
   responses:
     '200':
       description: Resource was deleted.

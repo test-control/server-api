@@ -6,7 +6,7 @@ export namespace UpdateTestCaseSteps{
     /**
      * Title
      */
-    title: string;
+    title?: string;
     /**
      * Display after uuid item
      */

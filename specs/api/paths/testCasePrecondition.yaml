@@ -26,8 +26,6 @@ patch:
         schema:
           type: object
           additionalProperties: false
-          required:
-            - title
           properties:
             title:
               $ref: '../../schemas/testCasePrecondition.yaml#/properties/title'

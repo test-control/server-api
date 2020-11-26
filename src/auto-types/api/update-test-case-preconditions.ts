@@ -6,7 +6,7 @@ export namespace UpdateTestCasePreconditions{
     /**
      * Title
      */
-    title: string;
+    title?: string;
     /**
      * Display destination uuid item
      */

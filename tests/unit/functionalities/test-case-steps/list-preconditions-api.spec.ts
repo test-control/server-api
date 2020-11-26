@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { testCasesStepsRepository } from '../../../../src/repositories'
 import { listStepsApi } from '../../../../src/functionalities/testCaseSteps/api'
+const MockNextFunction = jest.fn()
 
 jest.mock('../../../../src/repositories')
 
@@ -28,7 +29,8 @@ describe('functionalities', () => {
 
         await listStepsApi(
           MockRequest,
-          MockResponse
+          MockResponse,
+          MockNextFunction
         )
 
         expect(testCasesStepsRepository.getByTestCase).toBeCalled()

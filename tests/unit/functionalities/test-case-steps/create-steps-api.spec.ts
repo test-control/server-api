@@ -8,6 +8,7 @@ jest.mock('../../../../src/repositories')
 
 const MockRequest = jest.genMockFromModule<Request>('express') as any
 const MockResponse = jest.genMockFromModule<Response>('express') as any
+const MockNextFunction = jest.fn()
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -48,7 +49,7 @@ describe('functionalities', () => {
         const MockResponseStatus = jest.fn()
         MockResponse.status = MockResponseStatus
 
-        await createStepsApi(MockRequest, MockResponse)
+        await createStepsApi(MockRequest, MockResponse, MockNextFunction)
 
         expect(findByFunc).toBeCalled()
         expect(findByFunc.mock.calls[0][0]).toEqual('sample-1234')

@@ -34,8 +34,10 @@ patch:
           properties:
             title:
               $ref: '../../schemas/testCaseStep.yaml#/properties/title'
-            displayAfter:
-              $ref: '../../schemas/testCaseStep.yaml#/properties/displayAfter'
+            displayDestination:
+              $ref: '../../schemas/display-order.yaml#/properties/displayDestination'
+            displayMoveDirection:
+              $ref: '../../schemas/display-order.yaml#/properties/displayMoveDirection'
   responses:
     '200':
       description: Object was updated.

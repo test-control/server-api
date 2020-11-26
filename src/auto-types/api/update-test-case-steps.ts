@@ -8,9 +8,18 @@ export namespace UpdateTestCaseSteps{
      */
     title?: string;
     /**
-     * Display after uuid item
+     * Display destination uuid item
      */
-    displayAfter?: string;
+    displayDestination?: string;
+    displayMoveDirection?: DisplayMoveDirection;
+  }
+
+  /**
+   * Displaying movement direction
+   */
+  export const enum DisplayMoveDirection {
+    down = "down",
+    up = "up"
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {

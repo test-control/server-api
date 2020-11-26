@@ -2,7 +2,9 @@
 import { Request, Response } from 'express'
 
 export namespace DeleteTestCaseSteps{
-  export interface PathRequestParams {}
+  export interface PathRequestParams {
+    entityId: string;
+  }
   export interface QueryRequestParams {}
   export interface CookieRequestParams {}
   export interface HeaderRequestParams {}

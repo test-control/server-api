@@ -8,6 +8,7 @@ jest.mock('../../../../src/repositories')
 
 const MockRequest = jest.genMockFromModule<Request>('express') as any
 const MockResponse = jest.genMockFromModule<Response>('express') as any
+const MockNextFunction = jest.fn()
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -32,7 +33,7 @@ describe('functionalities', () => {
         expect.assertions(3)
 
         try {
-          await createLeafApi(MockRequest, MockResponse)
+          await createLeafApi(MockRequest, MockResponse, MockNextFunction)
         } catch (e) {
           expect(e.debug.relationId).toEqual('sample-id1234')
           expect(treesRepository.findById).toBeCalled()
@@ -69,7 +70,7 @@ describe('functionalities', () => {
         const MockResponseStatus = jest.fn()
         MockResponse.status = MockResponseStatus
 
-        await createLeafApi(MockRequest, MockResponse)
+        await createLeafApi(MockRequest, MockResponse, MockNextFunction)
 
         expect(treesRepository.findById).toBeCalled()
         expect(treesRepository.create).toBeCalled()
@@ -115,7 +116,7 @@ describe('functionalities', () => {
         const MockResponseStatus = jest.fn()
         MockResponse.status = MockResponseStatus
 
-        await createLeafApi(MockRequest, MockResponse)
+        await createLeafApi(MockRequest, MockResponse, MockNextFunction)
 
         expect(treesRepository.findById).toBeCalled()
         expect(treesRepository.create).toBeCalled()

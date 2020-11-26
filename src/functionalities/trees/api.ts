@@ -7,8 +7,13 @@ import {
 } from 'express-validator'
 import { requestValidationMiddleware } from '../../middlewares'
 import { EntitiesNames } from '../../database'
+import { NextFunction } from 'express'
 
-export const createLeafApi = async (req:Api.CreateTreeLeaf.ApiRequest, res: Api.CreateTreeLeaf.ApiResponse) => {
+export const createLeafApi = async (
+  req:Api.CreateTreeLeaf.ApiRequest,
+  res: Api.CreateTreeLeaf.ApiResponse,
+  next: NextFunction
+) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simpleCreate({
@@ -28,10 +33,8 @@ export const createLeafApi = async (req:Api.CreateTreeLeaf.ApiRequest, res: Api.
       })
     },
     transformer: treeTransformer,
-    entityName: EntitiesNames.Tree,
-    req,
-    res
-  })
+    entityName: EntitiesNames.Tree
+  })(req, res, next)
 }
 
 export const updateLeafApi = [
@@ -62,19 +65,25 @@ export const updateLeafApi = [
       }
     })
   ]),
-  async (req: Api.UpdateTreeLeaf.ApiRequest, res: Api.UpdateTreeLeaf.ApiResponse) => {
+  async (
+    req: Api.UpdateTreeLeaf.ApiRequest,
+    res: Api.UpdateTreeLeaf.ApiResponse,
+    next: NextFunction
+  ) => {
     return SimpleCrud.simpleUpdate({
       findEntityCallback: treesRepository.bindFindById(),
       updateEntityCallback: treesRepository.bindUpdate(),
       entityName: EntitiesNames.Tree,
-      transformerCallback: treeTransformer,
-      req,
-      res
-    })
+      transformerCallback: treeTransformer
+    })(req, res, next)
   }
 ]
 
-export const listLeavesApi = async (req: Api.ListTreeLeaves.ApiRequest, res: Api.ListTreeLeaves.ApiResponse) => {
+export const listLeavesApi = async (
+  req: Api.ListTreeLeaves.ApiRequest,
+  res: Api.ListTreeLeaves.ApiResponse,
+  next: NextFunction
+) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simplePaginate({
@@ -86,8 +95,6 @@ export const listLeavesApi = async (req: Api.ListTreeLeaves.ApiRequest, res: Api
       )
     },
     entityName: EntitiesNames.Tree,
-    transformerCallback: treeTransformer,
-    req,
-    res
-  })
+    transformerCallback: treeTransformer
+  })(req, res, next)
 }

@@ -5,7 +5,7 @@ get:
     - Project Tree
   parameters:
     - in: path
-      name: projectId
+      name: entityId
       required: true
       schema:
         type: string

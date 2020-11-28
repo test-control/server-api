@@ -1,3 +1,32 @@
+get:
+  description: Get project information
+  operationId: getProject
+  tags:
+    - Project
+  parameters:
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: A JSON with project
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../../schemas/project.yaml'
+    '404':
+      $ref: '../common/responses.yaml#/resourceNotFound'
+    '500':
+      $ref: '../common/responses.yaml#/internalServerError'
 patch:
   description: Update new project
   operationId: updateProject
@@ -5,7 +34,7 @@ patch:
     - Project
   parameters:
     - in: path
-      name: projectId
+      name: entityId
       required: true
       schema:
         type: string

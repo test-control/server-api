@@ -5,9 +5,9 @@ info:
 paths:
   /api/v1/projects:
     $ref: './paths/projects.yaml'
-  /api/v1/projects/{projectId}:
+  /api/v1/projects/{entityId}:
     $ref: './paths/project.yaml'
-  /api/v1/projects/{projectId}/tree:
+  /api/v1/projects/{entityId}/tree:
     $ref: './paths/projectTree.yaml'
   /api/v1/test-cases:
     $ref: './paths/testCases.yaml'

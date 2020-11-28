@@ -34,7 +34,7 @@ export const listProjectTree = async (
   res: Api.ListProjectTree.ApiResponse,
   next: NextFunction
 ) => {
-  const projectId = req.params.projectId
+  const projectId = req.params.entityId
 
   const leafs = await projectTreesRepository.listProjectTree(projectId)
 
@@ -59,5 +59,17 @@ export const updateProjectApi = async (
     updateEntityCallback: projectsRepository.bindUpdate(),
     entityName: EntitiesNames.Project,
     transformerCallback: projectsTransformer
+  })(req, res, next)
+}
+
+export const getProjectApi = async (
+  req: Api.GetProject.ApiRequest,
+  res: Api.GetProject.ApiResponse,
+  next: NextFunction
+) => {
+  return SimpleCrud.simpleGet({
+    findEntityCallback: projectsRepository.bindFindById(),
+    transformerCallback: projectsTransformer,
+    entityName: EntitiesNames.Project
   })(req, res, next)
 }

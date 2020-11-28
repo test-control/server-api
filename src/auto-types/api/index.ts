@@ -1,6 +1,7 @@
 /* tslint:disable */
 export * from './create-project'
 export * from './list-projects'
+export * from './get-project'
 export * from './update-project'
 export * from './list-project-tree'
 export * from './create-test-case'

@@ -10,7 +10,7 @@ export namespace UpdateProject{
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {
-    projectId: string;
+    entityId: string;
   }
   export interface QueryRequestParams {}
   export interface CookieRequestParams {}

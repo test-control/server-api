@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 export namespace ListProjectTree{
   export interface PathRequestParams {
-    projectId: string;
+    entityId: string;
   }
   export interface QueryRequestParams {}
   export interface CookieRequestParams {}

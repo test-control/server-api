@@ -7,8 +7,8 @@ paths:
     $ref: './paths/projects.yaml'
   /api/v1/projects/{entityId}:
     $ref: './paths/project.yaml'
-  /api/v1/projects/{entityId}/tree:
-    $ref: './paths/projectTree.yaml'
+  /api/v1/projects/{entityId}/tree-root:
+    $ref: './paths/projectTreeRoot.yaml'
   /api/v1/test-cases:
     $ref: './paths/testCases.yaml'
   /api/v1/test-cases/{entityId}:

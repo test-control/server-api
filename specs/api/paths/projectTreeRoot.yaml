@@ -1,6 +1,6 @@
 get:
-  operationId: listProjectTree
-  description: List project tree
+  operationId: getProjectTreeRoot
+  description: Get project tree root
   tags:
     - Project Tree
   parameters:
@@ -12,7 +12,7 @@ get:
         format: uuid
   responses:
     '200':
-      description: A JSON with project tree
+      description: A JSON with project tree root
       content:
         application/json:
           schema:
@@ -22,6 +22,4 @@ get:
               - data
             properties:
               data:
-                type: array
-                items:
-                  $ref: '../../schemas/tree.yaml'
+                $ref: '../../schemas/tree.yaml'

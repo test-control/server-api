@@ -10,6 +10,10 @@ export class ProjectTreesRepository extends SimpleCrudRepository<Schemas.Entitie
     super(knex, TableNames.ProjectTrees)
   }
 
+  bindGetRoot () {
+    return this.getRoot.bind(this)
+  }
+
   addProjectTree (projectId: string, treeId: string) : Promise<Schemas.Entities.ProjectTreeEntity> {
     return this.store().returning<Schemas.Entities.ProjectTreeEntity>('*').insert({
       project_id: projectId,
@@ -17,7 +21,11 @@ export class ProjectTreesRepository extends SimpleCrudRepository<Schemas.Entitie
     })
   }
 
-  listProjectTree (projectId: string) : Promise<Array<Schemas.Entities.ProjectTreeEntity>> {
-    return this.store().select('*').where('project_id', projectId)
+  getRoot (projectId: string) : Promise<Schemas.Entities.TreeEntity> {
+    return this.store().select(TableNames.Trees + '.*')
+      .from(TableNames.Trees)
+      .leftJoin(TableNames.ProjectTrees, TableNames.Trees + '.id', TableNames.ProjectTrees + '.tree_id')
+      .where(TableNames.ProjectTrees + '.project_id', projectId)
+      .first()
   }
 }

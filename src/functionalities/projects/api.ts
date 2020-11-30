@@ -4,6 +4,7 @@ import { Api } from '../../auto-types'
 import { projectsTransformer } from '../../entity-transformers/project'
 import { EntitiesNames } from '../../database'
 import { NextFunction } from 'express'
+import { treeTransformer } from '../../entity-transformers'
 
 export const createProjectApi = async (
   req:Api.CreateProject.ApiRequest,
@@ -29,24 +30,16 @@ export const listProjectsApi = async (
   })(req, res, next)
 }
 
-export const listProjectTree = async (
-  req:Api.ListProjectTree.ApiRequest,
-  res: Api.ListProjectTree.ApiResponse,
+export const getProjectTreeRoot = async (
+  req:Api.GetProjectTreeRoot.ApiRequest,
+  res: Api.GetProjectTreeRoot.ApiResponse,
   next: NextFunction
 ) => {
-  const projectId = req.params.entityId
-
-  const leafs = await projectTreesRepository.listProjectTree(projectId)
-
-  res.send({
-    data: leafs.map(pt => {
-      return {
-        parentId: pt.parent_id,
-        id: pt.id,
-        title: pt.title
-      }
-    })
-  })
+  return SimpleCrud.simpleGet({
+    findEntityCallback: projectTreesRepository.bindGetRoot(),
+    transformerCallback: treeTransformer,
+    entityName: EntitiesNames.Tree
+  })(req, res, next)
 }
 
 export const updateProjectApi = async (

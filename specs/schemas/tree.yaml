@@ -2,6 +2,7 @@ type: object
 required:
   - id
   - title
+  - createdAt
 additionalProperties: false
 properties:
   id:
@@ -15,3 +16,6 @@ properties:
     type: string
     format: uuid
     description: Id of parent
+  createdAt:
+    type: string
+    format: date-time

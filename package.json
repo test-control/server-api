@@ -1,8 +1,9 @@
 {
-  "name": "test-control-server",
+  "name": "@test-control/server-api",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --verbose --detectOpenHandles --forceExit",
     "eslint": "eslint ./src/**",
@@ -10,6 +11,7 @@
     "start": "ts-node src/index.ts",
     "generate:api": "ts-node devtools/generate-api.ts",
     "generate:schemas": "ts-node devtools/generate-schemas.ts",
+    "build": "tsc",
     "dev": "nodemon",
     "db:migrate:latest": "knex migrate:latest --migrations-directory=./db/migrations --knexfile=./db/knexfile.js --env=env"
   },
@@ -28,6 +30,7 @@
     "jsonschema": "^1.4.0",
     "knex": "^0.21.2",
     "knex-paginate": "^1.2.2",
+    "moment": "^2.29.1",
     "pg": "^8.3.0",
     "snake-case": "^3.0.3",
     "uuid": "^8.2.0",

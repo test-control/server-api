@@ -10,7 +10,7 @@
       "node",
       "knex-paginate",
       "jest",
-      "src/types/envs.d.ts"
+      "src/types/envs.d.s"
     ]
   },
   "lib": ["es2015"],

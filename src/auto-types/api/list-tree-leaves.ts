@@ -23,6 +23,7 @@ export namespace ListTreeLeaves{
        * Id of parent
        */
       parentId?: string;
+      createdAt: string;
     }[];
   }
   export type ResponseBody = ApplicationJson200ResponseBody

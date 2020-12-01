@@ -30,6 +30,7 @@ export namespace CreateTreeLeaf{
        * Id of parent
        */
       parentId?: string;
+      createdAt: string;
     };
   }
   export type ResponseBody = ApplicationJson201ResponseBody

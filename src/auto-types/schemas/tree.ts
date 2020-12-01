@@ -12,5 +12,6 @@ export interface Tree {
    * Id of parent
    */
   parentId?: string;
+  createdAt: string;
 }
 

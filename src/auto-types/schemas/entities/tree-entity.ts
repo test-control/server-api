@@ -16,5 +16,6 @@ export interface TreeEntity {
    * Id of parent
    */
   parent_id?: string;
+  created_at: string;
 }
 

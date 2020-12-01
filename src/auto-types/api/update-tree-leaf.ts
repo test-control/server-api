@@ -34,6 +34,7 @@ export namespace UpdateTreeLeaf{
        * Id of parent
        */
       parentId?: string;
+      createdAt: string;
     };
   }
   export interface ApplicationJson400ResponseBody {

@@ -1,10 +1,12 @@
 import { projectTreesRepository, treesRepository } from '../../repositories'
 import { EntityEvent } from '../../common'
 import { Schemas } from '../../auto-types'
+import moment from 'moment'
 
 export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.ProjectEntity>) => {
   const tree = await treesRepository.create({
-    title: 'root'
+    title: 'root',
+    created_at: moment().format()
   })
 
   await projectTreesRepository.addProjectTree(

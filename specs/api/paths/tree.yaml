@@ -96,8 +96,11 @@ get:
             additionalProperties: false
             required:
               - data
+              - meta
             properties:
               data:
                 type: array
                 items:
                   $ref: '../../schemas/tree.yaml'
+              meta:
+                $ref: '../../schemas/pagination-meta.yaml'

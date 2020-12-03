@@ -80,6 +80,16 @@ get:
   tags:
     - Tree
   parameters:
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: Page number
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Rows per page
     - in: path
       name: entityId
       required: true

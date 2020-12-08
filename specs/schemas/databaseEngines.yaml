@@ -1,0 +1,8 @@
+type: oject
+required:
+  - types
+additionalProperties: false
+properties:
+  types:
+    type: string
+    enum: ['postgresql', 'mysql', 'mssql']

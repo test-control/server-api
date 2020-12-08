@@ -9,8 +9,6 @@ properties:
       resourceNotFound:
         type: string
         enum: ['resource-not-found']
-        #tsEnumNames: ['resourceNotFound']
       internalServerError:
         type: string
         enum: ['internal-server-error' ]
-        #tsEnumNames: ['internalServerError' ]

@@ -2,7 +2,7 @@ type: object
 description: Schema for local environments object. Define all needed environment settings
 additionalProperties: false
 required:
-  - POSTGRESQL_CONNECTION_STRING
+  - DATABASE_ENGINE
   - SERVER_PORT
 properties:
   APP_DEBUG:
@@ -15,6 +15,15 @@ properties:
   POSTGRESQL_CONNECTION_STRING:
     type: string
     description: Connection string to PostgreSQL
+  MYSQL_CONNECTION_STRING:
+    type: string
+    description: Connection string to PostgreSQL
+  MSSQL_CONNECTION_STRING:
+    type: string
+    description: Connection string to PostgreSQL
   CORS_ORIGIN:
     type: string
     description: Cors origin setting
+  DATABASE_ENGINE:
+    type: string
+    enum: [postgresql, mysql, mssql]

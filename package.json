@@ -11,9 +11,11 @@
     "start": "ts-node src/index.ts",
     "generate:api": "ts-node devtools/generate-api.ts",
     "generate:schemas": "ts-node devtools/generate-schemas.ts",
+    "check-system": "ts-node src/check-system.ts",
     "build": "tsc",
     "dev": "nodemon",
-    "db:migrate:latest": "knex migrate:latest --migrations-directory=./db/migrations --knexfile=./db/knexfile.js --env=env"
+    "db:migrate:latest": "knex migrate:latest --debug --migrations-directory=./db/migrations --knexfile=./db/knexfile.js --env=$DATABASE_ENGINE",
+    "db:seed": "knex seed:run --knexfile=./db/knexfile.js --env=$DATABASE_ENGINE"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +33,9 @@
     "knex": "^0.21.2",
     "knex-paginate": "^1.2.2",
     "moment": "^2.29.1",
+    "mssql": "^6.2.3",
+    "mysql": "^2.18.1",
+    "oracledb": "^5.0.0",
     "pg": "^8.3.0",
     "snake-case": "^3.0.3",
     "uuid": "^8.2.0",

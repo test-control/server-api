@@ -1,0 +1,35 @@
+version: "3"
+services:
+  db:
+    image: postgres:13
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    volumes:
+      - ./data/postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      tc-network:
+        ipv4_address: 172.20.0.4
+  pgweb:
+    container_name: pgweb
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8081:8081"
+    links:
+      - db:db
+    environment:
+      - DATABASE_URL=postgres://user:pass@db:5432/db?sslmode=disable
+    depends_on:
+      - db
+    networks:
+      tc-network:
+        ipv4_address: 172.20.0.5

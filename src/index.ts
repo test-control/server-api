@@ -1,5 +1,5 @@
 
-import { getEnvs, setEnvs } from './common/envs'
+import { getEnvs } from './common/envs'
 
 import functionalitiesConfig from './functionalities'
 import { listenAppEvent } from './common'
@@ -7,11 +7,9 @@ import cors from 'cors'
 import { errorHandlerMiddleware } from './middlewares/error-handler'
 import path from 'path'
 import { middleware } from 'express-openapi-validator'
+import { setEnvsSettings } from './settings'
 
-setEnvs(
-  process.env,
-  path.join(__dirname, '..', 'specs', 'schemas', 'envs.yaml')
-)
+setEnvsSettings()
 
 process.on('unhandledRejection', error => {
   // Will print "unhandledRejection err is not defined"

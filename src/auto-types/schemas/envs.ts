@@ -14,10 +14,25 @@ export interface Envs {
   /**
    * Connection string to PostgreSQL
    */
-  POSTGRESQL_CONNECTION_STRING: string;
+  POSTGRESQL_CONNECTION_STRING?: string;
+  /**
+   * Connection string to PostgreSQL
+   */
+  MYSQL_CONNECTION_STRING?: string;
+  /**
+   * Connection string to PostgreSQL
+   */
+  MSSQL_CONNECTION_STRING?: string;
   /**
    * Cors origin setting
    */
   CORS_ORIGIN?: string;
+  DATABASE_ENGINE: DATABASE_ENGINE;
+}
+
+export const enum DATABASE_ENGINE {
+  postgresql = 'postgresql',
+  mysql = 'mysql',
+  mssql = 'mssql'
 }
 

@@ -19,10 +19,6 @@ export namespace GetProjectTreeRoot{
        * Title of root leaf
        */
       title: string;
-      /**
-       * Id of parent
-       */
-      parentId?: string;
       createdAt: string;
     };
   }

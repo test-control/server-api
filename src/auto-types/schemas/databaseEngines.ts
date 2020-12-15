@@ -5,6 +5,7 @@ export interface DatabaseEngines {
 
 export const enum Types {
   postgresql = 'postgresql',
-  mysql = 'mysql'
+  mysql = 'mysql',
+  mssql = 'mssql'
 }
 

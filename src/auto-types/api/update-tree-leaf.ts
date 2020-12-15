@@ -8,7 +8,7 @@ export namespace UpdateTreeLeaf{
      */
     title: string;
     /**
-     * Id of parent
+     * Parent row id
      */
     parentId?: string;
   }
@@ -30,10 +30,6 @@ export namespace UpdateTreeLeaf{
        * Title of root leaf
        */
       title: string;
-      /**
-       * Id of parent
-       */
-      parentId?: string;
       createdAt: string;
     };
   }

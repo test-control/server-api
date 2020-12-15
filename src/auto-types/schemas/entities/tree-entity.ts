@@ -7,15 +7,11 @@ export interface TreeEntity {
   /**
    * Title of root leaf
    */
-  title: string;
+  title?: string;
   /**
-   * Root id
+   * path id
    */
-  root_id?: string;
-  /**
-   * Id of parent
-   */
-  parent_id?: string;
+  tree_path: string;
   created_at: string;
 }
 

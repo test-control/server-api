@@ -8,10 +8,6 @@ export interface Tree {
    * Title of root leaf
    */
   title: string;
-  /**
-   * Id of parent
-   */
-  parentId?: string;
   createdAt: string;
 }
 

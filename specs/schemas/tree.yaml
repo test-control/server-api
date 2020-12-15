@@ -12,10 +12,6 @@ properties:
   title:
     type: string
     description: Title of root leaf
-  parentId:
-    type: string
-    format: uuid
-    description: Id of parent
   createdAt:
     type: string
     format: date-time

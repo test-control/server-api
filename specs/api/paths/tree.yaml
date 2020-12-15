@@ -58,7 +58,9 @@ patch:
             title:
               $ref: '../../schemas/tree.yaml#/properties/title'
             parentId:
-              $ref: '../../schemas/tree.yaml#/properties/parentId'
+              type: string
+              format: uuid
+              description: Parent row id
   responses:
     '200':
       description: Object was updated.

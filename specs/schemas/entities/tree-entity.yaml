@@ -1,7 +1,7 @@
 type: object
 required:
   - id
-  - title
+  - tree_path
   - created_at
 additionalProperties: false
 properties:
@@ -12,13 +12,9 @@ properties:
   title:
     type: string
     description: Title of root leaf
-  root_id:
+  tree_path:
     type: string
-    description: Root id
-  parent_id:
-    type: string
-    format: uuid
-    description: Id of parent
+    description: path id
   created_at:
     type: string
     format: date-time

@@ -24,11 +24,15 @@ describe('functionalities', () => {
           },
           {
             m: 'get',
-            r: apiV1Route('projects/:projectId/tree')
+            r: apiV1Route('projects/:projectId/tree-root')
           },
           {
             m: 'patch',
-            r: apiV1Route('projects/:projectId')
+            r: apiV1Route('projects/:entityId')
+          },
+          {
+            m: 'get',
+            r: apiV1Route('projects/:entityId')
           }
         ]
 

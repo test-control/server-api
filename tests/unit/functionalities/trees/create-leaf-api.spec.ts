@@ -39,20 +39,18 @@ describe('functionalities', () => {
           expect(treesRepository.findById).toBeCalled()
         }
       })
-      it('Entry created with parent non root entry', async () => {
+      it('Entry created', async () => {
         treesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
           expect(id).toEqual('sample-id1234')
 
           return {
             id: '123',
-            root_id: '345'
+            tree_path: '345'
           }
         })
 
-        treesRepository.create = jest.fn(async (data:any) : Promise<any> => {
+        treesRepository.createLeaf = jest.fn(async (treePath: string, data:any) : Promise<any> => {
           const newEntity = {
-            parent_id: '123',
-            root_id: '345',
             title: 'sample title'
           }
 
@@ -60,6 +58,7 @@ describe('functionalities', () => {
 
           return {
             id: '4566',
+            created_at: '2020-12-10 10:00:00',
             ...newEntity
           }
         })
@@ -73,59 +72,13 @@ describe('functionalities', () => {
         await createLeafApi(MockRequest, MockResponse, MockNextFunction)
 
         expect(treesRepository.findById).toBeCalled()
-        expect(treesRepository.create).toBeCalled()
+        expect(treesRepository.createLeaf).toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
           data: {
             id: '4566',
-            parentId: '123',
-            title: 'sample title'
-          }
-        })
-        expect(MockResponseStatus).toBeCalled()
-        expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
-      })
-      it('Entry created with parent root entry', async () => {
-        treesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
-          expect(id).toEqual('sample-id1234')
-
-          return {
-            id: '123',
-            root_id: null
-          }
-        })
-
-        treesRepository.create = jest.fn(async (data:any) : Promise<any> => {
-          const newEntity = {
-            parent_id: '123',
-            root_id: '123',
-            title: 'sample title'
-          }
-
-          expect(data).toEqual(newEntity)
-
-          return {
-            id: '4566',
-            ...newEntity
-          }
-        })
-
-        const MockResponseSend = jest.fn()
-        MockResponse.send = MockResponseSend
-
-        const MockResponseStatus = jest.fn()
-        MockResponse.status = MockResponseStatus
-
-        await createLeafApi(MockRequest, MockResponse, MockNextFunction)
-
-        expect(treesRepository.findById).toBeCalled()
-        expect(treesRepository.create).toBeCalled()
-        expect(MockResponseSend).toBeCalled()
-        expect(MockResponseSend.mock.calls[0][0]).toEqual({
-          data: {
-            id: '4566',
-            parentId: '123',
-            title: 'sample title'
+            title: 'sample title',
+            createdAt: '2020-12-10 10:00:00'
           }
         })
         expect(MockResponseStatus).toBeCalled()

@@ -68,13 +68,13 @@ describe('entity-transformers', () => {
       i: {
         id: 'sample',
         title: 'another',
-        root_id: '2-id',
-        parent_id: '3-id'
+        parent_id: '3-id',
+        created_at: new Date('2020-10-10 10:00:10')
       },
       o: {
         id: 'sample',
         title: 'another',
-        parentId: '3-id'
+        createdAt: '2020-10-10 10:00:10'
       }
     },
     {

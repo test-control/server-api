@@ -1,5 +1,5 @@
 import { Api, Schemas } from '../../auto-types'
-import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject } from '../../common'
+import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject, Trees } from '../../common'
 import { treesRepository } from '../../repositories'
 import { treeTransformer } from '../../entity-transformers'
 import {
@@ -26,11 +26,7 @@ export const createLeafApi = async (
         })
       }
 
-      return treesRepository.create({
-        parent_id: parentLeaf.id,
-        root_id: parentLeaf.root_id || parentLeaf.id,
-        ...toSnakeCaseObject(data)
-      })
+      return treesRepository.createLeaf(parentLeaf.tree_path, toSnakeCaseObject(data))
     },
     transformer: treeTransformer,
     entityName: EntitiesNames.Tree
@@ -57,10 +53,10 @@ export const updateLeafApi = [
         throw new Error(Schemas.DomainResponsesCodes.ErrorCodes.noEntity)
       }
 
-      const currentRootId = currentRow.root_id || currentRow.id
-      const newRootId = parentRow.root_id || parentRow.id
+      const currentRoot = Trees.extractRootFromPath(currentRow.tree_path)
+      const newParentRoot = Trees.extractRootFromPath(parentRow.tree_path)
 
-      if (currentRootId !== newRootId) {
+      if (currentRoot !== newParentRoot) {
         throw new Error(Schemas.DomainResponsesCodes.ErrorCodes.differentRoot)
       }
     })

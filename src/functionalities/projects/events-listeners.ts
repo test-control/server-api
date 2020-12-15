@@ -4,7 +4,7 @@ import { Schemas } from '../../auto-types'
 import moment from 'moment'
 
 export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.ProjectEntity>) => {
-  const tree = await treesRepository.create({
+  const tree = await treesRepository.createParent({
     title: 'root',
     created_at: moment().format()
   })

@@ -11,7 +11,7 @@ exports.up = function (knex) {
     ])
     tbl.dropColumn('parent_id')
 
-    tbl.text('tree_path').notNullable()
+    tbl.text('tree_path').notNullable().unique()
   })
 }
 

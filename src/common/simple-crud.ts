@@ -68,11 +68,11 @@ export const simpleUpdate = (input : {
 
     const updatedEntity = await input.findEntityCallback(entityId)
 
+    await sendAppEvent(new EntityEvent(entity, EntityEvent.updatedEventName(input.entityName)))
+
     res.send({
       data: input.transformerCallback(updatedEntity)
     })
-
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.updatedEventName(input.entityName)))
   }
 }
 
@@ -174,9 +174,9 @@ export const simpleDelete = (input :{
 
     await input.deleteCallback(entityId)
 
-    res.send({})
-
     await sendAppEvent(new EntityEvent(entity, EntityEvent.deletedEventName(input.entityName)))
+
+    res.send({})
   }
 }
 
@@ -188,12 +188,12 @@ export const simpleCreate = (input:{
   return async (req:ApiRequest, res: Response, next: NextFunction) => {
     const entity = await input.createCallback(toSnakeCaseObject(req.body))
 
+    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
+
     res.status(StatusCodes.CREATED)
     res.send({
       data: input.transformer(entity)
     })
-
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
   }
 }
 
@@ -215,11 +215,11 @@ export const simpleCreateManyToOne = (input:{
 
     const entity = await input.createCallback(input.relationId, toSnakeCaseObject(req.body))
 
+    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
+
     res.status(StatusCodes.CREATED)
     res.send({
       data: input.transformer(entity)
     })
-
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
   }
 }

@@ -37,12 +37,26 @@ export class EntityEvent<T> extends BaseEvent {
   }
 }
 
-const appEventEmitter = new EventEmitter()
-
-export const sendAppEvent = async <T extends IBaseEvent> (event: T) => {
-  await appEventEmitter.emit(event.systemName, event)
+interface IEventMap{
+  eventName: string;
+  listener: (IBaseEvent) => any
 }
 
-export const listenAppEvent = (eventName: string, listener: (IBaseEvent) => any) => {
-  appEventEmitter.addListener(eventName, listener)
+const appEventEmitter : Array<IEventMap> = []
+
+export const sendAppEvent = async <T extends IBaseEvent> (event: T) => {
+  for (var eventMap of appEventEmitter) {
+    if (eventMap.eventName !== event.systemName) {
+      continue
+    }
+
+    await eventMap.listener(event)
+  }
+}
+
+export const listenAppEvent = (eventName: string, listener: (IBaseEvent) => Promise<any>) => {
+  appEventEmitter.push({
+    eventName,
+    listener
+  })
 }

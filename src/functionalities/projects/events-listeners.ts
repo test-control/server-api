@@ -9,7 +9,7 @@ export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.Project
     created_at: moment().format()
   })
 
-  await projectTreesRepository.addProjectTree(
+  return projectTreesRepository.addProjectTree(
     event.entity.id,
     tree.id
   )

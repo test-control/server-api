@@ -1,6 +1,5 @@
 
 import { BaseEvent, IBaseEvent, listenAppEvent, sendAppEvent } from '../../../src/common'
-import { EventEmitter } from 'events'
 
 class SampleEvent extends BaseEvent {}
 
@@ -10,29 +9,17 @@ describe('common', () => {
       const event = new SampleEvent('sample-event')
       expect(event.systemName).toEqual('sample-event')
     })
-    it('sendAppEvent', () => {
-      const event = new SampleEvent('sample-event')
-
-      const mockEmitFn = jest.fn()
-      EventEmitter.prototype.emit = mockEmitFn
-
-      sendAppEvent(event)
-
-      expect(mockEmitFn).toBeCalled()
-      expect(mockEmitFn.mock.calls[0][0]).toEqual('sample-event')
-      expect(mockEmitFn.mock.calls[0][1]).toEqual(event)
-    })
-    it('listenAppEvent', () => {
-      const mockAddListener = jest.fn()
+    it('listenAppEvent', async () => {
       const mockListener = jest.fn()
-
-      EventEmitter.prototype.addListener = mockAddListener
+      const mockListener2 = jest.fn()
 
       listenAppEvent('sample-event', mockListener)
+      listenAppEvent('sample-event', mockListener2)
 
-      expect(mockAddListener).toBeCalled()
-      expect(mockAddListener.mock.calls[0][0]).toEqual('sample-event')
-      expect(mockAddListener.mock.calls[0][1]).toEqual(mockListener)
+      await sendAppEvent(new SampleEvent('sample-event'))
+
+      expect(mockListener).toBeCalled()
+      expect(mockListener2).toBeCalled()
     })
   })
 })

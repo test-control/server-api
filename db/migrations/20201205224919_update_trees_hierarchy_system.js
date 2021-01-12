@@ -1,6 +1,6 @@
 
 exports.up = function (knex) {
-  return knex.schema.table('trees', tbl => {
+  return knex.schema.withSchema('test_control').table('trees', tbl => {
     tbl.dropForeign([
       'root_id'
     ])
@@ -11,12 +11,14 @@ exports.up = function (knex) {
     ])
     tbl.dropColumn('parent_id')
 
-    tbl.text('tree_path').notNullable().unique()
+    tbl.string('tree_path', 256).notNullable().unique()
   })
 }
 
 exports.down = function (knex) {
-  tbl.dropColumn('tree_path')
-  tbl.uuid('root_id').references('id').inTable('trees').nullable()
-  tbl.uuid('parent_id').references('id').inTable('trees').nullable()
+  return knex.schema.withSchema('test_control').table('trees', tbl => {
+    tbl.dropColumn('tree_path')
+    tbl.uuid('root_id').references('id').inTable('test_control.trees').nullable()
+    tbl.uuid('parent_id').references('id').inTable('test_control.trees').nullable()
+  })
 }

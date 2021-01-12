@@ -1,18 +1,26 @@
 const dataSpQueries = {
   mssql: `
-create function trees_generate_new_path(@parent_path varchar(255)) 
+create function test_control.trees_generate_new_path(@parent_path varchar(255)) 
 returns varchar(255) as
 begin
    declare @last_leaf int
    declare @new_path varchar(255)
    declare @parent_id varchar(255)
 
-   select @parent_id = id from trees where tree_path = @parent_path
+   select @parent_id = id from test_control.trees where tree_path = @parent_path
 
    if (@parent_id is null)
        RETURN CAST('Cannot find parent leaf' AS INT)
 
-   set @last_leaf = (select cast(replace(tree_path,concat(@parent_path, '.'), '') as int) as spath from trees  where tree_path LIKE concat(@parent_path, '[.][0-9]') order by spath desc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY)
+   set @last_leaf = (select cast(replace(tree_path, concat(@parent_path, '.'), '') as int) as pathNumber 
+                      from test_control.trees 
+                      where CHARINDEX(concat(@parent_path, '.'), tree_path) >= 1 
+                        and charindex('.', STUFF(tree_path, charindex(concat(@parent_path, '.'), tree_path), LEN(concat(@parent_path, '.')), '')) <1
+                      order by pathNumber desc 
+                      offset 0 rows 
+                      fetch next 1 rows only
+   )
+
 
    if @last_leaf is null
        select @new_path = concat(@parent_path, '.', 1)
@@ -23,21 +31,21 @@ begin
 end
   `,
   mysql: `
-create function trees_generate_new_path(parent_path varchar(255)) 
+create function test_control.trees_generate_new_path(parent_path varchar(255)) 
 returns varchar(255)
 begin
   declare last_leaf integer;
   declare new_path varchar(255);
   declare parent_id varchar(255);
 
-  select id into parent_id from trees where tree_path = parent_path;
+  select id into parent_id from test_control.trees where tree_path = parent_path;
         
   if parent_id is null then
     signal sqlstate '45000'
     set MESSAGE_TEXT = 'Cannot find parent leaf';
   end if;
   
-  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from trees where tree_path REGEXP CONCAT('^', parent_path, '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from test_control.trees where tree_path REGEXP CONCAT('^', parent_path, '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;
@@ -49,20 +57,20 @@ begin
 end;
   `,
   postgresql: `
-  create or replace function trees_generate_new_path(parent_path TEXT)
+  create or replace function test_control.trees_generate_new_path(parent_path TEXT)
 returns text AS $$
 declare last_leaf integer;
 declare new_path text;
 declare parent_id text;
 begin
 
-  select id into parent_id from trees where tree_path = parent_path;
+  select id into parent_id from test_control.trees where tree_path = parent_path;
         
   if parent_id is null then
     raise exception 'Cannot find parent leaf with %:', parent_path;
   end if;
 
-  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from trees where tree_path ~ ('^' || parent_path || '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from test_control.trees where tree_path ~ ('^' || parent_path || '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;
@@ -76,9 +84,9 @@ $$  language plpgsql;`
 }
 
 exports.up = function (knex) {
-  return knex.schema.raw(dataSpQueries[process.env.DATABASE_ENGINE])
+  return knex.schema.withSchema('test_control').raw(dataSpQueries[process.env.DATABASE_ENGINE])
 }
 
 exports.down = function (knex) {
-  return knex.schema.raw('drop function trees_generate_new_path')
+  return knex.schema.withSchema('test_control').raw('drop function test_control.trees_generate_new_path')
 }

@@ -48,6 +48,8 @@ patch:
           properties:
             title:
               $ref: '../../schemas/project.yaml#/properties/title'
+            description:
+              $ref: '../../schemas/project.yaml#/properties/description'
   responses:
     '200':
       description: A JSON with project data

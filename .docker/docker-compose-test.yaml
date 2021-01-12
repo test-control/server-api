@@ -1,0 +1,17 @@
+version: "3"
+services:
+  test_func:
+    build:
+      dockerfile: ./.docker/Dockerfile
+      context: ../tests/func
+    tty: true
+    stdin_open: true
+    links:
+      - backend
+    depends_on:
+      - backend
+    volumes:
+      - ./../tests/func:/srv/backend-app-tests
+    networks:
+      tc-network:
+        ipv4_address: 172.20.0.6

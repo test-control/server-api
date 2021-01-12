@@ -1,6 +1,6 @@
 
 exports.up = function (knex) {
-  return knex.schema.createTable('projects', tbl => {
+  return knex.schema.withSchema('test_control').createTable('projects', tbl => {
     tbl.uuid('id').primary()
     tbl.text('title').notNullable()
     tbl.text('description').nullable()
@@ -8,5 +8,5 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('projects')
+  return knex.schema.withSchema('test_control').dropTableIfExists('projects')
 }

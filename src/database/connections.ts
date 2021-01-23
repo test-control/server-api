@@ -9,13 +9,15 @@ const dbSettingsMap = {
     driver: 'pg',
     env: 'POSTGRESQL_CONNECTION_STRING',
     extraParams: {
-      searchPath: ['public']
+      searchPath: ['test_control']
     }
   },
   mysql: {
     driver: 'mysql',
     env: 'MYSQL_CONNECTION_STRING',
-    extraParams: {}
+    extraParams: {
+      debug: true
+    }
   },
   mssql: {
     driver: 'mssql',

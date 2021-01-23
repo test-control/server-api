@@ -85,10 +85,14 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
   }
 
   async create (data: CreateUpdatePayload) : Promise<EntityType> {
-    return (await (this.store().insert({
+    const id = uuid()
+
+    await this.store().insert({
       ...data,
-      id: uuid()
-    }).returning<EntityType>('*')))[0]
+      id: id
+    })
+
+    return this.findById(id)
   }
 
   async paginate (currentPage: number, perPage: number) {

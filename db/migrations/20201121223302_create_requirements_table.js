@@ -1,13 +1,14 @@
+const helpers = require('../migration-helpers')
 
 exports.up = function (knex) {
-  return knex.schema.withSchema('test_control').createTable('requirements', tbl => {
+  return knex.schema.withSchema(helpers.getSchemaName('test_control')).createTable('requirements', tbl => {
     tbl.uuid('id').primary()
-    tbl.uuid('project_id').references('id').inTable('test_control.projects').notNullable()
+    tbl.uuid('project_id').references('id').inTable(helpers.getFullTableName('projects')).notNullable()
     tbl.text('title').notNullable()
     tbl.text('description').nullable()
   })
 }
 
 exports.down = function (knex) {
-  return knex.schema.withSchema('test_control').dropTableIfExists('requirements')
+  return knex.schema.withSchema(helpers.getSchemaName('test_control')).dropTableIfExists('requirements')
 }

@@ -1,6 +1,9 @@
+const helpers = require('../migration-helpers')
+const funcName = helpers.getFullTableName('trees_generate_new_path')
+
 const dataSpQueries = {
   mssql: `
-create function test_control.trees_generate_new_path(@parent_path varchar(255)) 
+create function ${funcName}(@parent_path varchar(255)) 
 returns varchar(255) as
 begin
    declare @last_leaf int
@@ -31,7 +34,7 @@ begin
 end
   `,
   mysql: `
-create function test_control.trees_generate_new_path(parent_path varchar(255)) 
+create function trees_generate_new_path(parent_path varchar(255)) 
 returns varchar(255)
 begin
   declare last_leaf integer;
@@ -57,7 +60,7 @@ begin
 end;
   `,
   postgresql: `
-  create or replace function test_control.trees_generate_new_path(parent_path TEXT)
+  create or replace function ${funcName}(parent_path TEXT)
 returns text AS $$
 declare last_leaf integer;
 declare new_path text;
@@ -84,9 +87,9 @@ $$  language plpgsql;`
 }
 
 exports.up = function (knex) {
-  return knex.schema.withSchema('test_control').raw(dataSpQueries[process.env.DATABASE_ENGINE])
+  return knex.schema.raw(dataSpQueries[process.env.DATABASE_ENGINE])
 }
 
 exports.down = function (knex) {
-  return knex.schema.withSchema('test_control').raw('drop function test_control.trees_generate_new_path')
+  return knex.schema.raw(`drop function ${funcName}`)
 }

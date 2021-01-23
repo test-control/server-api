@@ -1,6 +1,7 @@
+const helpers = require('../migration-helpers')
 
 exports.up = function (knex) {
-  return knex.schema.withSchema('test_control').table('trees', tbl => {
+  return knex.schema.withSchema(helpers.getSchemaName('test_control')).table('trees', tbl => {
     tbl.dropForeign([
       'root_id'
     ])
@@ -16,9 +17,9 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-  return knex.schema.withSchema('test_control').table('trees', tbl => {
+  return knex.schema.withSchema(helpers.getSchemaName('test_control')).table('trees', tbl => {
     tbl.dropColumn('tree_path')
-    tbl.uuid('root_id').references('id').inTable('test_control.trees').nullable()
-    tbl.uuid('parent_id').references('id').inTable('test_control.trees').nullable()
+    tbl.uuid('root_id').references('id').inTable(helpers.getFullTableName('trees')).nullable()
+    tbl.uuid('parent_id').references('id').inTable(helpers.getFullTableName('trees')).nullable()
   })
 }

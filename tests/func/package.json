@@ -1,0 +1,17 @@
+{
+  "name": "func",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --config=./.mocharc.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^8.2.1",
+    "moment": "^2.29.1",
+    "supertest": "^6.0.1",
+    "validator": "^13.5.2"
+  }
+}

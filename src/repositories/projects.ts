@@ -11,10 +11,11 @@ export class ProjectsRepository extends SimpleCrudRepository<Schemas.Entities.Pr
   }
 
   async paginate (currentPage: number, perPage: number) {
-    return this.store().paginate({
-      perPage: perPage,
-      currentPage: currentPage,
-      isLengthAware: true
-    })
+    return this.store()
+      .paginate({
+        perPage: perPage,
+        currentPage: currentPage,
+        isLengthAware: true
+      })
   }
 }

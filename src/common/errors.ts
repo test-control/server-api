@@ -55,3 +55,9 @@ export class DomainError extends BaseError {
     super(statusCode || StatusCodes.BAD_REQUEST, code, debug)
   }
 }
+
+export class InternalError extends BaseError {
+  constructor (debug?: object) {
+    super(StatusCodes.INTERNAL_SERVER_ERROR, 'internal-error', debug)
+  }
+}

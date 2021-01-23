@@ -51,27 +51,6 @@ async function runServer () {
     }
   })
 
-  app.get('/mega', async (req, res) => {
-    const conn = getAppConnection()
-    const treesId = uuid()
-
-    const sql = 'INSERT INTO test_control.trees(id, title, tree_path, created_at)values(?, ?, test_control.trees_generate_new_path(\'1\'), ?)'
-
-    await conn.transaction(async (trx) => {
-      return trx
-        .raw('SELECT TOP (1) 1 FROM test_control.trees WITH (TABLOCKX)')
-        .then((rest) => {
-          return trx.raw(sql, [
-            treesId,
-            'Sample' + treesId,
-            moment().format('YYYY-MM-DD hh:mm:ss')
-          ]).transacting(trx)
-        })
-    })
-
-    res.send({ ok: 'yes' })
-  })
-
   app.use(errorHandlerMiddleware(getEnvs().APP_DEBUG))
 
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))

@@ -1,8 +1,9 @@
+const helpers = require('../migration-helpers')
 
 exports.seed = function (knex) {
-  return knex('trees').del()
+  return knex(helpers.getFullTableName('trees')).del()
     .then(function () {
-      return knex('trees').insert([
+      return knex(helpers.getFullTableName('trees')).insert([
         { id: 'a2379685-b102-4a3f-8907-87fe0dd3d37a', title: 'root', tree_path: '1' },
         { id: 'afd29266-fa92-4fd6-a23d-cd15cc052167', title: 'MVP 1 - Company website', tree_path: '1.1' },
         { id: '669f913c-1f46-4bc0-be27-25e368b93b7c', title: 'Homepage', tree_path: '1.1.1' },

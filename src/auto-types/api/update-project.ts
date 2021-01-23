@@ -7,6 +7,10 @@ export namespace UpdateProject{
      * Title
      */
     title?: string;
+    /**
+     * Description
+     */
+    description?: string;
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {

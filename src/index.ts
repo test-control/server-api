@@ -30,12 +30,11 @@ async function runServer () {
 
   app.use(express.json())
 
-  /*
   app.use(middleware({
     apiSpec: path.join(__dirname, '..', 'specs', 'api', 'api.yaml'),
     validateRequests: true,
     validateResponses: false
-  })) */
+  }))
 
   funcConfig.forEach((func) => {
     if (func.routes) {

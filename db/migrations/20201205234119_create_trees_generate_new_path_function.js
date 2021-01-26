@@ -1,5 +1,6 @@
 const helpers = require('../migration-helpers')
 const funcName = helpers.getFullTableName('trees_generate_new_path')
+const tableName = helpers.getFullTableName('trees')
 
 const dataSpQueries = {
   mssql: `
@@ -10,13 +11,13 @@ begin
    declare @new_path varchar(255)
    declare @parent_id varchar(255)
 
-   select @parent_id = id from test_control.trees where tree_path = @parent_path
+   select @parent_id = id from ${tableName} where tree_path = @parent_path
 
    if (@parent_id is null)
        RETURN CAST('Cannot find parent leaf' AS INT)
 
    set @last_leaf = (select cast(replace(tree_path, concat(@parent_path, '.'), '') as int) as pathNumber 
-                      from test_control.trees 
+                      from ${tableName}
                       where CHARINDEX(concat(@parent_path, '.'), tree_path) >= 1 
                         and charindex('.', STUFF(tree_path, charindex(concat(@parent_path, '.'), tree_path), LEN(concat(@parent_path, '.')), '')) <1
                       order by pathNumber desc 
@@ -34,21 +35,21 @@ begin
 end
   `,
   mysql: `
-create function trees_generate_new_path(parent_path varchar(255)) 
+create function ${funcName}(parent_path varchar(255)) 
 returns varchar(255)
 begin
   declare last_leaf integer;
   declare new_path varchar(255);
   declare parent_id varchar(255);
 
-  select id into parent_id from test_control.trees where tree_path = parent_path;
+  select id into parent_id from ${tableName} where tree_path = parent_path;
         
   if parent_id is null then
     signal sqlstate '45000'
     set MESSAGE_TEXT = 'Cannot find parent leaf';
   end if;
   
-  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from test_control.trees where tree_path REGEXP CONCAT('^', parent_path, '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from ${tableName} where tree_path REGEXP CONCAT('^', parent_path, '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;
@@ -67,13 +68,13 @@ declare new_path text;
 declare parent_id text;
 begin
 
-  select id into parent_id from test_control.trees where tree_path = parent_path;
+  select id into parent_id from ${tableName} where tree_path = parent_path;
         
   if parent_id is null then
     raise exception 'Cannot find parent leaf with %:', parent_path;
   end if;
 
-  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from test_control.trees where tree_path ~ ('^' || parent_path || '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from ${tableName} where tree_path ~ ('^' || parent_path || '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;

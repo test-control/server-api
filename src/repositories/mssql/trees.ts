@@ -12,4 +12,17 @@ export class MssqlTreesRepository extends TreesRepository {
         })
     })
   }
+
+  async paginateLeaves (parentId:string, currentPage: number, perPage: number) {
+    const parent = await this.findById(parentId)
+
+    return this.store()
+      .whereRaw(`charindex('${parent.tree_path}.', tree_path) >= 1`)
+      .andWhereRaw(`charindex('.', STUFF(tree_path, charindex('${parent.tree_path}.', tree_path), LEN('${parent.tree_path}.'), '')) <1`)
+      .paginate({
+        perPage: perPage,
+        currentPage: currentPage,
+        isLengthAware: true
+      })
+  }
 }

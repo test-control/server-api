@@ -60,4 +60,16 @@ export class MysqlTreesRepository extends TreesRepository {
 
     return row
   }
+
+  async paginateLeaves (parentId:string, currentPage: number, perPage: number) {
+    const parent = await this.findById(parentId)
+
+    return this.store()
+      .whereRaw(`tree_path REGEXP '^${parent.tree_path}\\.[0-9]{1,}$'`)
+      .paginate({
+        perPage: perPage,
+        currentPage: currentPage,
+        isLengthAware: true
+      })
+  }
 }

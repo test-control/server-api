@@ -94,3 +94,33 @@ export const listLeavesApi = async (
     transformerCallback: treeTransformer
   })(req, res, next)
 }
+
+export const rootPathApi = async (
+  req: Api.GetTreeRootPath.ApiRequest,
+  res: Api.GetTreeRootPath.ApiResponse,
+  next: NextFunction
+) => {
+  const leafId = req.params.entityId
+
+  return SimpleCrud.simpleList({
+    listCallback: async () => {
+      return treesRepository.getAllLeavesFromRoot(
+        leafId
+      )
+    },
+    transformerCallback: treeTransformer,
+    entityName: EntitiesNames.Tree
+  })(req, res, next)
+}
+
+export const getTreeApi = async (
+  req: Api.GetTree.ApiRequest,
+  res: Api.GetTree.ApiResponse,
+  next: NextFunction
+) => {
+  return SimpleCrud.simpleGet({
+    findEntityCallback: treesRepository.bindFindById(),
+    transformerCallback: treeTransformer,
+    entityName: EntitiesNames.Tree
+  })(req, res, next)
+}

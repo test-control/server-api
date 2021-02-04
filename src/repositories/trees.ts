@@ -4,6 +4,8 @@ import Knex, { Transaction } from 'knex'
 import { getFullTableName, TableNames } from '../database'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
+import { ResourcesNotFound } from '../common'
+import { getAllLeavesFromRoot } from '../common/trees'
 
 export type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id' | 'tree_path'>;
 
@@ -75,5 +77,20 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
         currentPage: currentPage,
         isLengthAware: true
       })
+  }
+
+  async getAllLeavesFromRoot (leafId: string) : Promise<Schemas.Entities.TreeEntity[]> {
+    const leaf = await this.findById(leafId)
+
+    if (!leaf) {
+      throw new ResourcesNotFound({
+        leafId: leafId
+      })
+    }
+
+    const allLeaves = getAllLeavesFromRoot(leaf.tree_path)
+
+    return this.store()
+      .whereIn('tree_path', allLeaves)
   }
 }

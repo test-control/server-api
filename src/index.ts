@@ -7,11 +7,12 @@ import { errorHandlerMiddleware } from './middlewares/error-handler'
 import path from 'path'
 import { middleware } from 'express-openapi-validator'
 import { setEnvsSettings } from './settings'
-import { getAppConnection } from './database'
-import { v4 as uuid } from 'uuid'
-import moment from 'moment'
 
-setEnvsSettings()
+try {
+  setEnvsSettings()
+} catch (e) {
+  console.log('Invalid environment settings: ' + JSON.stringify(e))
+}
 
 process.on('unhandledRejection', error => {
   // Will print "unhandledRejection err is not defined"

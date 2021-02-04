@@ -1,0 +1,40 @@
+get:
+  operationId: listTreeLeaves
+  description: List tree leaves
+  tags:
+    - Tree
+  parameters:
+    - in: query
+      name: page
+      schema:
+        type: integer
+      description: Page number
+    - in: query
+      name: perPage
+      schema:
+        type: integer
+      description: Rows per page
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: A JSON with leaves
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+              - meta
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../schemas/tree.yaml'
+              meta:
+                $ref: '../../schemas/pagination-meta.yaml'

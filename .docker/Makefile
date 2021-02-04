@@ -3,7 +3,7 @@ all: run-postgresql
 run-postgresql: clear-paths
 	cat ./.common.env > .env
 	cat ./.env.postgresql >> .env
-	rm -f -R data/postgres-data/* /dev/null
+	rm -f -R data/postgres-data/*
 	docker-compose -f docker-compose.yml -f docker-compose-postgresql.yaml up --remove-orphans
 run-mysql: clear-paths
 	rm -f -R data/mysql-data/*
@@ -20,7 +20,7 @@ run-mssql: clear-paths
 run-postgresql-tests: clear-paths
 	cat ./.common.env > .env
 	cat ./.env.postgresql >> .env
-	rm -f -R data/postgres-data/* /dev/null
+	rm -f -R data/postgres-data/*
 	docker-compose  -f docker-compose.yml -f docker-compose-postgresql.yaml -f docker-compose-test.yaml up --remove-orphans --force-recreate
 
 run-mysql-tests: clear-paths

@@ -77,21 +77,11 @@ patch:
     '400':
       $ref: '../common/responses.yaml#/validationError'
 get:
-  operationId: listTreeLeaves
-  description: List tree leaves
+  description: Get leave information
+  operationId: getTree
   tags:
     - Tree
   parameters:
-    - in: query
-      name: page
-      schema:
-        type: integer
-      description: Page number
-    - in: query
-      name: perPage
-      schema:
-        type: integer
-      description: Rows per page
     - in: path
       name: entityId
       required: true
@@ -100,7 +90,7 @@ get:
         format: uuid
   responses:
     '200':
-      description: A JSON with leaves
+      description: A JSON with tree
       content:
         application/json:
           schema:
@@ -108,11 +98,8 @@ get:
             additionalProperties: false
             required:
               - data
-              - meta
             properties:
               data:
-                type: array
-                items:
-                  $ref: '../../schemas/tree.yaml'
-              meta:
-                $ref: '../../schemas/pagination-meta.yaml'
+                $ref: '../../schemas/tree.yaml'
+    '404':
+      $ref: '../common/responses.yaml#/resourceNotFound'

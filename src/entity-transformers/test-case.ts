@@ -4,6 +4,7 @@ export const testCaseTransformer = function (entity: Schemas.Entities.TestCaseEn
   return {
     id: entity.id,
     title: entity.title,
-    description: entity.description
+    description: entity.description,
+    treeId: entity.tree_id
   }
 }

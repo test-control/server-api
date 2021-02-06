@@ -12,5 +12,9 @@ export interface TestCase {
    * Test case description
    */
   description?: string;
+  /**
+   * Tree id
+   */
+  treeId: string;
 }
 

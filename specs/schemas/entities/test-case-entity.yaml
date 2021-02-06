@@ -2,6 +2,7 @@ type: object
 required:
   - id
   - title
+  - tree_id
 additionalProperties: false
 properties:
   id:
@@ -13,3 +14,6 @@ properties:
   description:
     type: string
     description: Description
+  tree_id:
+    type: string
+    description: Tree id

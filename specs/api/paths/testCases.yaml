@@ -10,7 +10,10 @@ post:
           additionalProperties: false
           required:
             - title
+            - treeId
           properties:
+            treeId:
+              $ref: '../../schemas/tree.yaml#/properties/id'
             title:
               $ref: '../../schemas/testCase.yaml#/properties/title'
             description:

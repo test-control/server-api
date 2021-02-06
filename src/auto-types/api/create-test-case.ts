@@ -10,7 +10,7 @@ export namespace CreateTestCase{
     /**
      * Test case description
      */
-    description: string;
+    description?: string;
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {}

@@ -9,4 +9,14 @@ export class TestCasesRepository extends SimpleCrudRepository<Schemas.Entities.T
   constructor (knex: () => Knex) {
     super(knex, TableNames.TestCases)
   }
+
+  async paginateFromTree (treeId: string, currentPage: number, perPage: number) {
+    return this.store()
+      .where('tree_id', treeId)
+      .paginate({
+        perPage: perPage,
+        currentPage: currentPage,
+        isLengthAware: true
+      })
+  }
 }

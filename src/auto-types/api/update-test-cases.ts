@@ -34,6 +34,10 @@ export namespace UpdateTestCases{
        * Test case description
        */
       description?: string;
+      /**
+       * Tree id
+       */
+      treeId: string;
     };
   }
   export type ResponseBody = ApplicationJson200ResponseBody

@@ -23,6 +23,10 @@ export namespace GetTestCase{
        * Test case description
        */
       description?: string;
+      /**
+       * Tree id
+       */
+      treeId: string;
     };
   }
   export interface ApplicationJson404ResponseBody {

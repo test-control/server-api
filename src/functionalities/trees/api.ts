@@ -1,7 +1,7 @@
 import { Api, Schemas } from '../../auto-types'
 import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject, Trees } from '../../common'
-import { treesRepository } from '../../repositories'
-import { treeTransformer } from '../../entity-transformers'
+import { testCasesRepository, treesRepository } from '../../repositories'
+import { testCaseTransformer, treeTransformer } from '../../entity-transformers'
 import {
   body as checkBody
 } from 'express-validator'
@@ -92,6 +92,26 @@ export const listLeavesApi = async (
     },
     entityName: EntitiesNames.Tree,
     transformerCallback: treeTransformer
+  })(req, res, next)
+}
+
+export const listTestCasesApi = async (
+  req: Api.ListTreeTestCases.ApiRequest,
+  res: Api.ListTreeTestCases.ApiResponse,
+  next: NextFunction
+) => {
+  const treeId = req.params.entityId
+
+  return SimpleCrud.simplePaginate({
+    paginateCallback: (currentPage, perPage) => {
+      return testCasesRepository.paginateFromTree(
+        treeId,
+        currentPage,
+        perPage
+      )
+    },
+    entityName: EntitiesNames.TestCase,
+    transformerCallback: testCaseTransformer
   })(req, res, next)
 }
 

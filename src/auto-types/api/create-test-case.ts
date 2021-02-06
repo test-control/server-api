@@ -4,6 +4,10 @@ import { Request, Response } from 'express'
 export namespace CreateTestCase{
   export interface ApplicationJsonRequestBody {
     /**
+     * Unique id
+     */
+    treeId: string;
+    /**
      * Title
      */
     title: string;
@@ -32,6 +36,10 @@ export namespace CreateTestCase{
        * Test case description
        */
       description?: string;
+      /**
+       * Tree id
+       */
+      treeId: string;
     };
   }
   export type ResponseBody = ApplicationJson201ResponseBody

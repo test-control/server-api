@@ -25,5 +25,7 @@ paths:
     $ref: './paths/tree.yaml'
   /api/v1/trees/{entityId}/leaves:
     $ref: './paths/treeLeaves.yaml'
+  /api/v1/trees/{entityId}/test-cases:
+    $ref: './paths/treeTestCases.yaml'
   /api/v1/trees/{entityId}/root-path:
     $ref: './paths/treeRootPath.yaml'

@@ -5,6 +5,7 @@ export const testCaseTransformer = function (entity: Schemas.Entities.TestCaseEn
     id: entity.id,
     title: entity.title,
     description: entity.description,
-    treeId: entity.tree_id
+    treeId: entity.tree_id,
+    displayOrder: entity.display_order
   }
 }

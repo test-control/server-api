@@ -16,5 +16,6 @@ export interface TestCaseEntity {
    * Tree id
    */
   tree_id: string;
+  display_order?: number;
 }
 

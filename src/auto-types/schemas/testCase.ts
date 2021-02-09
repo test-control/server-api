@@ -16,5 +16,6 @@ export interface TestCase {
    * Tree id
    */
   treeId: string;
+  displayOrder: number;
 }
 

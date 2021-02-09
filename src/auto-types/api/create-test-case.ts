@@ -40,6 +40,7 @@ export namespace CreateTestCase{
        * Tree id
        */
       treeId: string;
+      displayOrder: number;
     };
   }
   export type ResponseBody = ApplicationJson201ResponseBody

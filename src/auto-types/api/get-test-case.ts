@@ -27,6 +27,7 @@ export namespace GetTestCase{
        * Tree id
        */
       treeId: string;
+      displayOrder: number;
     };
   }
   export interface ApplicationJson404ResponseBody {

@@ -38,6 +38,7 @@ export namespace UpdateTestCases{
        * Tree id
        */
       treeId: string;
+      displayOrder: number;
     };
   }
   export type ResponseBody = ApplicationJson200ResponseBody

@@ -3,6 +3,7 @@ required:
   - id
   - title
   - treeId
+  - displayOrder
 additionalProperties: false
 properties:
   id:
@@ -18,3 +19,5 @@ properties:
   treeId:
     type: string
     description: Tree id
+  displayOrder:
+    type: number

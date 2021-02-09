@@ -17,3 +17,5 @@ properties:
   tree_id:
     type: string
     description: Tree id
+  display_order:
+    type: number

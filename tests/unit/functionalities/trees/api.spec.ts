@@ -18,6 +18,18 @@ describe('functionalities', () => {
           {
             m: 'patch',
             r: apiV1Route('trees/:entityId')
+          },
+          {
+            m: 'get',
+            r: apiV1Route('trees/:entityId/leaves')
+          },
+          {
+            m: 'get',
+            r: apiV1Route('trees/:entityId/test-cases')
+          },
+          {
+            m: 'get',
+            r: apiV1Route('trees/:entityId/root-path')
           }
         ]
 

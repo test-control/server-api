@@ -22,12 +22,16 @@ describe('entity-transformers', () => {
       i: {
         id: 'sample',
         title: 'another',
-        description: 'description'
+        description: 'description',
+        tree_id: '123-1233',
+        display_order: 1
       },
       o: {
         id: 'sample',
         title: 'another',
-        description: 'description'
+        description: 'description',
+        treeId: '123-1233',
+        displayOrder: 1
       }
     },
     {

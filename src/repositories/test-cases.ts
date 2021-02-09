@@ -13,6 +13,7 @@ export class TestCasesRepository extends SimpleCrudRepository<Schemas.Entities.T
   async paginateFromTree (treeId: string, currentPage: number, perPage: number) {
     return this.store()
       .where('tree_id', treeId)
+      .orderBy('display_order')
       .paginate({
         perPage: perPage,
         currentPage: currentPage,

@@ -11,6 +11,7 @@ export namespace UpdateTestCases{
      * Test case description
      */
     description?: string;
+    displayAfter?: string;
   }
   export type RequestBody = ApplicationJsonRequestBody
   export interface PathRequestParams {

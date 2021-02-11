@@ -1,0 +1,31 @@
+post:
+  description: Change test-case display order
+  operationId: moveTestCase
+  tags:
+    - Test case
+  parameters:
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          additionalProperties: false
+          required:
+            - displayAfter
+          properties:
+            displayAfter:
+              type: string
+              format: uuid
+  responses:
+    '200':
+      description: Object was updated.
+      content:
+        application/json:
+          schema:
+            type: object

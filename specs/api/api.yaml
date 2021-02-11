@@ -13,6 +13,8 @@ paths:
     $ref: './paths/testCases.yaml'
   /api/v1/test-cases/{entityId}:
     $ref: './paths/testCase.yaml'
+  /api/v1/test-cases/{entityId}/move:
+    $ref: './paths/testCaseMove.yaml'
   /api/v1/test-cases/{testCaseId}/preconditions:
     $ref: './paths/testCasePreconditions.yaml'
   /api/v1/test-cases/{testCaseId}/steps:

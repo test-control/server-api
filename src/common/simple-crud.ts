@@ -76,6 +76,21 @@ export const simpleUpdate = (input : {
   }
 }
 
+export const simpleRunEUpdate = async (entityName: string, entities:object[]) => {
+  const promises = []
+
+  for (var e of entities) {
+    const event = new EntityEvent(
+      e,
+      EntityEvent.updatedEventName(entityName)
+    )
+
+    promises.push(sendAppEvent(event))
+  }
+
+  return Promise.all(promises)
+}
+
 export const simpleGet = (input: {
   findEntityCallback: FindEntityCallback,
   transformerCallback: TransformerCallback,

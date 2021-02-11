@@ -19,6 +19,10 @@ describe('functionalities', () => {
           {
             m: 'patch',
             r: apiV1Route('test-cases/:entityId')
+          },
+          {
+            m: 'post',
+            r: apiV1Route('test-cases/:entityI/move')
           }
         ]
 

@@ -6,7 +6,7 @@ var moment = require('moment')
 const req = require('supertest')
 
 describe('Creating project', () => {
-  /* it('Create new project', () => {
+  it('Create new project', () => {
     const description = 'Very long project description'
     const title = 'Sample great project'
 
@@ -22,7 +22,7 @@ describe('Creating project', () => {
         assert.strictEqual(res.body.data.description, description)
         assert.strictEqual(true, validator.isUUID(res.body.data.id, 4))
       })
-  }) */
+  })
   it('Create 20 new project at the same time', async () => {
     const description = 'Very long project description'
     const title = 'Sample great project'
@@ -46,7 +46,7 @@ describe('Creating project', () => {
 
     return Promise.all(promises)
   })
-  /* it('New project has tree root.', async () => {
+  it('New project has tree root.', async () => {
     const response = await req(config.backendUrl)
       .post(config.getApiV1Url('/projects'))
       .send({
@@ -68,5 +68,5 @@ describe('Creating project', () => {
 
         assert.strictEqual(res.body.data.createdAt, createdAt)
       })
-  }) */
+  })
 })

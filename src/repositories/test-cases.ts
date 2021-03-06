@@ -1,9 +1,9 @@
 import Knex from 'knex'
 import { Schemas } from '../auto-types'
-import { TableNames } from '../database'
+import { getFullTableName, TableNames } from '../database'
 import { SimpleCrudRepository } from './common'
 
-type CreateUpdatePayload = Pick<Schemas.Entities.TestCaseEntity, 'title' | 'description'>;
+export type CreateUpdatePayload = Pick<Schemas.Entities.TestCaseEntity, 'title' | 'description'>;
 
 export class TestCasesRepository extends SimpleCrudRepository<Schemas.Entities.TestCaseEntity, CreateUpdatePayload> {
   constructor (knex: () => Knex) {
@@ -19,5 +19,14 @@ export class TestCasesRepository extends SimpleCrudRepository<Schemas.Entities.T
         currentPage: currentPage,
         isLengthAware: true
       })
+  }
+
+  async changeDisplayOrder (fromId: string, toId: string) {
+    const funcName = getFullTableName('test_cases_change_display_order')
+
+    return this.knex().raw(`call ${funcName}(?, ?)`, [
+      fromId,
+      toId
+    ])
   }
 }

@@ -35,4 +35,13 @@ export class ProjectTreesRepository extends SimpleCrudRepository<Schemas.Entitie
       .where(TableNames.ProjectTrees + '.project_id', projectId)
       .first()
   }
+
+  getProject (rootId: string) : Promise<Schemas.Entities.ProjectEntity> {
+    return this.store()
+      .select(TableNames.Projects + '.*')
+      .from(TableNames.Projects)
+      .leftJoin(TableNames.ProjectTrees, TableNames.Projects + '.id', TableNames.ProjectTrees + '.project_id')
+      .where(TableNames.ProjectTrees + '.tree_id', rootId)
+      .first()
+  }
 }

@@ -5,7 +5,7 @@ import { getFullTableName, TableNames } from '../database'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 import { ResourcesNotFound } from '../common'
-import { getAllLeavesFromRoot } from '../common/trees'
+import { extractRootFromPath, getAllLeavesFromRoot } from '../common/trees'
 
 export type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id' | 'tree_path'>;
 
@@ -67,6 +67,12 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
       .first()
   }
 
+  async findByTreePath (treePath: string) : Promise<Schemas.Entities.TreeEntity> {
+    return this.store()
+      .where('tree_path', treePath)
+      .first()
+  }
+
   async paginateLeaves (parentId:string, currentPage: number, perPage: number) {
     const parent = await this.findById(parentId)
 
@@ -92,5 +98,23 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
 
     return this.store()
       .whereIn('tree_path', allLeaves)
+  }
+
+  async getRoot (treeId: string) : Promise<Schemas.Entities.TreeEntity> {
+    const leaf = await this.findById(treeId)
+
+    if (!leaf) {
+      throw new ResourcesNotFound({
+        leafId: treeId
+      })
+    }
+
+    const rootPath = extractRootFromPath(leaf.tree_path)
+
+    if (rootPath === leaf.tree_path) {
+      return leaf
+    }
+
+    return this.findByTreePath(rootPath)
   }
 }

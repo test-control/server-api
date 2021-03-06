@@ -1,6 +1,6 @@
 import { Api, Schemas } from '../../auto-types'
 import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject, Trees } from '../../common'
-import { testCasesRepository, treesRepository } from '../../repositories'
+import { projectTreesRepository, testCasesRepository, treesRepository } from '../../repositories'
 import { testCaseTransformer, treeTransformer } from '../../entity-transformers'
 import {
   body as checkBody
@@ -8,6 +8,7 @@ import {
 import { requestValidationMiddleware } from '../../middlewares'
 import { EntitiesNames } from '../../database'
 import { NextFunction } from 'express'
+import { projectsTransformer } from '../../entity-transformers/project'
 
 export const createLeafApi = async (
   req:Api.CreateTreeLeaf.ApiRequest,
@@ -142,5 +143,27 @@ export const getTreeApi = async (
     findEntityCallback: treesRepository.bindFindById(),
     transformerCallback: treeTransformer,
     entityName: EntitiesNames.Tree
+  })(req, res, next)
+}
+
+export const getTreeProject = async (
+  req: Api.GetTreeGetProject.ApiRequest,
+  res: Api.GetTreeGetProject.ApiResponse,
+  next: NextFunction
+) => {
+  return SimpleCrud.simpleGet({
+    findEntityCallback: async (treeId: string) => {
+      const treeRoot = await treesRepository.getRoot(treeId)
+
+      if (!treeRoot) {
+        throw new ResourcesNotFound({
+          leafId: treeId
+        })
+      }
+
+      return projectTreesRepository.getProject(treeRoot.id)
+    },
+    transformerCallback: projectsTransformer,
+    entityName: EntitiesNames.Project
   })(req, res, next)
 }

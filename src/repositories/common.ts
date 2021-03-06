@@ -78,6 +78,11 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
       .first()
   }
 
+  async getByIds (ids:string[]) : Promise<EntityType[]|undefined> {
+    return this.store()
+      .whereIn('id', ids)
+  }
+
   async deleteById (id:string) {
     return this.store()
       .where('id', id)

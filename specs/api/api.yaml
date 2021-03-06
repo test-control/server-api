@@ -31,3 +31,5 @@ paths:
     $ref: './paths/treeTestCases.yaml'
   /api/v1/trees/{entityId}/root-path:
     $ref: './paths/treeRootPath.yaml'
+  /api/v1/trees/{entityId}/get-project:
+    $ref: './paths/treeGetProject.yaml'

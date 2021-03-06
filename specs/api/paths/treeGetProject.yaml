@@ -1,0 +1,25 @@
+get:
+  operationId: getTreeGetProject
+  description: Get project by treeId
+  tags:
+    - Tree
+  parameters:
+    - in: path
+      name: entityId
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: A JSON with project
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - data
+            properties:
+              data:
+                $ref: '../../schemas/project.yaml'

@@ -1,7 +1,25 @@
-import { getAllLeavesFromRoot } from '../../../src/common/trees'
+import { extractRootFromPath, getAllLeavesFromRoot } from '../../../src/common/trees'
 
 describe('common', () => {
   describe('trees', () => {
+    describe('extractRootFromPath', () => {
+      it('valid value', () => {
+        const pairs = [
+          {
+            path: '11231231.1333',
+            root: '11231231'
+          },
+          {
+            path: '1',
+            root: '1'
+          }
+        ]
+
+        for (var pair of pairs) {
+          expect(extractRootFromPath(pair.path)).toEqual(pair.root)
+        }
+      })
+    })
     describe('createRootPath', () => {
       it('invalid value', () => {
         expect(getAllLeavesFromRoot('wqcff4tsrtaeg')).toBeNull()

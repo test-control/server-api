@@ -73,12 +73,14 @@ describe('entity-transformers', () => {
         id: 'sample',
         title: 'another',
         parent_id: '3-id',
-        created_at: new Date('2020-10-10 10:00:10')
+        created_at: new Date('2020-10-10 10:00:10'),
+        elements_amount: 1234
       },
       o: {
         id: 'sample',
         title: 'another',
-        createdAt: '2020-10-10 10:00:10'
+        createdAt: '2020-10-10 10:00:10',
+        elementsAmount: 1234
       }
     },
     {

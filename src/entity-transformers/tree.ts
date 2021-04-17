@@ -5,6 +5,7 @@ export const treeTransformer = function (entity: Schemas.Entities.TreeEntity) : 
   return {
     id: entity.id,
     title: entity.title,
-    createdAt: moment(entity.created_at).format('YYYY-MM-DD hh:mm:ss')
+    createdAt: moment(entity.created_at).format('YYYY-MM-DD hh:mm:ss'),
+    elementsAmount: entity.elements_amount
   }
 }

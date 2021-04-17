@@ -13,5 +13,9 @@ export interface TreeEntity {
    */
   tree_path: string;
   created_at: string;
+  /**
+   * Elements amount
+   */
+  elements_amount: number;
 }
 

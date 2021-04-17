@@ -31,6 +31,10 @@ export namespace UpdateTreeLeaf{
        */
       title: string;
       createdAt: string;
+      /**
+       * Elements amount
+       */
+      elementsAmount: number;
     };
   }
   export interface ApplicationJson400ResponseBody {

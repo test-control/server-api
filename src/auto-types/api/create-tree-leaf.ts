@@ -27,6 +27,10 @@ export namespace CreateTreeLeaf{
        */
       title: string;
       createdAt: string;
+      /**
+       * Elements amount
+       */
+      elementsAmount: number;
     };
   }
   export type ResponseBody = ApplicationJson201ResponseBody

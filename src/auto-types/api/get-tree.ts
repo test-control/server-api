@@ -20,6 +20,10 @@ export namespace GetTree{
        */
       title: string;
       createdAt: string;
+      /**
+       * Elements amount
+       */
+      elementsAmount: number;
     };
   }
   export interface ApplicationJson404ResponseBody {

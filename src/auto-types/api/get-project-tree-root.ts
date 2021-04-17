@@ -20,6 +20,10 @@ export namespace GetProjectTreeRoot{
        */
       title: string;
       createdAt: string;
+      /**
+       * Elements amount
+       */
+      elementsAmount: number;
     };
   }
   export type ResponseBody = ApplicationJson200ResponseBody

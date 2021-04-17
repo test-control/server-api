@@ -23,6 +23,10 @@ export namespace ListTreeLeaves{
        */
       title: string;
       createdAt: string;
+      /**
+       * Elements amount
+       */
+      elementsAmount: number;
     }[];
     meta: {
       /**

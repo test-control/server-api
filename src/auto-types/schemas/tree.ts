@@ -9,5 +9,9 @@ export interface Tree {
    */
   title: string;
   createdAt: string;
+  /**
+   * Elements amount
+   */
+  elementsAmount: number;
 }
 

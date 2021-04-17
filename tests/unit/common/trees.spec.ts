@@ -1,4 +1,4 @@
-import { extractRootFromPath, getAllLeavesFromRoot } from '../../../src/common/trees'
+import { extractParentFromPath, extractRootFromPath, getAllLeavesFromRoot } from '../../../src/common/trees'
 
 describe('common', () => {
   describe('trees', () => {
@@ -18,6 +18,23 @@ describe('common', () => {
         for (var pair of pairs) {
           expect(extractRootFromPath(pair.path)).toEqual(pair.root)
         }
+      })
+    })
+    describe('extractParentFromPath', () => {
+      it('from tree root', () => {
+        expect(extractParentFromPath('1')).toBeNull()
+        expect(extractParentFromPath('13')).toBeNull()
+        expect(extractParentFromPath('154351627')).toBeNull()
+      })
+      it('from leaf', () => {
+        expect(extractParentFromPath('1.1')).toEqual('1')
+        expect(extractParentFromPath('3.1123')).toEqual('3')
+        expect(extractParentFromPath('2.3')).toEqual('2')
+        expect(extractParentFromPath('1234.11233')).toEqual('1234')
+        expect(extractParentFromPath('1.2.3')).toEqual('1.2')
+        expect(extractParentFromPath('1.2234.3')).toEqual('1.2234')
+        expect(extractParentFromPath('32424.2234.3')).toEqual('32424.2234')
+        expect(extractParentFromPath('32424.2234.3.123.13')).toEqual('32424.2234.3.123')
       })
     })
     describe('createRootPath', () => {

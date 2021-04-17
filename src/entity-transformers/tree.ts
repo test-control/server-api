@@ -1,11 +1,11 @@
 import { Schemas } from '../auto-types'
-import moment from 'moment'
+import { formatFullDate } from '../common/date'
 
 export const treeTransformer = function (entity: Schemas.Entities.TreeEntity) : Schemas.Tree {
   return {
     id: entity.id,
     title: entity.title,
-    createdAt: moment(entity.created_at).format('YYYY-MM-DD hh:mm:ss'),
+    createdAt: formatFullDate(entity.created_at),
     elementsAmount: entity.elements_amount
   }
 }

@@ -78,6 +78,7 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
 
     return this.store()
       .whereRaw(`tree_path ~ '^${parent.tree_path}\\.[0-9]{1,}$'`)
+      .orderBy('created_at', 'desc')
       .paginate({
         perPage: perPage,
         currentPage: currentPage,

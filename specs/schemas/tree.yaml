@@ -3,6 +3,7 @@ required:
   - id
   - title
   - createdAt
+  - elementsAmount
 additionalProperties: false
 properties:
   id:
@@ -15,3 +16,6 @@ properties:
   createdAt:
     type: string
     format: date-time
+  elementsAmount:
+    type: number
+    description: Elements amount

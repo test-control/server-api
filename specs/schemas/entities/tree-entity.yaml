@@ -3,6 +3,7 @@ required:
   - id
   - tree_path
   - created_at
+  - elements_amount
 additionalProperties: false
 properties:
   id:
@@ -18,3 +19,6 @@ properties:
   created_at:
     type: string
     format: date-time
+  elements_amount:
+    type: number
+    description: Elements amount

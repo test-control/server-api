@@ -1,6 +1,7 @@
 import Knex from 'knex'
 import { v4 as uuid } from 'uuid'
 import { ISimpleCrudRepository } from '../common/simple-crud'
+import moment from 'moment'
 
 type EntityBody = {
   [key: string]: any;
@@ -29,6 +30,12 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
 
   bindPaginate () {
     return this.paginate.bind(this)
+  }
+
+  useCreationDate () : null | {
+    columnName: string
+    } {
+    return null
   }
 
   async changeDisplayAfter (id:string, displayAfterId:string, displayMoveDirection: string) {
@@ -91,9 +98,16 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
 
   async create (data: CreateUpdatePayload) : Promise<EntityType> {
     const id = uuid()
+    const creationDateConfig = this.useCreationDate()
+    const creationDate = {}
+
+    if (creationDateConfig !== null) {
+      creationDate[creationDateConfig.columnName] = moment()
+    }
 
     await this.store().insert({
       ...data,
+      ...creationDate,
       id: id
     })
 

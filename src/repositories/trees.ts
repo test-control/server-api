@@ -14,6 +14,12 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
     super(knex, TableNames.Trees)
   }
 
+  useCreationDate (): { columnName: string } | null {
+    return {
+      columnName: 'created_at'
+    }
+  }
+
   async runInLockedTable (callback : (trx:Transaction) => Promise<any>) {
     return this.knex().transaction(async (trx) => {
       return trx

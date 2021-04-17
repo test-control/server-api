@@ -96,13 +96,17 @@ export class SimpleCrudRepository<EntityType extends EntityBody, CreateUpdatePay
       .delete()
   }
 
+  getCurrentDate () : Date {
+    return moment().toDate()
+  }
+
   async create (data: CreateUpdatePayload) : Promise<EntityType> {
     const id = uuid()
     const creationDateConfig = this.useCreationDate()
     const creationDate = {}
 
     if (creationDateConfig !== null) {
-      creationDate[creationDateConfig.columnName] = moment()
+      creationDate[creationDateConfig.columnName] = this.getCurrentDate()
     }
 
     await this.store().insert({

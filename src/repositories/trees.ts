@@ -58,7 +58,7 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
       return trx.raw(sql, [
         treesId,
         data.title,
-        data.created_at || new Date()
+        data.created_at || this.getCurrentDate()
       ]).transacting(trx)
     })
 

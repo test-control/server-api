@@ -1,4 +1,4 @@
-import { IFunctionality } from '../../common'
+import { EntityEvent, IFunctionality } from '../../common'
 import { Router } from 'express'
 import { apiV1Route } from '../../common/routes'
 import {
@@ -10,6 +10,8 @@ import {
   rootPathApi,
   updateLeafApi
 } from './api'
+import { EntitiesNames } from '../../database'
+import { onCreatedTestCase, onCreatedTreeLeaf, onDeletedTestCase, onDeletedTreeLeaf } from './events-listeners'
 
 const routes = (router: Router) => {
   router.post(apiV1Route('trees/:entityId'), createLeafApi)
@@ -21,8 +23,24 @@ const routes = (router: Router) => {
   router.get(apiV1Route('trees/:entityId/get-project'), getTreeProject)
 }
 
+const appEventsHandlers = {}
+
+appEventsHandlers[EntityEvent.createdEventName(EntitiesNames.Tree)] = [
+  onCreatedTreeLeaf
+]
+appEventsHandlers[EntityEvent.deletedEventName(EntitiesNames.Tree)] = [
+  onDeletedTreeLeaf
+]
+appEventsHandlers[EntityEvent.createdEventName(EntitiesNames.TestCase)] = [
+  onCreatedTestCase
+]
+appEventsHandlers[EntityEvent.deletedEventName(EntitiesNames.TestCase)] = [
+  onDeletedTestCase
+]
+
 export default function () : IFunctionality {
   return {
-    routes: routes
+    routes: routes,
+    appEventsHandlers: appEventsHandlers
   }
 }

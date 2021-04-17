@@ -7,7 +7,7 @@ import moment from 'moment'
 import { ResourcesNotFound } from '../common'
 import { extractRootFromPath, getAllLeavesFromRoot } from '../common/trees'
 
-export type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id' | 'tree_path'>;
+export type CreateUpdatePayload = Omit<Schemas.Entities.TreeEntity, 'id' | 'tree_path' | 'elements_amount'>;
 
 export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeEntity, CreateUpdatePayload> {
   constructor (knex: () => Knex) {
@@ -116,5 +116,37 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
     }
 
     return this.findByTreePath(rootPath)
+  }
+
+  async incrementElementsAmountByTreePath (treePath: string) {
+    return this.store()
+      .where('tree_path', treePath)
+      .update({
+        elements_amount: this.knex().raw('elements_amount + 1')
+      })
+  }
+
+  async incrementElementsAmountById (treeId: string) {
+    return this.store()
+      .where('id', treeId)
+      .update({
+        elements_amount: this.knex().raw('elements_amount + 1')
+      })
+  }
+
+  async decrementElementsAmountByTreePath (treePath: string) {
+    return this.store()
+      .where('tree_path', treePath)
+      .update({
+        elements_amount: this.knex().raw('elements_amount - 1')
+      })
+  }
+
+  async decrementElementsAmountById (treeId: string) {
+    return this.store()
+      .where('id', treeId)
+      .update({
+        elements_amount: this.knex().raw('elements_amount - 1')
+      })
   }
 }

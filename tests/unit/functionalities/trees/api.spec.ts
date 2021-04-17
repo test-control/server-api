@@ -30,6 +30,10 @@ describe('functionalities', () => {
           {
             m: 'get',
             r: apiV1Route('trees/:entityId/root-path')
+          },
+          {
+            m: 'get',
+            r: apiV1Route('trees/:entityId/get-project')
           }
         ]
 

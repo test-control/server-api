@@ -28,6 +28,10 @@ export namespace CreateTreeLeaf{
       title: string;
       createdAt: string;
       /**
+       * path id
+       */
+      treePath: string;
+      /**
        * Elements amount
        */
       elementsAmount: number;

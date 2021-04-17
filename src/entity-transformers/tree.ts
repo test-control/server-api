@@ -6,6 +6,7 @@ export const treeTransformer = function (entity: Schemas.Entities.TreeEntity) : 
     id: entity.id,
     title: entity.title,
     createdAt: formatFullDate(entity.created_at),
-    elementsAmount: entity.elements_amount
+    elementsAmount: entity.elements_amount,
+    treePath: entity.tree_path
   }
 }

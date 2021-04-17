@@ -4,6 +4,7 @@ required:
   - title
   - createdAt
   - elementsAmount
+  - treePath
 additionalProperties: false
 properties:
   id:
@@ -16,6 +17,9 @@ properties:
   createdAt:
     type: string
     format: date-time
+  treePath:
+    type: string
+    description: path id
   elementsAmount:
     type: number
     description: Elements amount

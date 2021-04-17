@@ -21,6 +21,10 @@ export namespace GetTreeRootPath{
       title: string;
       createdAt: string;
       /**
+       * path id
+       */
+      treePath: string;
+      /**
        * Elements amount
        */
       elementsAmount: number;

@@ -1,7 +1,5 @@
 var config = require('../../config')
 var assert = require('assert')
-var validator = require('validator')
-var moment = require('moment')
 const apiHelpers = require('../api-helpers')
 const req = require('supertest')
 

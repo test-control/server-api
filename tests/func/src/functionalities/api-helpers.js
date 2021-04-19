@@ -52,5 +52,29 @@ module.exports = {
       .expect(200)
 
     return response.body.data
+  },
+  createTree: async (parentTreeId, folderName) => {
+    const treeRootResponse = await req(config.backendUrl)
+      .post(config.getApiV1Url('/trees/' + parentTreeId))
+      .send({
+        title: folderName
+      })
+      .expect(201)
+
+    return treeRootResponse.body.data
+  },
+  getTreeRoot: async (projectId) => {
+    const response = await req(config.backendUrl)
+      .get(config.getApiV1Url('/projects/' + projectId + '/tree-root'))
+      .expect(200)
+
+    return response.body.data
+  },
+  getTree: async (treeId) => {
+    const response = await req(config.backendUrl)
+      .get(config.getApiV1Url('/trees/' + treeId))
+      .expect(200)
+
+    return response.body.data
   }
 }

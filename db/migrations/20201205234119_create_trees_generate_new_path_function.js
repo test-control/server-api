@@ -49,7 +49,7 @@ begin
     set MESSAGE_TEXT = 'Cannot find parent leaf';
   end if;
   
-  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from ${tableName} where tree_path REGEXP CONCAT('^', parent_path, '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path,concat(parent_path, '.'), '') as signed) as spath into last_leaf from ${tableName} where tree_path REGEXP CONCAT('^', replace(parent_path, concat(parent_path, '.', '\\.'), '\\.'), '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;
@@ -74,7 +74,7 @@ begin
     raise exception 'Cannot find parent leaf with %:', parent_path;
   end if;
 
-  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from ${tableName} where tree_path ~ ('^' || parent_path || '\\.[0-9]{1,}$') order by spath desc limit 1;
+  select cast(replace(tree_path, parent_path || '.', '') as int) as spath into last_leaf from ${tableName} where tree_path ~ ('^' || replace(parent_path, '.', '\\.') || '\\.[0-9]{1,}$') order by spath desc limit 1;
 
   if last_leaf is null then        
    select concat(parent_path, '.', 1) into new_path;

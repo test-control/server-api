@@ -81,9 +81,10 @@ export class TreesRepository extends SimpleCrudRepository<Schemas.Entities.TreeE
 
   async paginateLeaves (parentId:string, currentPage: number, perPage: number) {
     const parent = await this.findById(parentId)
+    const escapedTreePath = parent.tree_path.replace('.', '\\.')
 
     return this.store()
-      .whereRaw(`tree_path ~ '^${parent.tree_path}\\.[0-9]{1,}$'`)
+      .whereRaw(`tree_path ~ '^${escapedTreePath}\\.[0-9]{1,}$'`)
       .orderBy('tree_path', 'desc')
       .paginate({
         perPage: perPage,

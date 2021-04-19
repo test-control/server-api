@@ -19,6 +19,7 @@ export class MssqlTreesRepository extends TreesRepository {
     return this.store()
       .whereRaw(`charindex('${parent.tree_path}.', tree_path) >= 1`)
       .andWhereRaw(`charindex('.', STUFF(tree_path, charindex('${parent.tree_path}.', tree_path), LEN('${parent.tree_path}.'), '')) <1`)
+      .orderBy('tree_path', 'desc')
       .paginate({
         perPage: perPage,
         currentPage: currentPage,

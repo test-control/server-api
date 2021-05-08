@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { paginationTransformer } from './transformers/pagination'
 import { InvalidInputData, ResourcesNotFound } from './errors'
 import { toSnakeCaseObject } from './obj_snake_case'
-import { BaseEvent, EntityEvent, sendAppEvent } from './app-events'
+import { BaseEvent, EntityEvent, EntityEventUpdated, sendAppEvent } from './app-events'
 import { StatusCodes } from 'http-status-codes'
 
 interface IPaginateParams {
@@ -64,11 +64,12 @@ export const simpleUpdate = (input : {
       }))
     }
 
-    await input.updateEntityCallback(entityId, toSnakeCaseObject(req.body))
+    const updateData = toSnakeCaseObject<object>(req.body)
+    await input.updateEntityCallback(entityId, updateData)
 
     const updatedEntity = await input.findEntityCallback(entityId)
 
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.updatedEventName(input.entityName)))
+    await sendAppEvent(new EntityEventUpdated(entity, updateData, input.entityName))
 
     res.send({
       data: input.transformerCallback(updatedEntity)
@@ -76,16 +77,21 @@ export const simpleUpdate = (input : {
   }
 }
 
-export const simpleRunEUpdate = async (entityName: string, entities:object[]) => {
+export const simpleRunEUpdate = async (entityName: string, updatedData: Array<object>, entities:object[]) => {
   const promises = []
 
+  var i = 0
+
   for (var e of entities) {
-    const event = new EntityEvent(
+    const event = new EntityEventUpdated(
       e,
-      EntityEvent.updatedEventName(entityName)
+      updatedData[i],
+      entityName
     )
 
     promises.push(sendAppEvent(event))
+
+    i++
   }
 
   return Promise.all(promises)

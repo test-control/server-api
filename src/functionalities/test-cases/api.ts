@@ -58,8 +58,17 @@ export const moveTestCaseApi = async (
     req.body.displayAfter
   ])
 
+  const updatedData = []
+
+  for (var entity of entities) {
+    updatedData.push({
+      display_order: entity.display_order
+    })
+  }
+
   await SimpleCrud.simpleRunEUpdate(
     EntitiesNames.TestCase,
+    updatedData,
     entities
   )
 

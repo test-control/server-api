@@ -19,9 +19,21 @@ export abstract class BaseEvent implements IBaseEvent {
 export class EntityEvent<T> extends BaseEvent {
   readonly entity : T;
 
+  readonly entityNamePattern = /^entity\.(?<entityName>[a-z-A-Z0-9-_]{1,})\.(?<action>created|updated|deleted)$/;
+
   public constructor (entity: T, eventName: string) {
     super(eventName)
     this.entity = entity
+  }
+
+  public getEntityName () : string {
+    var mtchs = this.systemName.match(this.entityNamePattern)
+
+    if (mtchs == null) {
+      throw new Error('invalid system name')
+    }
+
+    return mtchs.groups.entityName
   }
 
   public static createdEventName (entityName) {
@@ -34,6 +46,15 @@ export class EntityEvent<T> extends BaseEvent {
 
   public static deletedEventName (entityName) {
     return 'entity.' + entityName + '.deleted'
+  }
+}
+
+export class EntityEventUpdated<T> extends EntityEvent<T> {
+  readonly updatedFields : Partial<T>;
+
+  public constructor (entity: T, updatedFields: Partial<T>, entityName: string) {
+    super(entity, EntityEvent.updatedEventName(entityName))
+    this.updatedFields = updatedFields
   }
 }
 

@@ -13,10 +13,11 @@ const routes = (router: Router) => {
   router.get(apiV1Route('projects/:entityId'), getProjectApi)
 }
 
-const appEventsHandlers = {}
-
-appEventsHandlers[EntityEvent.createdEventName(EntitiesNames.Project)] = [
-  createTreeRoot
+const appEventsHandlers = [
+  {
+    event: EntityEvent.createdEventName(EntitiesNames.Project),
+    listener: createTreeRoot
+  }
 ]
 
 export default function () : IFunctionality {

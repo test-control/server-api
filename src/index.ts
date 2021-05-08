@@ -43,10 +43,8 @@ async function runServer () {
     }
 
     if (func.appEventsHandlers) {
-      for (const eventName in func.appEventsHandlers) {
-        for (const eventHandler of func.appEventsHandlers[eventName]) {
-          listenAppEvent(eventName, eventHandler)
-        }
+      for (const event of func.appEventsHandlers) {
+        listenAppEvent(event.event, event.listener)
       }
     }
   })

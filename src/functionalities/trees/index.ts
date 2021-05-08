@@ -23,19 +23,23 @@ const routes = (router: Router) => {
   router.get(apiV1Route('trees/:entityId/get-project'), getTreeProject)
 }
 
-const appEventsHandlers = {}
-
-appEventsHandlers[EntityEvent.createdEventName(EntitiesNames.Tree)] = [
-  onCreatedTreeLeaf
-]
-appEventsHandlers[EntityEvent.deletedEventName(EntitiesNames.Tree)] = [
-  onDeletedTreeLeaf
-]
-appEventsHandlers[EntityEvent.createdEventName(EntitiesNames.TestCase)] = [
-  onCreatedTestCase
-]
-appEventsHandlers[EntityEvent.deletedEventName(EntitiesNames.TestCase)] = [
-  onDeletedTestCase
+const appEventsHandlers = [
+  {
+    event: EntityEvent.createdEventName(EntitiesNames.Tree),
+    listener: onCreatedTreeLeaf
+  },
+  {
+    event: EntityEvent.deletedEventName(EntitiesNames.Tree),
+    listener: onDeletedTreeLeaf
+  },
+  {
+    event: EntityEvent.createdEventName(EntitiesNames.TestCase),
+    listener: onCreatedTestCase
+  },
+  {
+    event: EntityEvent.deletedEventName(EntitiesNames.TestCase),
+    listener: onDeletedTestCase
+  }
 ]
 
 export default function () : IFunctionality {

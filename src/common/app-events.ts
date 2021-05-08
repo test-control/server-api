@@ -25,20 +25,20 @@ export class EntityEvent<T> extends BaseEvent {
   }
 
   public static createdEventName (entityName) {
-    return entityName + '.created'
+    return 'entity.' + entityName + '.created'
   }
 
   public static updatedEventName (entityName) {
-    return entityName + '.updated'
+    return 'entity.' + entityName + '.updated'
   }
 
   public static deletedEventName (entityName) {
-    return entityName + '.deleted'
+    return 'entity.' + entityName + '.deleted'
   }
 }
 
 interface IEventMap{
-  eventName: string;
+  eventName: string|RegExp;
   listener: (IBaseEvent) => any
 }
 
@@ -46,6 +46,14 @@ const appEventEmitter : Array<IEventMap> = []
 
 export const sendAppEvent = async <T extends IBaseEvent> (event: T) => {
   for (var eventMap of appEventEmitter) {
+    if (eventMap.eventName instanceof RegExp) {
+      if (eventMap.eventName.exec(event.systemName) !== null) {
+        await eventMap.listener(event)
+      }
+
+      continue
+    }
+
     if (eventMap.eventName !== event.systemName) {
       continue
     }
@@ -54,7 +62,7 @@ export const sendAppEvent = async <T extends IBaseEvent> (event: T) => {
   }
 }
 
-export const listenAppEvent = (eventName: string, listener: (IBaseEvent) => Promise<any>) => {
+export const listenAppEvent = (eventName: string|RegExp, listener: (IBaseEvent) => Promise<any>) => {
   appEventEmitter.push({
     eventName,
     listener

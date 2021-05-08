@@ -4,6 +4,7 @@ import testCasePreconditions from './testCasePreconditions'
 import testCaseSteps from './testCaseSteps'
 import requirements from './requirements'
 import trees from './trees'
+import history from './history'
 
 import { IFunctionality } from '../common'
 
@@ -14,6 +15,7 @@ export default function () : Array<IFunctionality> {
     testCasePreconditions(),
     testCaseSteps(),
     requirements(),
-    trees()
+    trees(),
+    history()
   ]
 }

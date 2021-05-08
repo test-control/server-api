@@ -9,6 +9,7 @@ import { MysqlTreesRepository } from './mysql'
 import { MssqlTreesRepository } from './mssql/trees'
 import { TestCasesRepository } from './test-cases'
 import { MssqlTestCasesRepository } from './mssql/test-cases'
+import { EntitiesHistoryRepository } from './entities-history'
 
 interface InstantiateRepository<T>{
   isDefault?: boolean;
@@ -68,3 +69,5 @@ export const treesRepository = instantiateRepository([
     repository: () => new MssqlTreesRepository(getAppConnection)
   }
 ])
+
+export const entitiesHistory = new EntitiesHistoryRepository(getAppConnection)

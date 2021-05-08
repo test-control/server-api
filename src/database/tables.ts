@@ -18,7 +18,8 @@ export const TableNames = {
   ProjectTrees: getFullTableName('project_trees'),
   TestCases: getFullTableName('test_cases'),
   TestCasesPreconditions: getFullTableName('test_cases_preconditions'),
-  TestCasesSteps: getFullTableName('test_cases_steps')
+  TestCasesSteps: getFullTableName('test_cases_steps'),
+  EntitiesHistory: getFullTableName('entities_history')
 }
 
 export enum EntitiesNames {
@@ -26,5 +27,6 @@ export enum EntitiesNames {
   TestCase = 'testCase',
   TestCasePrecondition = 'testCasePrecondition',
   TestCaseStep = 'testCaseStep',
-  Tree = 'tree'
+  Tree = 'tree',
+  EntitiesHistory = 'entitiesHistory',
 }

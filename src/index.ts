@@ -3,7 +3,10 @@ import { getEnvs } from './common/envs'
 import functionalitiesConfig from './functionalities'
 import { listenAppEvent } from './common'
 import cors from 'cors'
-import { errorHandlerMiddleware } from './middlewares/error-handler'
+import {
+  errorHandlerMiddleware,
+  openApiErrorHandlerMiddleware
+} from './middlewares/error-handler'
 import path from 'path'
 import { middleware } from 'express-openapi-validator'
 import { setEnvsSettings } from './settings'
@@ -36,6 +39,8 @@ async function runServer () {
     validateRequests: true,
     validateResponses: false
   }))
+
+  app.use(openApiErrorHandlerMiddleware(getEnvs().APP_DEBUG))
 
   funcConfig.forEach((func) => {
     if (func.routes) {

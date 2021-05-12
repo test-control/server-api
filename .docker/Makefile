@@ -35,6 +35,10 @@ run-mssql-tests: clear-paths
 	cat ./.env.mssql >> .env
 	docker-compose  -f docker-compose.yml -f docker-compose-mssql.yaml -f docker-compose-test.yaml up --remove-orphans --force-recreate
 
+run-redocs:
+	docker run -it --rm -p 8010:80 \
+	  -v $(pwd)/../specs:/usr/share/nginx/html/specs \
+	  -e SPEC_URL=specs/api/api.yaml redocly/redoc
 
 clear-paths:
 	rm -f ./.env

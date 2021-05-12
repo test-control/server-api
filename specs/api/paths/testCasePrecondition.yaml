@@ -51,3 +51,5 @@ patch:
             properties:
               data:
                 $ref: '../../schemas/testCasePrecondition.yaml'
+    '400':
+      $ref: '../common/responses.yaml#/validationError'

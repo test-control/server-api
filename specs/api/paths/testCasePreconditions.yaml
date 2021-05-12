@@ -35,7 +35,8 @@ post:
             properties:
               data:
                 $ref: '../../schemas/testCasePrecondition.yaml'
-
+    '400':
+      $ref: '../common/responses.yaml#/validationError'
 get:
   operationId: listTestCasePreconditions
   description: List test case preconditions

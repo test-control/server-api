@@ -62,3 +62,5 @@ patch:
               data:
                 type: object
                 additionalProperties: false
+    '400':
+      $ref: '../common/responses.yaml#/validationError'

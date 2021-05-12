@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { Schemas } from '../auto-types'
+import { Status } from 'tslint/lib/runner'
 
 export class BaseError extends Error {
   public debug;
@@ -21,7 +22,7 @@ export class BaseError extends Error {
 export class InvalidInputData extends BaseError {
   constructor (debug?: object, errCode?: string) {
     super(
-      StatusCodes.NOT_FOUND,
+      StatusCodes.BAD_REQUEST,
       (errCode) || Schemas.CommonErrorCodes.invalidInputData,
       debug
     )
@@ -59,5 +60,14 @@ export class DomainError extends BaseError {
 export class InternalError extends BaseError {
   constructor (debug?: object) {
     super(StatusCodes.INTERNAL_SERVER_ERROR, 'internal-error', debug)
+  }
+}
+
+export class InputValidationDataError extends InvalidInputData {
+  public errors : Schemas.ValidationError[]
+
+  constructor (errors: Schemas.ValidationError[], debug?: object) {
+    super(debug, Schemas.CommonErrorCodes.inputValidationError)
+    this.errors = errors
   }
 }

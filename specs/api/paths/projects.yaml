@@ -29,6 +29,8 @@ post:
             properties:
               data:
                 $ref: '../../schemas/project.yaml'
+    '400':
+      $ref: '../common/responses.yaml#/validationError'
 get:
   operationId: listProjects
   description: List projects

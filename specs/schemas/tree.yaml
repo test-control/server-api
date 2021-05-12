@@ -14,12 +14,16 @@ properties:
   title:
     type: string
     description: Title of root leaf
+    minLength: 1
+    maxLength: 255
   createdAt:
     type: string
     format: date-time
   treePath:
     type: string
     description: path id
+    minLength: 1
+    maxLength: 255
   elementsAmount:
     type: number
     description: Elements amount

@@ -33,7 +33,8 @@ post:
             properties:
               data:
                 $ref: '../../schemas/tree.yaml'
-
+    '400':
+      $ref: '../common/responses.yaml#/validationError'
 patch:
   description: Update tree leaf
   operationId: updateTreeLeaf

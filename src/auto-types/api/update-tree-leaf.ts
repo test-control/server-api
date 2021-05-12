@@ -44,23 +44,9 @@ export namespace UpdateTreeLeaf{
   export interface ApplicationJson400ResponseBody {
     errors: {
       /**
-       * Can be any value - string, number, boolean, array or object
+       * param path
        */
-      value: {
-        [k: string]: unknown;
-      };
-      /**
-       * error code
-       */
-      msg: string;
-      /**
-       * param name
-       */
-      param: string;
-      /**
-       * param location
-       */
-      location: string;
+      path: string;
     }[];
     meta?: {
       /**
@@ -84,6 +70,12 @@ export namespace UpdateTreeLeaf{
         errObj?: string;
         [k: string]: unknown;
       };
+    } & {
+      /**
+       * blabla
+       */
+      code: string;
+      [k: string]: unknown;
     };
   }
   export type ResponseBody = ApplicationJson200ResponseBody | ApplicationJson400ResponseBody

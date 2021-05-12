@@ -12,11 +12,13 @@ properties:
   title:
     type: string
     description: Title
-    minLength: 5
+    minLength: 1
     maxLength: 255
   testCaseId:
     type: string
     description: Test case uuid
+    minLength: 1
+    maxLength: 255
   displayAfter:
     type: string
     format: uuid

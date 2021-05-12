@@ -10,5 +10,5 @@ properties:
     #tsEnumNames: ['missingEnv']
   commonErrorCodes:
     type: string
-    enum: ['resource-not-found', 'invalid-input-data']
+    enum: ['resource-not-found', 'invalid-input-data', 'input-validation-error']
     #tsEnumNames: ['resourceNotFound', 'invalidInputData']

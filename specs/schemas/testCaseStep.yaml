@@ -12,7 +12,7 @@ properties:
   title:
     type: string
     description: Title
-    minLength: 5
+    minLength: 1
     maxLength: 255
   testCaseId:
     type: string

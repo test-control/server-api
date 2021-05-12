@@ -35,7 +35,8 @@ post:
             properties:
               data:
                 $ref: '../../schemas/testCaseStep.yaml'
-
+    '400':
+      $ref: '../common/responses.yaml#/validationError'
 get:
   operationId: listTestCaseSteps
   description: List test case steps

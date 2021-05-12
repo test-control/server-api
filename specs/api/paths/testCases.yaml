@@ -31,3 +31,5 @@ post:
             properties:
               data:
                 $ref: '../../schemas/testCase.yaml'
+    '400':
+      $ref: '../common/responses.yaml#/validationError'

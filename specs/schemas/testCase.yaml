@@ -13,11 +13,16 @@ properties:
   title:
     type: string
     description: Title
+    minLength: 1
+    maxLength: 255
   description:
     type: string
     description: Test case description
+    maxLength: 5000
   treeId:
     type: string
     description: Tree id
+    minLength: 1
+    maxLength: 255
   displayOrder:
     type: number

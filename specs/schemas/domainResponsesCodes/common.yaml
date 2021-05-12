@@ -12,3 +12,6 @@ properties:
       internalServerError:
         type: string
         enum: ['internal-server-error' ]
+      inputValidationError:
+        type: string
+        enum: ['input-validation-error']

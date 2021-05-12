@@ -29,3 +29,5 @@ post:
         application/json:
           schema:
             type: object
+    '400':
+      $ref: '../common/responses.yaml#/validationError'

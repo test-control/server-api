@@ -9,6 +9,7 @@ export const enum ServerCannotWorkErrorCodes {
 }
 export const enum CommonErrorCodes {
   resourceNotFound = 'resource-not-found',
-  invalidInputData = 'invalid-input-data'
+  invalidInputData = 'invalid-input-data',
+  inputValidationError = 'input-validation-error'
 }
 

@@ -1,19 +1,8 @@
 type: object
 required:
-  - value
-  - msg
-  - param
-  - location
+  - path
 additionalProperties: false
 properties:
-  value:
-    description: Can be any value - string, number, boolean, array or object
-  msg:
+  path:
     type: string
-    description: error code
-  param:
-    type: string
-    description: param name
-  location:
-    type: string
-    description: param location
+    description: param path

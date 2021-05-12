@@ -3,6 +3,7 @@ export interface Common {
   errorCodes: {
     resourceNotFound?: ResourceNotFound;
     internalServerError?: InternalServerError;
+    inputValidationError?: InputValidationError;
     [k: string]: unknown;
   };
 }
@@ -12,5 +13,8 @@ export const enum ResourceNotFound {
 }
 export const enum InternalServerError {
   internalServerError = 'internal-server-error'
+}
+export const enum InputValidationError {
+  inputValidationError = 'input-validation-error'
 }
 

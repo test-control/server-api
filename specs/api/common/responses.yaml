@@ -6,14 +6,29 @@ validationError:
         type: object
         additionalProperties: false
         required:
-          - errors
+          - meta
         properties:
           errors:
             type: array
             items:
-              $ref: '../../schemas/validationError.yaml'
+              type: object
+              required:
+                - path
+              additionalProperties: false
+              properties:
+                path:
+                  $ref: '../../schemas/validationError.yaml#/properties/path'
           meta:
-            $ref: '../../schemas/exceptionResponseMeta.yaml'
+            allOf:
+              - type: object
+                required:
+                  - code
+                properties:
+                  code:
+                    type: string
+                    enum: ['input-validation-error','400','411','412','413','414','415','416','417','418','421','422','424','431','451']
+                    description: Validation error
+              - $ref: '../../schemas/exceptionResponseMeta.yaml'
 resourceNotFound:
   description: Resource do not exists
   content:

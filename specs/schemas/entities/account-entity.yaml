@@ -1,0 +1,13 @@
+type: object
+required:
+  - id
+  - created_at
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Unique id
+    format: uuid
+  created_at:
+    type: string
+    format: date-time

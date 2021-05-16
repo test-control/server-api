@@ -1,4 +1,5 @@
 /* tslint:disable */
+export * from './account-entity'
 export * from './display-order-entity'
 export * from './entities-history'
 export * from './project-entity'

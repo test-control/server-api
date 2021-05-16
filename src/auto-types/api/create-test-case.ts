@@ -44,13 +44,34 @@ export namespace CreateTestCase{
     };
   }
   export interface ApplicationJson400ResponseBody {
-    errors: {
+    errors?: {
       /**
        * param path
        */
       path: string;
     }[];
-    meta?: {
+    meta: {
+      /**
+       * Validation error
+       */
+      code:
+        | "input-validation-error"
+        | "400"
+        | "411"
+        | "412"
+        | "413"
+        | "414"
+        | "415"
+        | "416"
+        | "417"
+        | "418"
+        | "421"
+        | "422"
+        | "424"
+        | "431"
+        | "451";
+      [k: string]: unknown;
+    } & {
       /**
        * Meta information about related exception
        */
@@ -72,12 +93,6 @@ export namespace CreateTestCase{
         errObj?: string;
         [k: string]: unknown;
       };
-    } & {
-      /**
-       * blabla
-       */
-      code: string;
-      [k: string]: unknown;
     };
   }
   export type ResponseBody = ApplicationJson201ResponseBody | ApplicationJson400ResponseBody

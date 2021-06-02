@@ -5,7 +5,7 @@ exports.up = function (knex) {
     .withSchema(helpers.getSchemaName('test_control'))
     .createTable('accounts', tbl => {
       tbl.uuid('id').primary()
-      tbl.timestamp('created_at')
+      tbl.timestamp('created_at').notNullable()
     })
 }
 

@@ -8,3 +8,6 @@ POSTGRESQL_CONNECTION_STRING="postgres://user:pass@postgres:5432/db?sslmode=disa
 SERVER_PORT=3000
 CORS_ORIGIN="http://172.20.0.10:3000"
 ```
+
+# Private/Public keys:
+Remember to generate public/private keys for JWT in path secrets/jwt

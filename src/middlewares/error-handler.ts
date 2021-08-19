@@ -12,9 +12,9 @@ export const errorHandlerMiddleware = (debug?: boolean) => {
     res.status(statusCode).json({
       errors: err.errors,
       meta: {
-        code: (err.code || err.statusCode || err.status).toString(),
+        code: (err.code || err.statusCode || err.status || '').toString(),
         debug: (debug) ? {
-          debug: err.debug,
+          debug: JSON.stringify(err.debug),
           err: err.toString(),
           errObj: JSON.stringify(err)
         } : undefined

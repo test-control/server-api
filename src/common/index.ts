@@ -9,3 +9,4 @@ export {
   Trees
 }
 export * from './obj_snake_case'
+export * from './paths'

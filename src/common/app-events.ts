@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events'
+import { Express } from 'express'
 
 export interface IBaseEvent
 {
@@ -55,6 +56,22 @@ export class EntityEventUpdated<T> extends EntityEvent<T> {
   public constructor (entity: T, updatedFields: Partial<T>, entityName: string) {
     super(entity, EntityEvent.updatedEventName(entityName))
     this.updatedFields = updatedFields
+  }
+}
+
+export class BeforeStartApplication extends BaseEvent {
+  static readonly NAME = 'beforeStartApplication';
+
+  public constructor (public app: Express) {
+    super(BeforeStartApplication.NAME)
+  }
+}
+
+export class BeforeRegisterRoutes extends BaseEvent {
+  static readonly NAME = 'beforeRegisterRoutes';
+
+  public constructor (public app: Express) {
+    super(BeforeRegisterRoutes.NAME)
   }
 }
 

@@ -1,7 +1,7 @@
 
 import { getEnvs } from './common/envs'
 import functionalitiesConfig from './functionalities'
-import { listenAppEvent } from './common'
+import { BeforeRegisterRoutes, BeforeStartApplication, listenAppEvent, sendAppEvent } from './common'
 import cors from 'cors'
 import {
   errorHandlerMiddleware,
@@ -10,6 +10,7 @@ import {
 import path from 'path'
 import { middleware } from 'express-openapi-validator'
 import { setEnvsSettings } from './settings'
+import passport from 'passport'
 
 try {
   setEnvsSettings()
@@ -25,14 +26,24 @@ process.on('unhandledRejection', error => {
 async function runServer () {
   const express = require('express')
   const app = express()
+
   const port = getEnvs().SERVER_PORT
   const funcConfig = functionalitiesConfig()
 
+  funcConfig.forEach((func) => {
+    if (func.appEventsHandlers) {
+      for (const event of func.appEventsHandlers) {
+        listenAppEvent(event.event, event.listener)
+      }
+    }
+  })
   app.use(cors({
     origin: getEnvs().CORS_ORIGIN
   }))
 
   app.use(express.json())
+
+  await sendAppEvent(new BeforeRegisterRoutes(app))
 
   app.use(middleware({
     apiSpec: path.join(__dirname, '..', 'specs', 'api', 'api.yaml'),
@@ -46,15 +57,11 @@ async function runServer () {
     if (func.routes) {
       func.routes(app)
     }
-
-    if (func.appEventsHandlers) {
-      for (const event of func.appEventsHandlers) {
-        listenAppEvent(event.event, event.listener)
-      }
-    }
   })
 
   app.use(errorHandlerMiddleware(getEnvs().APP_DEBUG))
+
+  await sendAppEvent(new BeforeStartApplication(app))
 
   app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 }

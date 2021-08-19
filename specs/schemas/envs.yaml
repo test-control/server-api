@@ -4,6 +4,8 @@ additionalProperties: false
 required:
   - DATABASE_ENGINE
   - SERVER_PORT
+  - JWT_SIGN_KEY_PRIVATE_PATH
+  - JWT_SIGN_KEY_ALGORITHM
 properties:
   APP_DEBUG:
     type: boolean
@@ -27,3 +29,12 @@ properties:
   DATABASE_ENGINE:
     type: string
     enum: [postgresql, mysql, mssql]
+  JWT_SIGN_KEY_PASSPHRASE:
+    type: string
+  JWT_SIGN_KEY_PRIVATE_PATH:
+    type: string
+  JWT_SIGN_KEY_PUBLIC_PATH:
+    type: string
+  JWT_SIGN_KEY_ALGORITHM:
+    type: string
+    description: OpenSSL cipher algorithm

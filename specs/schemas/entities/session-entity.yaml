@@ -1,0 +1,18 @@
+type: object
+required:
+  - id
+  - accounts_id
+  - created_at
+additionalProperties: false
+properties:
+  id:
+    type: string
+    description: Unique id
+    format: uuid
+  accounts_id:
+    type: string
+    description: account id
+    format: uuid
+  created_at:
+    type: string
+    format: date-time

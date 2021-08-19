@@ -10,6 +10,9 @@ import { MssqlTreesRepository } from './mssql/trees'
 import { TestCasesRepository } from './test-cases'
 import { MssqlTestCasesRepository } from './mssql/test-cases'
 import { EntitiesHistoryRepository } from './entities-history'
+import { AuthMthUsernamePasswordRepository } from './auth-mth-username-password'
+import { SessionsRepository } from './sessions'
+import { AccountRepository } from './account'
 
 interface InstantiateRepository<T>{
   isDefault?: boolean;
@@ -71,3 +74,6 @@ export const treesRepository = instantiateRepository([
 ])
 
 export const entitiesHistory = new EntitiesHistoryRepository(getAppConnection)
+export const authMthUsernamePasswordRepository = new AuthMthUsernamePasswordRepository(getAppConnection)
+export const accountRepository = new AccountRepository(getAppConnection)
+export const sessionsRepository = new SessionsRepository(getAppConnection)

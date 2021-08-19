@@ -1,0 +1,14 @@
+type: object
+additionalProperties: false
+properties:
+  accountId:
+    type: string
+    format: uuid
+    description: Account id
+  sessionId:
+    type: string
+    format: uuid
+    description: Session id
+  jwt:
+    type: object
+    description: Decoded JWT body

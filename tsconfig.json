@@ -10,9 +10,7 @@
       "node",
       "knex-paginate",
       "jest",
-      "./src/types/envs"
-    ],
-    "typeRoots": [
+      "./src/types/envs",
       "./src/@types"
     ]
   },

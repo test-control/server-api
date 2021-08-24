@@ -12,6 +12,7 @@ export const testRoutes = (requiredRoutes:Array<RequiredRoutes>, func: IFunction
   mockRouter.get = jest.fn()
   mockRouter.patch = jest.fn()
   mockRouter.delete = jest.fn()
+  mockRouter.all = jest.fn()
 
   func.routes(mockRouter)
 

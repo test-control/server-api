@@ -42,7 +42,7 @@ describe('middlewares', () => {
       expect(MockResponseStatus.mock.calls[0][0]).toEqual(StatusCodes.CREATED)
       expect(MockResponseJson.mock.calls[0][0]).toEqual({
         meta: {
-          code: StatusCodes.CREATED,
+          code: StatusCodes.CREATED.toString(),
           debug: undefined,
           message: undefined
         }
@@ -125,10 +125,10 @@ describe('middlewares', () => {
         meta: {
           code: 'sample-code',
           debug: {
-            debug: {
+            debug: JSON.stringify({
               sample: 'debug value',
               another: 'debug'
-            },
+            }),
             err: err.toString(),
             errObj: JSON.stringify(err)
           },

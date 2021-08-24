@@ -14,7 +14,7 @@ describe('common', () => {
     })
     it('InvalidInputData', () => {
       const error = new InvalidInputData(sampleErrorDebug)
-      expect(error.statusCode).toEqual(StatusCodes.NOT_FOUND)
+      expect(error.statusCode).toEqual(StatusCodes.BAD_REQUEST)
       expect(error.code).toEqual('invalid-input-data')
     })
     it('ResourceNotFound', () => {

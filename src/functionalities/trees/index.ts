@@ -12,8 +12,13 @@ import {
 } from './api'
 import { EntitiesNames } from '../../database'
 import { onCreatedTestCase, onCreatedTreeLeaf, onDeletedTestCase, onDeletedTreeLeaf } from './events-listeners'
+import { validSessionMiddleware } from '../sessions/helpers/valid-session'
 
 const routes = (router: Router) => {
+  router.all([
+    apiV1Route('trees/*')
+  ], [validSessionMiddleware])
+
   router.post(apiV1Route('trees/:entityId'), createLeafApi)
   router.patch(apiV1Route('trees/:entityId'), updateLeafApi[0], updateLeafApi[1])
   router.get(apiV1Route('trees/:entityId'), getTreeApi)

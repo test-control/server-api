@@ -5,7 +5,8 @@ import testCaseSteps from './testCaseSteps'
 import requirements from './requirements'
 import trees from './trees'
 import history from './history'
-
+import authUsernamePassword from './auth-username-password'
+import sessions from './sessions'
 import { IFunctionality } from '../common'
 
 export default function () : Array<IFunctionality> {
@@ -16,6 +17,8 @@ export default function () : Array<IFunctionality> {
     testCaseSteps(),
     requirements(),
     trees(),
-    history()
+    history(),
+    authUsernamePassword(),
+    sessions()
   ]
 }

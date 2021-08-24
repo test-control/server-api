@@ -1,10 +1,12 @@
 /* tslint:disable */
 export * from './account-entity'
+export * from './auth-mth-username-password-entity'
 export * from './display-order-entity'
 export * from './entities-history'
 export * from './project-entity'
 export * from './project-tree-entity'
 export * from './requirements-entity'
+export * from './session-entity'
 export * from './test-case-entity'
 export * from './test-case-precondition-entity'
 export * from './test-case-step-entity'

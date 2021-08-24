@@ -28,6 +28,13 @@ export interface Envs {
    */
   CORS_ORIGIN?: string;
   DATABASE_ENGINE: DATABASE_ENGINE;
+  JWT_SIGN_KEY_PASSPHRASE?: string;
+  JWT_SIGN_KEY_PRIVATE_PATH: string;
+  JWT_SIGN_KEY_PUBLIC_PATH?: string;
+  /**
+   * OpenSSL cipher algorithm
+   */
+  JWT_SIGN_KEY_ALGORITHM: string;
 }
 
 export const enum DATABASE_ENGINE {

@@ -4,8 +4,14 @@ import { createProjectApi, getProjectApi, listProjectsApi, getProjectTreeRoot, u
 import { apiV1Route } from '../../common/routes'
 import { createTreeRoot } from './events-listeners'
 import { EntitiesNames } from '../../database'
+import { validSessionMiddleware } from '../sessions/helpers/valid-session'
 
 const routes = (router: Router) => {
+  router.all([
+    apiV1Route('projects'),
+    apiV1Route('projects/*')
+  ], [validSessionMiddleware])
+
   router.post(apiV1Route('projects'), createProjectApi)
   router.get(apiV1Route('projects'), listProjectsApi)
   router.get(apiV1Route('projects/:entityId/tree-root'), getProjectTreeRoot)

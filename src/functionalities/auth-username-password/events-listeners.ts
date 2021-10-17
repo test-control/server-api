@@ -34,6 +34,22 @@ export const beforeStartApplication = async (event: BeforeStartApplication) => {
         return done(null, false)
       }
 
+      if (!await authMthUsernamePasswordRepository.comparePasswords(
+        password,
+        authUser
+      )) {
+        await sendAppEvent(new OnLoginAttempt(
+          false,
+          loginAttemptInfo,
+          authUser,
+          {
+            reason: 'Invalid password'
+          }
+        ))
+
+        return done(null, false)
+      }
+
       await sendAppEvent(new OnLoginAttempt(
         true,
         loginAttemptInfo,

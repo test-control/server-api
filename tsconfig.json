@@ -10,8 +10,11 @@
       "node",
       "knex-paginate",
       "jest",
-      "./src/types/envs",
-      "./src/@types"
+      "./src/types/envs"
+    ],
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
     ]
   },
   "lib": ["es2015"],

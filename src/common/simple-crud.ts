@@ -69,7 +69,10 @@ export const simpleUpdate = (input : {
 
     const updatedEntity = await input.findEntityCallback(entityId)
 
-    await sendAppEvent(new EntityEventUpdated(entity, updateData, input.entityName))
+    // Send entity event
+    const entityEvent = new EntityEventUpdated(entity, updateData, input.entityName)
+    entityEvent.setAccountContext(req.accountContext)
+    await sendAppEvent(entityEvent)
 
     res.send({
       data: input.transformerCallback(updatedEntity)
@@ -195,7 +198,10 @@ export const simpleDelete = (input :{
 
     await input.deleteCallback(entityId)
 
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.deletedEventName(input.entityName)))
+    // Send entity event
+    const entityEvent = new EntityEvent(entity, EntityEvent.deletedEventName(input.entityName))
+    entityEvent.setAccountContext(req.accountContext)
+    await sendAppEvent(entityEvent)
 
     res.send({})
   }
@@ -209,7 +215,9 @@ export const simpleCreate = (input:{
   return async (req:ApiRequest, res: Response, next: NextFunction) => {
     const entity = await input.createCallback(toSnakeCaseObject(req.body))
 
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
+    // Send entity event
+    const entityEvent = new EntityEvent(entity, EntityEvent.createdEventName(input.entityName))
+    await sendAppEvent(entityEvent)
 
     res.status(StatusCodes.CREATED)
     res.send({
@@ -236,7 +244,10 @@ export const simpleCreateManyToOne = (input:{
 
     const entity = await input.createCallback(input.relationId, toSnakeCaseObject(req.body))
 
-    await sendAppEvent(new EntityEvent(entity, EntityEvent.createdEventName(input.entityName)))
+    // Send entity event
+    const entityEvent = new EntityEvent(entity, EntityEvent.createdEventName(input.entityName))
+    entityEvent.setAccountContext(req.accountContext)
+    await sendAppEvent(entityEvent)
 
     res.status(StatusCodes.CREATED)
     res.send({

@@ -1,14 +1,9 @@
-import { EventEmitter } from 'events'
 import { Express } from 'express'
+import { AccountContext } from '../auto-types/schemas'
 
 export interface IBaseEvent
 {
   systemName: string;
-}
-
-export interface IEventBaseEvent<T> extends IBaseEvent
-{
-  new (entity: T): IEventBaseEvent<T>
 }
 
 export abstract class BaseEvent implements IBaseEvent {
@@ -18,8 +13,20 @@ export abstract class BaseEvent implements IBaseEvent {
 }
 
 export class EntityEvent<T> extends BaseEvent {
+  /**
+   * Related entity.
+   */
   readonly entity : T;
 
+  /**
+   * Account context which cause this event.
+   * @private
+   */
+  private accountContext?:AccountContext;
+
+  /**
+   * Pattern used for matching type of current event.
+   */
   readonly entityNamePattern = /^entity\.(?<entityName>[a-z-A-Z0-9-_]{1,})\.(?<action>created|updated|deleted)$/;
 
   public constructor (entity: T, eventName: string) {
@@ -27,6 +34,17 @@ export class EntityEvent<T> extends BaseEvent {
     this.entity = entity
   }
 
+  /**
+   * Set account which cause this event.
+   * @param ctx
+   */
+  public setAccountContext (ctx?:AccountContext) {
+    this.accountContext = ctx
+  }
+
+  /**
+   * Get entity system name.
+   */
   public getEntityName () : string {
     var mtchs = this.systemName.match(this.entityNamePattern)
 
@@ -37,15 +55,27 @@ export class EntityEvent<T> extends BaseEvent {
     return mtchs.groups.entityName
   }
 
-  public static createdEventName (entityName) {
+  /**
+   * Get 'created entity' event's system name.
+   * @param entityName
+   */
+  public static createdEventName (entityName:string) {
     return 'entity.' + entityName + '.created'
   }
 
-  public static updatedEventName (entityName) {
+  /**
+   * Get 'updated entity' event's system name.
+   * @param entityName
+   */
+  public static updatedEventName (entityName:string) {
     return 'entity.' + entityName + '.updated'
   }
 
-  public static deletedEventName (entityName) {
+  /**
+   * Get 'deleted entity' event's system name.
+   * @param entityName
+   */
+  public static deletedEventName (entityName:string) {
     return 'entity.' + entityName + '.deleted'
   }
 }

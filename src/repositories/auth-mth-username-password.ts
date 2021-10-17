@@ -3,7 +3,7 @@ import { SimpleCrudRepository } from './common'
 import Knex from 'knex'
 import { TableNames } from '../database'
 import { v4 as uuid } from 'uuid'
-import { hashSync } from 'bcrypt'
+import { compareSync, hashSync } from 'bcrypt'
 
 type CreateUpdatePayload = Omit<Schemas.Entities.AuthMthUsernamePasswordEntity, 'id' | 'created_at' | 'accounts_id' | 'password_salt' | 'password_type'>
 
@@ -18,6 +18,10 @@ export class AuthMthUsernamePasswordRepository extends SimpleCrudRepository<Sche
     return this.store()
       .where('username', username)
       .first()
+  }
+
+  async comparePasswords (password: string, user: Schemas.Entities.AuthMthUsernamePasswordEntity) {
+    return compareSync(password, user.password)
   }
 
   async create (data: CreateUpdatePayload): Promise<Schemas.Entities.AuthMthUsernamePasswordEntity> {

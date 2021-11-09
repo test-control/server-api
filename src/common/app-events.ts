@@ -35,11 +35,20 @@ export class EntityEvent<T> extends BaseEvent {
   }
 
   /**
-   * Set account which cause this event.
+   * Set account which caused this event.
    * @param ctx
    */
   public setAccountContext (ctx?:AccountContext) {
     this.accountContext = ctx
+  }
+
+  /**
+   * Get account which caused this event.
+   *
+   * @return AccountContext|null
+   */
+  public getAccountContext ():AccountContext|null {
+    return this.accountContext
   }
 
   /**

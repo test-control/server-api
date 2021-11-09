@@ -23,6 +23,10 @@ export interface EntitiesHistory {
   new_values?: {
     [k: string]: unknown;
   };
+  /**
+   * Account which caused this change
+   */
+  account_id?: string;
 }
 
 /**

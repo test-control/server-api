@@ -28,3 +28,7 @@ properties:
   new_values:
     type: object
     description: New values, present only in updated/created actions
+  account_id:
+    type: string
+    format: uuid
+    description: Account which caused this change

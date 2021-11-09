@@ -10,12 +10,12 @@ import {
 import path from 'path'
 import { middleware } from 'express-openapi-validator'
 import { setEnvsSettings } from './settings'
-import passport from 'passport'
 
 try {
   setEnvsSettings()
 } catch (e) {
-  console.log('Invalid environment settings: ' + JSON.stringify(e))
+  console.log('Invalid environment settings: ' + JSON.stringify(e) + ' e: ' + e)
+  process.exit(1)
 }
 
 process.on('unhandledRejection', error => {
@@ -43,7 +43,12 @@ async function runServer () {
 
   app.use(express.json())
 
-  await sendAppEvent(new BeforeRegisterRoutes(app))
+  try {
+    await sendAppEvent(new BeforeRegisterRoutes(app))
+  } catch (e) {
+    console.error('Cannot run: BeforeRegisterRoutes: ', e)
+    process.exit(1)
+  }
 
   app.use(middleware({
     apiSpec: path.join(__dirname, '..', 'specs', 'api', 'api.yaml'),

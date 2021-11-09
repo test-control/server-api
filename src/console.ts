@@ -7,7 +7,7 @@ import yargs from 'yargs'
 try {
   setEnvsSettings()
 } catch (e) {
-  console.log('Invalid environment settings: ' + JSON.stringify(e))
+  console.log('Invalid environment settings: ', e)
 }
 
 process.on('unhandledRejection', error => {
@@ -15,7 +15,7 @@ process.on('unhandledRejection', error => {
 })
 
 async function runConsole () {
-  var console = yargs
+  const console = yargs
     .scriptName('TestControl Console')
     .usage('$0 <cmd> [args]')
 
@@ -26,17 +26,21 @@ async function runConsole () {
       return
     }
 
-    for (var cmd of func.commands) {
+    for (const cmd of func.commands) {
       const commandConfig = cmd
 
       console.command(
         cmd.name,
         cmd.description,
         function (yargs) {
-          var opt
+          if (!commandConfig.options) {
+            return
+          }
+
+          let opt
 
           commandConfig.options.forEach((cmdOpt) => {
-            var yrOpt = yargs
+            let yrOpt = yargs
 
             if (opt) {
               yrOpt = opt

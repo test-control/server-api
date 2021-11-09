@@ -8,14 +8,14 @@
     "test": "jest --verbose --detectOpenHandles --forceExit",
     "eslint": "eslint ./src/**",
     "eslint-fix": "eslint --fix ./src/** --ext .ts",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node -P ./tsconfig.json --files ./src/index.ts",
     "generate:api": "ts-node devtools/generate-api.ts",
     "generate:schemas": "ts-node devtools/generate-schemas.ts",
     "check-system": "ts-node src/check-system.ts",
-    "build": "tsc",
+    "build": "sh before-build.sh && tsc && sh after-build.sh",
     "dev": "nodemon",
     "db:migrate:latest": "knex migrate:latest --debug --migrations-directory=./db/migrations --knexfile=./db/knexfile.ts --env=$DATABASE_ENGINE",
-    "db:seed": "knex seed:run --knexfile=./db/knexfile.ts --env=$DATABASE_ENGINE"
+    "db:seed": "node ./dist/src/console.js db:seed:example"
   },
   "keywords": [],
   "author": "",

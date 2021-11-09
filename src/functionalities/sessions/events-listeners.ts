@@ -2,7 +2,7 @@ import { OnSessionJWTValidation, OnSessionValidation } from './events'
 import * as jwt from 'jsonwebtoken'
 import { getEnvs } from '../../common/envs'
 import { getSecretsPath, sendAppEvent } from '../../common'
-import fs from 'fs'
+import { readFileSync } from 'fs'
 import { sessionsRepository } from '../../repositories'
 
 export const onValidateSessionJWT = async (event:OnSessionJWTValidation) => {
@@ -29,7 +29,7 @@ export const onValidateSession = async (event: OnSessionValidation) => {
 
   const envs = getEnvs()
   const publicKeyPath = getSecretsPath() + envs.JWT_SIGN_KEY_PUBLIC_PATH
-  const publicKey = fs.readFileSync(publicKeyPath)
+  const publicKey = readFileSync(publicKeyPath)
 
   const jwtBody = jwt.verify(authInfo.credentials, publicKey, {
     algorithms: envs.JWT_SIGN_KEY_ALGORITHM

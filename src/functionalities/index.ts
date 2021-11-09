@@ -7,6 +7,7 @@ import trees from './trees'
 import history from './history'
 import authUsernamePassword from './auth-username-password'
 import sessions from './sessions'
+import database from './database'
 import { IFunctionality } from '../common'
 
 export default function () : Array<IFunctionality> {
@@ -19,6 +20,7 @@ export default function () : Array<IFunctionality> {
     trees(),
     history(),
     authUsernamePassword(),
-    sessions()
+    sessions(),
+    database()
   ]
 }

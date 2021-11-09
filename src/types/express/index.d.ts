@@ -1,9 +1,6 @@
 import { AccountContext } from '../../auto-types/schemas'
-
-declare global{
-  namespace Express {
+declare module 'express-serve-static-core' {
     interface Request {
       accountContext?: AccountContext
     }
   }
-}

@@ -9,6 +9,7 @@ COPY ./nodemon.json nodemon.json
 COPY ./package.json package.json
 COPY ./package-lock.json package-lock.json
 COPY ./tsconfig.json tsconfig.json
+COPY ./knexfile.ts knexfile.ts
 COPY ./entrypoint.sh entrypoint.sh
 
 RUN chmod +x /srv/backend-app/entrypoint.sh

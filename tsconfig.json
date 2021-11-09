@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
@@ -9,14 +10,18 @@
     "types": [
       "node",
       "knex-paginate",
-      "jest",
-      "./src/types/envs"
+      "jest"
     ],
     "typeRoots": [
-      "./src/@types",
+      "./src/types/express/index.d.ts",
       "./node_modules/@types"
     ]
   },
   "lib": ["es2015"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "include": [
+    "./db/**/*",
+    "./src/**/*.ts",
+    "./knexfile.ts"
+  ]
 }

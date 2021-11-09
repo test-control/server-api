@@ -2,6 +2,8 @@
 
 # This is version of local development entrypoint
 
+npm run build || exit 1
+
 npm run check-system || exit 1
 
 npm run db:migrate:latest || exit 1

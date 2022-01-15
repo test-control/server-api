@@ -1,10 +1,10 @@
-import { projectTreesRepository, treesRepository } from '../../repositories'
+import { projectTestSuitesRepository, testSuitesRepository } from '../../repositories'
 import { EntityEvent, InternalError } from '../../common'
 import { Schemas } from '../../auto-types'
 import moment from 'moment'
 
-export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.ProjectEntity>) => {
-  const tree = await treesRepository.createParent({
+export const createTestSuiteTreeRoot = async (event: EntityEvent<Schemas.Entities.ProjectEntity>) => {
+  const tree = await testSuitesRepository.createParent({
     title: 'root',
     created_at: moment().format()
   })
@@ -16,7 +16,7 @@ export const createTreeRoot = async (event: EntityEvent<Schemas.Entities.Project
     })
   }
 
-  return projectTreesRepository.addProjectTree(
+  return projectTestSuitesRepository.addProjectTestSuiteTree(
     event.entity.id,
     tree.id
   )

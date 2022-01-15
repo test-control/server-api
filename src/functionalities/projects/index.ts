@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { EntityEvent, IFunctionality } from '../../common'
-import { createProjectApi, getProjectApi, listProjectsApi, getProjectTreeRoot, updateProjectApi } from './api'
+import { createProjectApi, getProjectApi, listProjectsApi, getProjectTestSuiteRoot, updateProjectApi } from './api'
 import { apiV1Route } from '../../common/routes'
-import { createTreeRoot } from './events-listeners'
+import { createTestSuiteTreeRoot } from './events-listeners'
 import { EntitiesNames } from '../../database'
 import { validSessionMiddleware } from '../sessions/helpers/valid-session'
 
@@ -14,7 +14,7 @@ const routes = (router: Router) => {
 
   router.post(apiV1Route('projects'), createProjectApi)
   router.get(apiV1Route('projects'), listProjectsApi)
-  router.get(apiV1Route('projects/:entityId/tree-root'), getProjectTreeRoot)
+  router.get(apiV1Route('projects/:entityId/test-suite-root'), getProjectTestSuiteRoot)
   router.patch(apiV1Route('projects/:entityId'), updateProjectApi)
   router.get(apiV1Route('projects/:entityId'), getProjectApi)
 }
@@ -22,7 +22,7 @@ const routes = (router: Router) => {
 const appEventsHandlers = [
   {
     event: EntityEvent.createdEventName(EntitiesNames.Project),
-    listener: createTreeRoot
+    listener: createTestSuiteTreeRoot
   }
 ]
 

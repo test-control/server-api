@@ -1,10 +1,10 @@
-import { projectsRepository, projectTreesRepository } from '../../repositories'
+import { projectsRepository, projectTestSuitesRepository } from '../../repositories'
 import { SimpleCrud } from '../../common'
 import { Api } from '../../auto-types'
 import { projectsTransformer } from '../../entity-transformers/project'
 import { EntitiesNames } from '../../database'
 import { NextFunction } from 'express'
-import { treeTransformer } from '../../entity-transformers'
+import { testSuiteTransformer } from '../../entity-transformers'
 
 export const createProjectApi = async (
   req:Api.CreateProject.ApiRequest,
@@ -30,15 +30,15 @@ export const listProjectsApi = async (
   })(req, res, next)
 }
 
-export const getProjectTreeRoot = async (
-  req:Api.GetProjectTreeRoot.ApiRequest,
-  res: Api.GetProjectTreeRoot.ApiResponse,
+export const getProjectTestSuiteRoot = async (
+  req:Api.GetProjectTestSuiteRoot.ApiRequest,
+  res: Api.GetProjectTestSuiteRoot.ApiResponse,
   next: NextFunction
 ) => {
   return SimpleCrud.simpleGet({
-    findEntityCallback: projectTreesRepository.bindGetRoot(),
-    transformerCallback: treeTransformer,
-    entityName: EntitiesNames.Tree
+    findEntityCallback: projectTestSuitesRepository.bindGetRoot(),
+    transformerCallback: testSuiteTransformer,
+    entityName: EntitiesNames.TestSuite
   })(req, res, next)
 }
 

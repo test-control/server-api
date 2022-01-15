@@ -1,4 +1,4 @@
-import { CreateUpdatePayload, TreesRepository } from '../trees'
+import { CreateUpdatePayload, TestSuitesRepository } from '../test-suites'
 import { Schemas } from '../../auto-types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
@@ -6,22 +6,22 @@ import { getFullTableName } from '../../database'
 
 const CREATE_TREE_REC_ITERATIONS = 5
 
-export class MysqlTreesRepository extends TreesRepository {
+export class MysqlTestSuitesRepository extends TestSuitesRepository {
   createPrentSql (): string {
-    const funcName = getFullTableName('trees_generate_root_new_path')
+    const funcName = getFullTableName('test_suites_generate_root_new_path')
     return `INSERT INTO ${this.tableName}(id, title, tree_path, created_at)values(?, ?, ${funcName}(), ?) ON DUPLICATE KEY UPDATE tree_path=${funcName}()`
   }
 
   createLeafSql (parentPath) : string {
-    const funcName = getFullTableName('trees_generate_new_path')
+    const funcName = getFullTableName('test_suites_generate_new_path')
     return `INSERT INTO ${this.tableName}(id, title, tree_path, created_at)values(?, ?, ${funcName}('${parentPath}'),?) ON DUPLICATE KEY UPDATE tree_path=${funcName}('${parentPath}')`
   }
 
-  async createParent (data: CreateUpdatePayload) : Promise<Schemas.Entities.TreeEntity> {
+  async createParent (data: CreateUpdatePayload) : Promise<Schemas.Entities.TestSuiteEntity> {
     return this.createParentRec(data, 1)
   }
 
-  async createParentRec (data: CreateUpdatePayload, currIteration : number): Promise<Schemas.Entities.TreeEntity> {
+  async createParentRec (data: CreateUpdatePayload, currIteration : number): Promise<Schemas.Entities.TestSuiteEntity> {
     const treesId = uuid()
 
     await this.knex().raw(this.createPrentSql(), [
@@ -39,11 +39,11 @@ export class MysqlTreesRepository extends TreesRepository {
     return row
   }
 
-  async createLeaf (parentPath: string, data:CreateUpdatePayload) : Promise<Schemas.Entities.TreeEntity> {
+  async createLeaf (parentPath: string, data:CreateUpdatePayload) : Promise<Schemas.Entities.TestSuiteEntity> {
     return this.createLeafRec(parentPath, data, 1)
   }
 
-  async createLeafRec (parentPath: string, data:CreateUpdatePayload, currIteration: number) : Promise<Schemas.Entities.TreeEntity> {
+  async createLeafRec (parentPath: string, data:CreateUpdatePayload, currIteration: number) : Promise<Schemas.Entities.TestSuiteEntity> {
     const treesId = uuid()
 
     await this.knex().raw(this.createLeafSql(parentPath), [

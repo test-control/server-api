@@ -1,12 +1,12 @@
-import { TreesRepository } from '../trees'
+import { TestSuitesRepository } from '../test-suites'
 import { Transaction } from 'knex'
 import { TableNames } from '../../database'
 
-export class MssqlTreesRepository extends TreesRepository {
+export class MssqlTestSuitesRepository extends TestSuitesRepository {
   async runInLockedTable (callback : (trx:Transaction) => Promise<any>) {
     return this.knex().transaction(async (trx) => {
       return trx
-        .raw(`SELECT TOP (1) 1 FROM ${TableNames.Trees} WITH (TABLOCKX)`)
+        .raw(`SELECT TOP (1) 1 FROM ${TableNames.TestSuites} WITH (TABLOCKX)`)
         .then(() => {
           return callback(trx)
         })

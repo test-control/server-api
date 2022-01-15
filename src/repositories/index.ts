@@ -1,18 +1,18 @@
 import { getAppConnection } from '../database'
-import { ProjectTreesRepository } from './project-trees'
 import { ProjectsRepository } from './projects'
 import { TestCasesPreconditionsRepository } from './test-cases-preconditions'
 import { TestCasesStepsRepository } from './test-cases-steps'
 import { DATABASE_ENGINE } from '../auto-types/schemas'
-import { TreesRepository } from './trees'
-import { MysqlTreesRepository } from './mysql'
-import { MssqlTreesRepository } from './mssql/trees'
+import { TestSuitesRepository } from './test-suites'
+import { MssqlTestSuitesRepository } from './mssql/test-suites'
 import { TestCasesRepository } from './test-cases'
 import { MssqlTestCasesRepository } from './mssql/test-cases'
 import { EntitiesHistoryRepository } from './entities-history'
 import { AuthMthUsernamePasswordRepository } from './auth-mth-username-password'
 import { SessionsRepository } from './sessions'
 import { AccountRepository } from './account'
+import { MysqlTestSuitesRepository } from './mysql'
+import { ProjectTestSuitesRepository } from './project-test-suites'
 
 interface InstantiateRepository<T>{
   isDefault?: boolean;
@@ -40,7 +40,7 @@ const instantiateRepository = <T>(vars: Array<InstantiateRepository<T>>) : T => 
 }
 
 export const projectsRepository = new ProjectsRepository(getAppConnection)
-export const projectTreesRepository = new ProjectTreesRepository(getAppConnection)
+export const projectTestSuitesRepository = new ProjectTestSuitesRepository(getAppConnection)
 export const testCasesRepository = instantiateRepository([
   {
     isDefault: true,
@@ -55,21 +55,21 @@ export const testCasesRepository = instantiateRepository([
 ])
 export const testCasesPreconditionsRepository = new TestCasesPreconditionsRepository(getAppConnection)
 export const testCasesStepsRepository = new TestCasesStepsRepository(getAppConnection)
-export const treesRepository = instantiateRepository([
+export const testSuitesRepository = instantiateRepository([
   {
     isDefault: true,
     engine: DATABASE_ENGINE.postgresql,
-    repository: () => new TreesRepository(getAppConnection)
+    repository: () => new TestSuitesRepository(getAppConnection)
   },
   {
     isDefault: false,
     engine: DATABASE_ENGINE.mysql,
-    repository: () => new MysqlTreesRepository(getAppConnection)
+    repository: () => new MysqlTestSuitesRepository(getAppConnection)
   },
   {
     isDefault: false,
     engine: DATABASE_ENGINE.mssql,
-    repository: () => new MssqlTreesRepository(getAppConnection)
+    repository: () => new MssqlTestSuitesRepository(getAppConnection)
   }
 ])
 

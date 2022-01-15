@@ -1,1 +1,1 @@
-export * from './trees'
+export * from './test-suites'

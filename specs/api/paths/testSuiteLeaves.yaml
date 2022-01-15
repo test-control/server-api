@@ -1,8 +1,8 @@
 get:
-  operationId: listTreeLeaves
-  description: List tree leaves
+  operationId: listTestSuiteLeaves
+  description: List TestSuite leaves
   tags:
-    - Tree
+    - TestSuite
   parameters:
     - in: query
       name: page
@@ -35,6 +35,6 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../schemas/tree.yaml'
+                  $ref: '../../schemas/testSuite.yaml'
               meta:
                 $ref: '../../schemas/pagination-meta.yaml'

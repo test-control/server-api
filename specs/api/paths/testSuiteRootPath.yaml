@@ -1,8 +1,8 @@
 get:
-  operationId: getTreeRootPath
-  description: Get all tree leafs from root to given leaf
+  operationId: getTestSuiteRootPath
+  description: Get all TestSuite leafs from root to given leaf
   tags:
-    - Tree
+    - TestSuite
   parameters:
     - in: path
       name: entityId
@@ -24,4 +24,4 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../schemas/tree.yaml'
+                  $ref: '../../schemas/testSuite.yaml'

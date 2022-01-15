@@ -2,7 +2,7 @@ type: object
 required:
   - id
   - title
-  - treeId
+  - testSuiteId
   - displayOrder
 additionalProperties: false
 properties:
@@ -19,9 +19,9 @@ properties:
     type: string
     description: Test case description
     maxLength: 5000
-  treeId:
+  testSuiteId:
     type: string
-    description: Tree id
+    description: Test suite id
     minLength: 1
     maxLength: 255
   displayOrder:

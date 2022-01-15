@@ -22,3 +22,5 @@ properties:
   elements_amount:
     type: number
     description: Elements amount
+  description:
+    type: string

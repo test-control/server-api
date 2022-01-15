@@ -27,3 +27,5 @@ properties:
   elementsAmount:
     type: number
     description: Elements amount
+  description:
+    type: string

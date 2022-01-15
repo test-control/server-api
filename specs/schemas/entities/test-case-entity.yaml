@@ -2,7 +2,7 @@ type: object
 required:
   - id
   - title
-  - tree_id
+  - test_suite_id
 additionalProperties: false
 properties:
   id:
@@ -14,8 +14,8 @@ properties:
   description:
     type: string
     description: Description
-  tree_id:
+  test_suite_id:
     type: string
-    description: Tree id
+    description: Test suite id
   display_order:
     type: number

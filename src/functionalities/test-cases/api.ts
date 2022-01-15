@@ -4,7 +4,6 @@ import { SimpleCrud } from '../../common'
 import { testCaseTransformer } from '../../entity-transformers'
 import { EntitiesNames } from '../../database'
 import { NextFunction } from 'express'
-import { CreateUpdatePayload } from '../../repositories/test-cases'
 
 export const createTestCaseApi = async (
   req:Api.CreateTestCase.ApiRequest,

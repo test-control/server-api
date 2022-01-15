@@ -3,7 +3,7 @@ import testCases from './test-cases'
 import testCasePreconditions from './testCasePreconditions'
 import testCaseSteps from './testCaseSteps'
 import requirements from './requirements'
-import trees from './trees'
+import testSuites from './testSuites'
 import history from './history'
 import authUsernamePassword from './auth-username-password'
 import sessions from './sessions'
@@ -17,7 +17,7 @@ export default function () : Array<IFunctionality> {
     testCasePreconditions(),
     testCaseSteps(),
     requirements(),
-    trees(),
+    testSuites(),
     history(),
     authUsernamePassword(),
     sessions(),

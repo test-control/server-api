@@ -1,7 +1,7 @@
 import { Api, Schemas } from '../../auto-types'
 import { DomainError, ResourcesNotFound, SimpleCrud, toSnakeCaseObject, Trees } from '../../common'
-import { projectTreesRepository, testCasesRepository, treesRepository } from '../../repositories'
-import { testCaseTransformer, treeTransformer } from '../../entity-transformers'
+import { projectTestSuitesRepository, testCasesRepository, testSuitesRepository } from '../../repositories'
+import { testCaseTransformer, testSuiteTransformer } from '../../entity-transformers'
 import {
   body as checkBody
 } from 'express-validator'
@@ -11,15 +11,15 @@ import { NextFunction } from 'express'
 import { projectsTransformer } from '../../entity-transformers/project'
 
 export const createLeafApi = async (
-  req:Api.CreateTreeLeaf.ApiRequest,
-  res: Api.CreateTreeLeaf.ApiResponse,
+  req:Api.CreateTestSuiteLeaf.ApiRequest,
+  res: Api.CreateTestSuiteLeaf.ApiResponse,
   next: NextFunction
 ) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simpleCreate({
-    createCallback: async (data: Api.CreateTreeLeaf.ApplicationJsonRequestBody) => {
-      const parentLeaf = await treesRepository.findById(parentId)
+    createCallback: async (data: Api.CreateTestSuiteLeaf.ApplicationJsonRequestBody) => {
+      const parentLeaf = await testSuitesRepository.findById(parentId)
 
       if (!parentLeaf) {
         throw new ResourcesNotFound({
@@ -27,10 +27,10 @@ export const createLeafApi = async (
         })
       }
 
-      return treesRepository.createLeaf(parentLeaf.tree_path, toSnakeCaseObject(data))
+      return testSuitesRepository.createLeaf(parentLeaf.tree_path, toSnakeCaseObject(data))
     },
-    transformer: treeTransformer,
-    entityName: EntitiesNames.Tree
+    transformer: testSuiteTransformer,
+    entityName: EntitiesNames.TestSuite
   })(req, res, next)
 }
 
@@ -47,8 +47,8 @@ export const updateLeafApi = [
         throw new DomainError(Schemas.DomainResponsesCodes.ErrorCodes.sameId)
       }
 
-      const currentRow = await treesRepository.findById(entityId)
-      const parentRow = await treesRepository.findById(parentId)
+      const currentRow = await testSuitesRepository.findById(entityId)
+      const parentRow = await testSuitesRepository.findById(parentId)
 
       if (!currentRow || !parentRow) {
         throw new Error(Schemas.DomainResponsesCodes.ErrorCodes.noEntity)
@@ -63,42 +63,42 @@ export const updateLeafApi = [
     })
   ]),
   async (
-    req: Api.UpdateTreeLeaf.ApiRequest,
-    res: Api.UpdateTreeLeaf.ApiResponse,
+    req: Api.UpdateTestSuiteLeaf.ApiRequest,
+    res: Api.UpdateTestSuiteLeaf.ApiResponse,
     next: NextFunction
   ) => {
     return SimpleCrud.simpleUpdate({
-      findEntityCallback: treesRepository.bindFindById(),
-      updateEntityCallback: treesRepository.bindUpdate(),
-      entityName: EntitiesNames.Tree,
-      transformerCallback: treeTransformer
+      findEntityCallback: testSuitesRepository.bindFindById(),
+      updateEntityCallback: testSuitesRepository.bindUpdate(),
+      entityName: EntitiesNames.TestSuite,
+      transformerCallback: testSuiteTransformer
     })(req, res, next)
   }
 ]
 
 export const listLeavesApi = async (
-  req: Api.ListTreeLeaves.ApiRequest,
-  res: Api.ListTreeLeaves.ApiResponse,
+  req: Api.ListTestSuiteLeaves.ApiRequest,
+  res: Api.ListTestSuiteLeaves.ApiResponse,
   next: NextFunction
 ) => {
   const parentId = req.params.entityId
 
   return SimpleCrud.simplePaginate({
     paginateCallback: (currentPage, perPage) => {
-      return treesRepository.paginateLeaves(
+      return testSuitesRepository.paginateLeaves(
         parentId,
         currentPage,
         perPage
       )
     },
-    entityName: EntitiesNames.Tree,
-    transformerCallback: treeTransformer
+    entityName: EntitiesNames.TestSuite,
+    transformerCallback: testSuiteTransformer
   })(req, res, next)
 }
 
 export const listTestCasesApi = async (
-  req: Api.ListTreeTestCases.ApiRequest,
-  res: Api.ListTreeTestCases.ApiResponse,
+  req: Api.ListTestSuiteTestCases.ApiRequest,
+  res: Api.ListTestSuiteTestCases.ApiResponse,
   next: NextFunction
 ) => {
   const treeId = req.params.entityId
@@ -117,43 +117,43 @@ export const listTestCasesApi = async (
 }
 
 export const rootPathApi = async (
-  req: Api.GetTreeRootPath.ApiRequest,
-  res: Api.GetTreeRootPath.ApiResponse,
+  req: Api.GetTestSuiteRootPath.ApiRequest,
+  res: Api.GetTestSuiteRootPath.ApiResponse,
   next: NextFunction
 ) => {
   const leafId = req.params.entityId
 
   return SimpleCrud.simpleList({
     listCallback: async () => {
-      return treesRepository.getAllLeavesFromRoot(
+      return testSuitesRepository.getAllLeavesFromRoot(
         leafId
       )
     },
-    transformerCallback: treeTransformer,
-    entityName: EntitiesNames.Tree
+    transformerCallback: testSuiteTransformer,
+    entityName: EntitiesNames.TestSuite
   })(req, res, next)
 }
 
 export const getTreeApi = async (
-  req: Api.GetTree.ApiRequest,
-  res: Api.GetTree.ApiResponse,
+  req: Api.GetTestSuite.ApiRequest,
+  res: Api.GetTestSuite.ApiResponse,
   next: NextFunction
 ) => {
   return SimpleCrud.simpleGet({
-    findEntityCallback: treesRepository.bindFindById(),
-    transformerCallback: treeTransformer,
-    entityName: EntitiesNames.Tree
+    findEntityCallback: testSuitesRepository.bindFindById(),
+    transformerCallback: testSuiteTransformer,
+    entityName: EntitiesNames.TestSuite
   })(req, res, next)
 }
 
 export const getTreeProject = async (
-  req: Api.GetTreeGetProject.ApiRequest,
-  res: Api.GetTreeGetProject.ApiResponse,
+  req: Api.GetTestSuiteGetProject.ApiRequest,
+  res: Api.GetTestSuiteGetProject.ApiResponse,
   next: NextFunction
 ) => {
   return SimpleCrud.simpleGet({
     findEntityCallback: async (treeId: string) => {
-      const treeRoot = await treesRepository.getRoot(treeId)
+      const treeRoot = await testSuitesRepository.getRoot(treeId)
 
       if (!treeRoot) {
         throw new ResourcesNotFound({
@@ -161,9 +161,21 @@ export const getTreeProject = async (
         })
       }
 
-      return projectTreesRepository.getProject(treeRoot.id)
+      return projectTestSuitesRepository.getProject(treeRoot.id)
     },
     transformerCallback: projectsTransformer,
     entityName: EntitiesNames.Project
+  })(req, res, next)
+}
+
+export const getLeafParentApi = async (
+  req: Api.GetTestSuiteParent.ApiRequest,
+  res: Api.GetTestSuiteParent.ApiResponse,
+  next: NextFunction
+) => {
+  return SimpleCrud.simpleGet({
+    findEntityCallback: testSuitesRepository.findParentById.bind(testSuitesRepository),
+    transformerCallback: testSuiteTransformer,
+    entityName: EntitiesNames.TestSuite
   })(req, res, next)
 }

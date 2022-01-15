@@ -7,8 +7,8 @@ paths:
     $ref: './paths/projects.yaml'
   /api/v1/projects/{entityId}:
     $ref: './paths/project.yaml'
-  /api/v1/projects/{entityId}/tree-root:
-    $ref: './paths/projectTreeRoot.yaml'
+  /api/v1/projects/{entityId}/test-suite-root:
+    $ref: './paths/projectTestSuiteRoot.yaml'
   /api/v1/test-cases:
     $ref: './paths/testCases.yaml'
   /api/v1/test-cases/{entityId}:
@@ -23,15 +23,17 @@ paths:
     $ref: './paths/testCasePrecondition.yaml'
   /api/v1/test-case-steps/{entityId}:
     $ref: './paths/testCaseStep.yaml'
-  /api/v1/trees/{entityId}:
-    $ref: './paths/tree.yaml'
-  /api/v1/trees/{entityId}/leaves:
-    $ref: './paths/treeLeaves.yaml'
-  /api/v1/trees/{entityId}/test-cases:
-    $ref: './paths/treeTestCases.yaml'
-  /api/v1/trees/{entityId}/root-path:
-    $ref: './paths/treeRootPath.yaml'
-  /api/v1/trees/{entityId}/get-project:
-    $ref: './paths/treeGetProject.yaml'
+  /api/v1/test-suites/{entityId}:
+    $ref: './paths/testSuites.yaml'
+  /api/v1/test-suites/{entityId}/leaves:
+    $ref: './paths/testSuiteLeaves.yaml'
+  /api/v1/test-suites/{entityId}/test-cases:
+    $ref: './paths/testSuiteTestCases.yaml'
+  /api/v1/test-suites/{entityId}/root-path:
+    $ref: './paths/testSuiteRootPath.yaml'
+  /api/v1/test-suites/{entityId}/get-project:
+    $ref: './paths/testSuiteGetProject.yaml'
+  /api/v1/test-suites/{entityId}/get-parent:
+    $ref: './paths/testSuiteGetParent.yaml'
   /api/v1/auth/u-p/sign-in:
     $ref: './paths/auth/usernamePasswordSignIn.yaml'

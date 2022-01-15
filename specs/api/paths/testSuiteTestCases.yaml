@@ -1,8 +1,8 @@
 get:
-  operationId: listTreeTestCases
-  description: List tree test cases
+  operationId: listTestSuiteTestCases
+  description: List test suite test cases
   tags:
-    - Tree
+    - TestSuite
     - Test case
   parameters:
     - in: query
@@ -23,7 +23,7 @@ get:
         format: uuid
   responses:
     '200':
-      description: A JSON with test cases
+      description: A JSON with test suites
       content:
         application/json:
           schema:
@@ -36,6 +36,6 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../schemas/testCase.yaml'
+                  $ref: '../../schemas/testSuite.yaml'
               meta:
                 $ref: '../../schemas/pagination-meta.yaml'

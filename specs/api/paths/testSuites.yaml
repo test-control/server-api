@@ -1,7 +1,7 @@
 post:
-  operationId: createTreeLeaf
+  operationId: createTestSuiteLeaf
   tags:
-    - Tree
+    - TestSuite
   parameters:
     - in: path
       name: entityId
@@ -19,7 +19,9 @@ post:
             - title
           properties:
             title:
-              $ref: '../../schemas/tree.yaml#/properties/title'
+              $ref: '../../schemas/testSuite.yaml#/properties/title'
+            description:
+              $ref: '../../schemas/testSuite.yaml#/properties/description'
   responses:
     '201':
       description: A JSON with project data
@@ -32,14 +34,14 @@ post:
               - data
             properties:
               data:
-                $ref: '../../schemas/tree.yaml'
+                $ref: '../../schemas/testSuite.yaml'
     '400':
       $ref: '../common/responses.yaml#/validationError'
 patch:
-  description: Update tree leaf
-  operationId: updateTreeLeaf
+  description: Update TestSuite leaf
+  operationId: updateTestSuiteLeaf
   tags:
-    - Tree
+    - TestSuite
   parameters:
     - in: path
       name: entityId
@@ -57,7 +59,9 @@ patch:
             - title
           properties:
             title:
-              $ref: '../../schemas/tree.yaml#/properties/title'
+              $ref: '../../schemas/testSuite.yaml#/properties/title'
+            description:
+              $ref: '../../schemas/testSuite.yaml#/properties/description'
             parentId:
               type: string
               format: uuid
@@ -74,14 +78,14 @@ patch:
               - data
             properties:
               data:
-                $ref: '../../schemas/tree.yaml'
+                $ref: '../../schemas/testSuite.yaml'
     '400':
       $ref: '../common/responses.yaml#/validationError'
 get:
   description: Get leave information
-  operationId: getTree
+  operationId: getTestSuite
   tags:
-    - Tree
+    - TestSuite
   parameters:
     - in: path
       name: entityId
@@ -91,7 +95,7 @@ get:
         format: uuid
   responses:
     '200':
-      description: A JSON with tree
+      description: A JSON with TestSuite
       content:
         application/json:
           schema:
@@ -101,6 +105,6 @@ get:
               - data
             properties:
               data:
-                $ref: '../../schemas/tree.yaml'
+                $ref: '../../schemas/testSuite.yaml'
     '404':
       $ref: '../common/responses.yaml#/resourceNotFound'

@@ -4,7 +4,7 @@ const config = require('../../config')
 const assert = require('assert')
 const testsHelpers = require('../tests-helpers')
 
-describe('TestCases', () => {
+describe('TestCase', () => {
   describe('Get', () => {
     it('Get test case', async () => {
       const userSession = await apiHelpers.auth.usernamePassword.signIn(
@@ -13,8 +13,8 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
-      const testCase = await apiHelpers.createTestCase(userSession, treeRoot.id)
+      const testSuiteRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
+      const testCase = await apiHelpers.createTestCase(userSession, testSuiteRoot.id)
 
       return req(config.backendUrl)
         .get(config.getApiV1Url('/test-cases/' + testCase.id))
@@ -35,8 +35,8 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
-      const testCase = await apiHelpers.createTestCase(userSession, treeRoot.id)
+      const testSuiteRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
+      const testCase = await apiHelpers.createTestCase(userSession, testSuiteRoot.id)
 
       return testsHelpers.invalidAuthorizationTests(() => {
         return req(config.backendUrl)

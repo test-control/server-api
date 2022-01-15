@@ -33,9 +33,9 @@ module.exports = {
 
     return projectResponse.body.data
   },
-  getProjectTreeRoot: async (userSession, projectId) => {
+  getProjectTestCaseRoot: async (userSession, projectId) => {
     const response = await req(config.backendUrl)
-      .get(config.getApiV1Url(`/projects/${projectId}/tree-root`))
+      .get(config.getApiV1Url(`/projects/${projectId}/test-suite-root`))
       .set(getDefaultHeaders({
         Authorization: 'Bearer ' + userSession.token
       }))
@@ -44,7 +44,7 @@ module.exports = {
 
     return response.body.data
   },
-  createTestCase: async (userSession, treeId, title, description) => {
+  createTestCase: async (userSession, testSuiteId, title, description) => {
     if (typeof title === 'undefined') {
       title = 'Great test case'
     }
@@ -55,7 +55,7 @@ module.exports = {
         Authorization: 'Bearer ' + userSession.token
       }))
       .send({
-        treeId: treeId,
+        testSuiteId: testSuiteId,
         title: title,
         description: description
       })
@@ -74,9 +74,9 @@ module.exports = {
 
     return response.body.data
   },
-  createTree: async (userSession, parentTreeId, folderName) => {
+  createTestSuite: async (userSession, parentTreeId, folderName) => {
     const treeRootResponse = await req(config.backendUrl)
-      .post(config.getApiV1Url('/trees/' + parentTreeId))
+      .post(config.getApiV1Url('/test-suites/' + parentTreeId))
       .set(getDefaultHeaders({
         Authorization: 'Bearer ' + userSession.token
       }))
@@ -87,19 +87,9 @@ module.exports = {
 
     return treeRootResponse.body.data
   },
-  getTreeRoot: async (userSession, projectId) => {
+  getTestSuite: async (userSession, treeId) => {
     const response = await req(config.backendUrl)
-      .get(config.getApiV1Url('/projects/' + projectId + '/tree-root'))
-      .set(getDefaultHeaders({
-        Authorization: 'Bearer ' + userSession.token
-      }))
-      .expect(200)
-
-    return response.body.data
-  },
-  getTree: async (userSession, treeId) => {
-    const response = await req(config.backendUrl)
-      .get(config.getApiV1Url('/trees/' + treeId))
+      .get(config.getApiV1Url('/test-suites/' + treeId))
       .set(getDefaultHeaders({
         Authorization: 'Bearer ' + userSession.token
       }))

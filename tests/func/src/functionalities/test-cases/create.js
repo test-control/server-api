@@ -4,7 +4,7 @@ const config = require('../../config')
 const assert = require('assert')
 const testsHelpers = require('../tests-helpers')
 
-describe('TestCases', () => {
+describe('TestCase', () => {
   describe('Create', () => {
     it('Create test case without description', async () => {
       const userSession = await apiHelpers.auth.usernamePassword.signIn(
@@ -13,7 +13,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const testSuiteIdRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCaseTitle = 'Great test case'
 
       return req(config.backendUrl)
@@ -22,14 +22,14 @@ describe('TestCases', () => {
           Authorization: 'Bearer ' + userSession.token
         }))
         .send({
-          treeId: treeRoot.id,
+          testSuiteId: testSuiteIdRoot.id,
           title: testCaseTitle
         })
         .expect(201)
         .expect((res) => {
           const testCase = res.body.data
           assert.strictEqual(testCase.title, testCaseTitle)
-          assert.strictEqual(testCase.treeId, treeRoot.id)
+          assert.strictEqual(testCase.testSuiteId, testSuiteIdRoot.id)
           assert.strictEqual(testCase.description, null)
         })
     })
@@ -40,7 +40,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const testSuiteIdRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCaseTitle = 'Great test case'
       const testCaseDescription = '{}'
 
@@ -50,7 +50,7 @@ describe('TestCases', () => {
           Authorization: 'Bearer ' + userSession.token
         }))
         .send({
-          treeId: treeRoot.id,
+          testSuiteId: testSuiteIdRoot.id,
           title: testCaseTitle,
           description: testCaseDescription
         })
@@ -58,7 +58,7 @@ describe('TestCases', () => {
         .expect((res) => {
           const testCase = res.body.data
           assert.strictEqual(testCase.title, testCaseTitle)
-          assert.strictEqual(testCase.treeId, treeRoot.id)
+          assert.strictEqual(testCase.testSuiteId, testSuiteIdRoot.id)
           assert.strictEqual(testCase.description, testCaseDescription)
         })
     })
@@ -69,7 +69,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const testSuiteIdRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCaseTitle = 'Great test case - without authorization'
       const testCaseDescription = '{}'
 
@@ -77,7 +77,7 @@ describe('TestCases', () => {
         return req(config.backendUrl)
           .post(config.getApiV1Url('/test-cases'))
           .send({
-            treeId: treeRoot.id,
+            testSuiteId: testSuiteIdRoot.id,
             title: testCaseTitle,
             description: testCaseDescription
           })
@@ -90,7 +90,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const testSuiteIdRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCaseTitle = 'Great test case'
 
       const promises = []
@@ -103,14 +103,14 @@ describe('TestCases', () => {
             Authorization: 'Bearer ' + userSession.token
           }))
           .send({
-            treeId: treeRoot.id,
+            testSuiteId: testSuiteIdRoot.id,
             title: fullTitle
           })
           .expect(201)
           .expect((res) => {
             const testCase = res.body.data
             assert.strictEqual(testCase.title, fullTitle)
-            assert.strictEqual(testCase.treeId, treeRoot.id)
+            assert.strictEqual(testCase.testSuiteId, testSuiteIdRoot.id)
           }))
       }
 

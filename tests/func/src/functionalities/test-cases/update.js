@@ -3,7 +3,7 @@ const req = require('supertest')
 const config = require('../../config')
 const assert = require('assert')
 
-describe('TestCases', () => {
+describe('TestCase', () => {
   describe('Update', () => {
     it('Update test case title', async () => {
       const userSession = await apiHelpers.auth.usernamePassword.signIn(
@@ -12,7 +12,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const treeRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCase = await apiHelpers.createTestCase(userSession, treeRoot.id, 'Old title')
 
       const oldTestCase = await apiHelpers.getTestCase(userSession, testCase.id)
@@ -41,7 +41,7 @@ describe('TestCases', () => {
       )
 
       const project = await apiHelpers.createProject(userSession)
-      const treeRoot = await apiHelpers.getProjectTreeRoot(userSession, project.id)
+      const treeRoot = await apiHelpers.getProjectTestCaseRoot(userSession, project.id)
       const testCase = await apiHelpers.createTestCase(
         userSession,
         treeRoot.id,

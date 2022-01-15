@@ -6,7 +6,7 @@ export namespace CreateTestCase{
     /**
      * Unique id
      */
-    treeId: string;
+    testSuiteId: string;
     /**
      * Title
      */
@@ -37,9 +37,9 @@ export namespace CreateTestCase{
        */
       description?: string;
       /**
-       * Tree id
+       * Test suite id
        */
-      treeId: string;
+      testSuiteId: string;
       displayOrder: number;
     };
   }

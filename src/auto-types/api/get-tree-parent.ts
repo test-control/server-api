@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { Request, Response } from 'express'
 
-export namespace GetTestCase{
+export namespace GetTreeParent{
   export interface PathRequestParams {
     entityId: string;
   }
@@ -16,18 +16,18 @@ export namespace GetTestCase{
        */
       id: string;
       /**
-       * Title
+       * Title of root leaf
        */
       title: string;
+      createdAt: string;
       /**
-       * Test case description
+       * path id
        */
-      description?: string;
+      treePath: string;
       /**
-       * Test suite id
+       * Elements amount
        */
-      testSuiteId: string;
-      displayOrder: number;
+      elementsAmount: number;
     };
   }
   export interface ApplicationJson404ResponseBody {
@@ -58,13 +58,6 @@ export namespace GetTestCase{
       [k: string]: unknown;
     };
   }
-  export interface ApplicationJson500ResponseBody {
-    meta?: Meta;
-  }
-
-  export const enum Meta {
-    internalServerError = "internal-server-error"
-  }
-  export type ResponseBody = ApplicationJson200ResponseBody | ApplicationJson404ResponseBody | ApplicationJson500ResponseBody
+  export type ResponseBody = ApplicationJson200ResponseBody | ApplicationJson404ResponseBody
   export type ApiResponse = Response<ResponseBody>
 }

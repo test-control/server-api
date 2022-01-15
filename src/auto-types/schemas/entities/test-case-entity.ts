@@ -13,9 +13,9 @@ export interface TestCaseEntity {
    */
   description?: string;
   /**
-   * Tree id
+   * Test suite id
    */
-  tree_id: string;
+  test_suite_id: string;
   display_order?: number;
 }
 

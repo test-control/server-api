@@ -4,13 +4,13 @@ const schemaName = helpers.getSchemaName('test_control')
 exports.up = function (knex) {
   return knex.schema.withSchema(schemaName)
     .table('test_cases', tbl => {
-      tbl.uuid('tree_id').references('id').inTable(helpers.getFullTableName('trees'))
+      tbl.uuid('test_suite_id').references('id').inTable(helpers.getFullTableName('test_suites'))
     })
 }
 
 exports.down = function (knex) {
   return knex.schema.withSchema(schemaName)
     .table('test_cases', tbl => {
-      tbl.dropColumn('tree_id')
+      tbl.dropColumn('test_suite_id')
     })
 }

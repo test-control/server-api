@@ -1,6 +1,6 @@
 const helpers = require('../migration-helpers')
-const funcName = helpers.getFullTableName('trees_generate_root_new_path')
-const tableName = helpers.getFullTableName('trees')
+const funcName = helpers.getFullTableName('test_suites_generate_root_new_path')
+const tableName = helpers.getFullTableName('test_suites')
 
 const dataSpQueries = {
   mssql: `

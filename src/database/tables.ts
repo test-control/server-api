@@ -13,9 +13,9 @@ export const getFullTableName = (tableName: string, schemaName?: string) : strin
 }
 
 export const TableNames = {
-  Trees: getFullTableName('trees'),
+  TestSuites: getFullTableName('test_suites'),
   Projects: getFullTableName('projects'),
-  ProjectTrees: getFullTableName('project_trees'),
+  ProjectTestSuites: getFullTableName('project_test_suites'),
   TestCases: getFullTableName('test_cases'),
   TestCasesPreconditions: getFullTableName('test_cases_preconditions'),
   TestCasesSteps: getFullTableName('test_cases_steps'),
@@ -30,7 +30,7 @@ export enum EntitiesNames {
   TestCase = 'testCase',
   TestCasePrecondition = 'testCasePrecondition',
   TestCaseStep = 'testCaseStep',
-  Tree = 'tree',
+  TestSuite = 'testSuite',
   EntitiesHistory = 'entitiesHistory',
   Account = 'account',
   AuthMthUsernamePassword = 'authMthUsernamePassword',

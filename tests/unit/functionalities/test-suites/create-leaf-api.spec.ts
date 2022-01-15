@@ -1,7 +1,7 @@
-import { createLeafApi, listLeavesApi } from '../../../../src/functionalities/trees/api'
+import { createLeafApi, listLeavesApi } from '../../../../src/functionalities/testSuites/api'
 import { Request, Response } from 'express'
 import { CreateCallback, TransformerCallback } from '../../../../src/common/simple-crud'
-import { treesRepository } from '../../../../src/repositories'
+import { testSuitesRepository } from '../../../../src/repositories'
 import { StatusCodes } from 'http-status-codes'
 
 jest.mock('../../../../src/repositories')
@@ -23,10 +23,10 @@ beforeEach(() => {
 })
 
 describe('functionalities', () => {
-  describe('trees', () => {
+  describe('test-suites', () => {
     describe('createLeafApi', () => {
       it('No parent entity', async () => {
-        treesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
+        testSuitesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
           expect(id).toEqual('sample-id1234')
         })
 
@@ -36,11 +36,11 @@ describe('functionalities', () => {
           await createLeafApi(MockRequest, MockResponse, MockNextFunction)
         } catch (e) {
           expect(e.debug.relationId).toEqual('sample-id1234')
-          expect(treesRepository.findById).toBeCalled()
+          expect(testSuitesRepository.findById).toBeCalled()
         }
       })
       it('Entry created', async () => {
-        treesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
+        testSuitesRepository.findById = jest.fn(async (id: string) : Promise<any> => {
           expect(id).toEqual('sample-id1234')
 
           return {
@@ -49,7 +49,7 @@ describe('functionalities', () => {
           }
         })
 
-        treesRepository.createLeaf = jest.fn(async (treePath: string, data:any) : Promise<any> => {
+        testSuitesRepository.createLeaf = jest.fn(async (treePath: string, data:any) : Promise<any> => {
           const newEntity = {
             title: 'sample title'
           }
@@ -71,8 +71,8 @@ describe('functionalities', () => {
 
         await createLeafApi(MockRequest, MockResponse, MockNextFunction)
 
-        expect(treesRepository.findById).toBeCalled()
-        expect(treesRepository.createLeaf).toBeCalled()
+        expect(testSuitesRepository.findById).toBeCalled()
+        expect(testSuitesRepository.createLeaf).toBeCalled()
         expect(MockResponseSend).toBeCalled()
         expect(MockResponseSend.mock.calls[0][0]).toEqual({
           data: {

@@ -1,7 +1,8 @@
 import {
   testCasePreconditionTransformer,
   testCaseStepTransformer,
-  testCaseTransformer, treeTransformer
+  testCaseTransformer,
+  testSuiteTransformer
 } from '../../../src/entity-transformers'
 import { projectsTransformer } from '../../../src/entity-transformers/project'
 
@@ -23,14 +24,14 @@ describe('entity-transformers', () => {
         id: 'sample',
         title: 'another',
         description: 'description',
-        tree_id: '123-1233',
+        test_suite_id: '123-1233',
         display_order: 1
       },
       o: {
         id: 'sample',
         title: 'another',
         description: 'description',
-        treeId: '123-1233',
+        testSuiteId: '123-1233',
         displayOrder: 1
       }
     },
@@ -67,22 +68,24 @@ describe('entity-transformers', () => {
       }
     },
     {
-      n: 'treeTransformer',
-      t: treeTransformer,
+      n: 'testSuiteTransformer',
+      t: testSuiteTransformer,
       i: {
         id: 'sample',
         title: 'another',
         parent_id: '3-id',
         created_at: new Date('2020-10-10 10:00:10'),
         elements_amount: 1234,
-        tree_path: '1.1'
+        tree_path: '1.1',
+        description: 'sample description'
       },
       o: {
         id: 'sample',
         title: 'another',
         createdAt: '2020-10-10 10:00:10',
         elementsAmount: 1234,
-        treePath: '1.1'
+        treePath: '1.1',
+        description: 'sample description'
       }
     },
     {
